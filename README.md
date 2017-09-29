@@ -17,3 +17,4 @@ Then, you can access h2's console at: localhost:8080/h2-console Simply type in t
 
 http://localhost:8080/sample/repo
 http://localhost:8080/music/repo
+http://localhost:8080/matches/repo
