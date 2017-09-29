@@ -1,10 +1,5 @@
 package com.perfectmatch.perfectmatch.dao;
 
-
-/**
- * <class description>
- *
- */
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.perfectmatch.perfectmatch.persistence.model.Music;
