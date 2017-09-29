@@ -4,6 +4,6 @@
 	<classpathentry kind="src" path="perfectmatch/src/test/java"/>
 	<classpathentry kind="lib" path="perfectmatch/.mvn/wrapper/maven-wrapper.jar"/>
 	<classpathentry kind="lib" path="perfectmatch/target/surefire/surefirebooter4343411036091752607.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_111"/>
 	<classpathentry kind="output" path="perfectmatch/target/classes"/>
 </classpath>
