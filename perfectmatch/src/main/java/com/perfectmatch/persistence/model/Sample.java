@@ -1,4 +1,4 @@
-package com.perfectmatch.perfectmatch.persistence.model;
+package com.perfectmatch.persistence.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -60,7 +60,7 @@ public class Sample {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -75,7 +75,7 @@ public class Sample {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override

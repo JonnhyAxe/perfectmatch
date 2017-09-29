@@ -11,7 +11,8 @@
 package com.perfectmatch.perfectmatch.persistence.dao;
 
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.util.List;
 
@@ -21,8 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.perfectmatch.perfectmatch.dao.SampleRepository;
-import com.perfectmatch.perfectmatch.persistence.model.Sample;
+import com.perfectmatch.persistence.dao.SampleRepository;
+import com.perfectmatch.persistence.model.Sample;
 
 /**
  * Integration Test between JPA and Persistence modules
@@ -38,7 +39,7 @@ public class SampleRepositoryIntegrationTests {
     @Test
     public void testAllSamples() throws Exception {
 
-        List<Sample> musics = (List<Sample>) repository.findAll();
+        List<Sample> musics = repository.findAll();
         assertFalse(musics.isEmpty());
         assertEquals(2, musics.size());
     }
