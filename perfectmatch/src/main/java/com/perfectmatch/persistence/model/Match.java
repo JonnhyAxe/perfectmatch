@@ -2,7 +2,6 @@ package com.perfectmatch.persistence.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -16,10 +15,10 @@ import javax.persistence.Table;
 public class Match {
 
     @Id
-    @GeneratedValue
     @Column(name = "SAMPLE1", nullable = false)
     private String sample1;
 
+    // TODO: @Id
     @Column(name = "SAMPLE2", nullable = false)
     private String sample2;
 

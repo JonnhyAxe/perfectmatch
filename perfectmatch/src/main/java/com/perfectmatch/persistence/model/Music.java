@@ -2,9 +2,11 @@ package com.perfectmatch.persistence.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.perfectmatch.common.interfaces.ByArtistQueryable;
+import com.perfectmatch.common.interfaces.ByNameQueryable;
 
 /**
  * This class represents an Music to sample froms
@@ -12,14 +14,14 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "MUSIC")
-public class Music {
+public class Music implements ByNameQueryable, ByArtistQueryable {
 
-    @Id
-    @GeneratedValue
+
     @Column(name = "ARTIST", nullable = false)
     private String artist;
 
-    @Column(name = "NAME", nullable = false)
+    @Id
+    @Column(name = "NAME", unique = true, nullable = false)
     private String name;
 
     @Column(name = "STYLE", nullable = false)
@@ -28,6 +30,7 @@ public class Music {
     /**
      * @return the artist
      */
+    @Override
     public String getArtist() {
 
         return artist;
@@ -46,6 +49,7 @@ public class Music {
     /**
      * @return the name
      */
+    @Override
     public String getName() {
 
         return name;
@@ -80,7 +84,7 @@ public class Music {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -96,7 +100,7 @@ public class Music {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
