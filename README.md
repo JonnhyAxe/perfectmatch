@@ -21,3 +21,19 @@ https://springframework.guru/using-the-h2-database-console-in-spring-boot-with-s
 http://localhost:8080/sample/repo
 http://localhost:8080/music/repo
 http://localhost:8080/matches/repo
+
+
+#Maven download dependencies Spurces and JavaDocs 
+#https://stackoverflow.com/questions/310720/get-source-jar-files-attached-to-eclipse-for-maven-managed-dependencies
+mvn dependency:sources
+OR 
+mvn clean install dependency:sources -Dmaven.test.skip=true
+
+mvn dependency:resolve -Dclassifier=javadoc
+
+
+#SQL 
+Select * from Music where artist = 'Latmun'
+
+TODOS:
+SAMPLE entity with two @ID
