@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.perfectmatch.common.interfaces.ByArtistQueryable;
 import com.perfectmatch.common.interfaces.ByNameQueryable;
@@ -20,15 +21,18 @@ public class Music implements ByNameQueryable, ByArtistQueryable {
 
     @Column(name = "ARTIST", nullable = false)
     @NotNull
+    @Size(min = 2, max = 50)
     private String artist;
 
     @Id
     @Column(name = "NAME", unique = true, nullable = false)
     @NotNull
+    @Size(min = 2, max = 50)
     private String name;
 
     @Column(name = "STYLE", nullable = false)
     @NotNull
+    @Size(min = 2, max = 50)
     private String style;
 
     /**
