@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.perfectmatch.persistence.dao.MusicRepository;
 import com.perfectmatch.persistence.model.Music;
+import com.perfectmatch.web.exception.MyBadRequestException;
 
 
 /*
@@ -46,6 +47,9 @@ public class MusicController {
     public void create(@RequestBody
     final Music resource) {
 
+        if (resource.getArtist() == null) {
+            throw new MyBadRequestException("Artist must not be null");
+        }
         musicJpaRepository.save(resource);
     }
 
