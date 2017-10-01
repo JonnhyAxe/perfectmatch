@@ -35,5 +35,12 @@ mvn dependency:resolve -Dclassifier=javadoc
 #SQL 
 Select * from Music where artist = 'Latmun'
 
+#Security 
+
+user: JAxe
+pws: *****123
+
+The HTTP header contains "authorization: Basic SkF4ZTpqYXhlMTIz"
+
 TODOS:
 SAMPLE entity with two @ID
