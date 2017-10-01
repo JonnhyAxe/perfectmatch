@@ -40,7 +40,10 @@ Select * from Music where artist = 'Latmun'
 user: JAxe
 pws: *****123
 
-The HTTP header contains "authorization: Basic SkF4ZTpqYXhlMTIz"
+The HTTP header contains "authorization: Basic SkF4ZTpqYXhlMTIz". Be aware of "Remember me"
+
+http://www.studytrails.com/frameworks/spring/spring-security-method-level/
+
 
 TODOS:
 SAMPLE entity with two @ID
