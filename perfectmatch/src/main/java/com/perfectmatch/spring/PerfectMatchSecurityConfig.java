@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
@@ -35,8 +34,8 @@ public class PerfectMatchSecurityConfig extends WebSecurityConfigurerAdapter {
         // @formatter:off
         http.authorizeRequests().
         // antMatchers("/api/**"). // if you want a more explicit mapping here
-                anyRequest().authenticated()
-                .and().httpBasic().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                anyRequest().permitAll();
+        // .and().httpBasic().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         // @formatter:on
     }
 
