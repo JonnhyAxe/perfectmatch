@@ -80,7 +80,7 @@ public final class MyUserDetailsService implements UserDetailsService {
             public Collection<? extends GrantedAuthority> getAuthorities() {
 
                 List<SimpleGrantedAuthority> auths = new java.util.ArrayList<>();
-                auths.add(new SimpleGrantedAuthority("Admin"));
+                auths.add(new SimpleGrantedAuthority("ROLE_USER_READ"));
                 return auths;
             }
         };

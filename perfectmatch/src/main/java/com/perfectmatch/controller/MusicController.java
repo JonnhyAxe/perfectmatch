@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,7 @@ public class MusicController {
     private MusicRepository musicJpaRepository;
 
     @RequestMapping(path = "/repo", method = RequestMethod.GET)
+    @Secured({ "ROLE_USER_READ" })
     public Iterable<Music> findByRepo() throws IOException {
 
         return musicJpaRepository.findAll();
