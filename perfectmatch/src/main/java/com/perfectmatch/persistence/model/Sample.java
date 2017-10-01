@@ -1,10 +1,16 @@
 package com.perfectmatch.persistence.model;
 
-import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -14,15 +20,23 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "SAMPLE")
-public class Sample implements Serializable {
+public class Sample {
+
 
     @Id
-    @Column(name = "ID", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "SAMPLE_ID", nullable = false)
     private String id;
 
 
-    @Column(name = "STYLE", nullable = false)
-    private String style;
+    @Column(name = "TIMESTAMP", nullable = false)
+    private int timestamp;
+
+    // @formatter:off
+    @OneToMany( /* cascade = { CascadeType.REMOVE }, */fetch = FetchType.EAGER)
+    @JoinTable(name = "SAMPLE_MATH", joinColumns = { @JoinColumn(name = "SAMPLE_ID") }, inverseJoinColumns = {
+            @JoinColumn(name = "SAMPLE_FROM") })
+    private Set<Match> mathes;
 
     /**
      * @return the id
@@ -41,21 +55,22 @@ public class Sample implements Serializable {
         this.id = id;
     }
 
-    /**
-     * @return the style
-     */
-    public String getStyle() {
 
-        return style;
+    /**
+     * @return the timestamp
+     */
+    public int getTimestamp() {
+
+        return timestamp;
     }
 
     /**
-     * @param style
-     *            the style to set
+     * @param timestamp
+     *            the timestamp to set
      */
-    public void setStyle(String style) {
+    public void setTimestamp(int timestamp) {
 
-        this.style = style;
+        this.timestamp = timestamp;
     }
 
     /*
@@ -69,7 +84,7 @@ public class Sample implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + (id == null ? 0 : id.hashCode());
-        result = prime * result + (style == null ? 0 : style.hashCode());
+        result = prime * result + timestamp;
         return result;
     }
 
@@ -99,17 +114,11 @@ public class Sample implements Serializable {
         else if (!id.equals(other.id)) {
             return false;
         }
-        if (style == null) {
-            if (other.style != null) {
-                return false;
-            }
-        }
-        else if (!style.equals(other.style)) {
+        if (timestamp != other.timestamp) {
             return false;
         }
         return true;
     }
-
 
 
 }

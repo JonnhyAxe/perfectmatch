@@ -1,8 +1,16 @@
 package com.perfectmatch.persistence.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -18,14 +26,17 @@ import com.perfectmatch.common.interfaces.ByNameQueryable;
 @Table(name = "MUSIC")
 public class Music implements ByNameQueryable, ByArtistQueryable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "MUSIC_ID")
+    private Long id;
 
     @Column(name = "ARTIST", nullable = false)
     @NotNull
     @Size(min = 2, max = 50)
     private String artist;
 
-    @Id
-    @Column(name = "NAME", unique = true, nullable = false)
+    @Column(name = "NAME", nullable = false)
     @NotNull
     @Size(min = 2, max = 50)
     private String name;
@@ -34,6 +45,13 @@ public class Music implements ByNameQueryable, ByArtistQueryable {
     @NotNull
     @Size(min = 2, max = 50)
     private String style;
+
+    // @formatter:off
+    @OneToMany( /* cascade = { CascadeType.REMOVE }, */fetch = FetchType.EAGER)
+    @JoinTable(name = "MUSIC_SAMPLE", joinColumns = { @JoinColumn(name = "MUSIC_ID") }, inverseJoinColumns = {
+            @JoinColumn(name = "SAMPLE_ID") })
+    private Set<Sample> samples;
+    // @formatter:on
 
     /**
      * @return the artist
@@ -149,5 +167,23 @@ public class Music implements ByNameQueryable, ByArtistQueryable {
             return false;
         }
         return true;
+    }
+
+
+    /**
+     * @return the samples
+     */
+    public Set<Sample> getSamples() {
+
+        return samples;
+    }
+
+
+    /**
+     * @param samples the samples to set
+     */
+    public void setSamples(Set<Sample> samples) {
+
+        this.samples = samples;
     }
 }

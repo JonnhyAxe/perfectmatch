@@ -15,12 +15,12 @@ import javax.persistence.Table;
 public class Match {
 
     @Id
-    @Column(name = "SAMPLE1", nullable = false)
-    private String sample1;
+    @Column(name = "SAMPLE_FROM", nullable = false)
+    private String sampleFrom;
 
     // TODO: @Id
-    @Column(name = "SAMPLE2", nullable = false)
-    private String sample2;
+    @Column(name = "SAMPLE_TO", nullable = false)
+    private String sampleFromRule;
 
     @Column(name = "RULE", nullable = false)
     private String rule;
@@ -30,7 +30,7 @@ public class Match {
      */
     public String getSample1() {
 
-        return sample1;
+        return sampleFrom;
     }
 
     /**
@@ -39,7 +39,7 @@ public class Match {
      */
     public void setSample1(String sample1) {
 
-        this.sample1 = sample1;
+        this.sampleFrom = sample1;
     }
 
     /**
@@ -47,7 +47,7 @@ public class Match {
      */
     public String getSample2() {
 
-        return sample2;
+        return sampleFromRule;
     }
 
     /**
@@ -56,7 +56,7 @@ public class Match {
      */
     public void setSample2(String sample2) {
 
-        this.sample2 = sample2;
+        this.sampleFromRule = sample2;
     }
 
 
@@ -88,8 +88,8 @@ public class Match {
 
         final int prime = 31;
         int result = 1;
-        result = prime * result + (sample1 == null ? 0 : sample1.hashCode());
-        result = prime * result + (sample2 == null ? 0 : sample2.hashCode());
+        result = prime * result + (sampleFrom == null ? 0 : sampleFrom.hashCode());
+        result = prime * result + (sampleFromRule == null ? 0 : sampleFromRule.hashCode());
         return result;
     }
 
@@ -111,20 +111,20 @@ public class Match {
             return false;
         }
         Match other = (Match) obj;
-        if (sample1 == null) {
-            if (other.sample1 != null) {
+        if (sampleFrom == null) {
+            if (other.sampleFrom != null) {
                 return false;
             }
         }
-        else if (!sample1.equals(other.sample1)) {
+        else if (!sampleFrom.equals(other.sampleFrom)) {
             return false;
         }
-        if (sample2 == null) {
-            if (other.sample2 != null) {
+        if (sampleFromRule == null) {
+            if (other.sampleFromRule != null) {
                 return false;
             }
         }
-        else if (!sample2.equals(other.sample2)) {
+        else if (!sampleFromRule.equals(other.sampleFromRule)) {
             return false;
         }
         return true;
