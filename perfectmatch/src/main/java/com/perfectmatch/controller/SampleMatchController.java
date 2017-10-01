@@ -12,7 +12,7 @@ import com.perfectmatch.persistence.dao.SampleMatchRepository;
 import com.perfectmatch.persistence.model.Match;
 
 @RestController
-@RequestMapping("/matches")
+@RequestMapping("/match")
 public class SampleMatchController {
 
     @Autowired

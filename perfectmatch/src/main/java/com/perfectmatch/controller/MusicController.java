@@ -39,7 +39,8 @@ public class MusicController {
 
     @RequestMapping(path = "/{name}", method = RequestMethod.GET)
     public Music findByName(@PathVariable("name")
-    final @Valid String musicName) throws IOException {
+    @Valid
+    final String musicName) throws IOException {
 
         return musicJpaRepository.findByName(musicName);
     }
@@ -47,7 +48,8 @@ public class MusicController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody
-    final @Valid Music resource) {
+    @Valid
+    final Music resource) {
 
         if (resource.getArtist() == null) {
             throw new MyBadRequestException("Artist must not be null");
