@@ -2,6 +2,8 @@ package com.perfectmatch.spring;
 
 import java.util.List;
 
+import org.h2.server.web.WebServlet;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -35,11 +37,16 @@ public class PerfectMatchWebConfig extends WebMvcConfigurationSupport {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 
-        // Optional<HttpMessageConverter> converter =
-        // converters.stream().filter(converter -> converter instanceof
-        // MappingJackson2HttpMessageConverter).findFirst();
-
         converters.add(customJackson2HttpMessageConverter());
         super.addDefaultHttpMessageConverters(converters);
     }
+
+    @Bean
+    ServletRegistrationBean h2servletRegistration() {
+
+        ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
+        registrationBean.addUrlMappings("/console/*");
+        return registrationBean;
+    }
+
 }

@@ -19,7 +19,7 @@ import com.perfectmatch.common.interfaces.ByArtistQueryable;
 import com.perfectmatch.common.interfaces.ByNameQueryable;
 
 /**
- * This class represents an Music to sample froms
+ * This class represents an Music to sample from
  *
  */
 @Entity
@@ -46,12 +46,12 @@ public class Music implements ByNameQueryable, ByArtistQueryable {
     @Size(min = 2, max = 50)
     private String style;
 
-    // @formatter:off
+
     @OneToMany( /* cascade = { CascadeType.REMOVE }, */fetch = FetchType.EAGER)
     @JoinTable(name = "MUSIC_SAMPLE", joinColumns = { @JoinColumn(name = "MUSIC_ID") }, inverseJoinColumns = {
             @JoinColumn(name = "SAMPLE_ID") })
     private Set<Sample> samples;
-    // @formatter:on
+
 
     /**
      * @return the artist
@@ -107,6 +107,23 @@ public class Music implements ByNameQueryable, ByArtistQueryable {
         this.style = style;
     }
 
+
+    /**
+     * @return the samples
+     */
+    public Set<Sample> getSamples() {
+
+        return samples;
+    }
+
+    /**
+     * @param samples
+     *            the samples to set
+     */
+    public void setSamples(Set<Sample> samples) {
+
+        this.samples = samples;
+    }
 
     /*
      * (non-Javadoc)
@@ -170,20 +187,4 @@ public class Music implements ByNameQueryable, ByArtistQueryable {
     }
 
 
-    /**
-     * @return the samples
-     */
-    public Set<Sample> getSamples() {
-
-        return samples;
-    }
-
-
-    /**
-     * @param samples the samples to set
-     */
-    public void setSamples(Set<Sample> samples) {
-
-        this.samples = samples;
-    }
 }

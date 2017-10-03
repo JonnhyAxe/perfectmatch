@@ -15,7 +15,6 @@ import com.perfectmatch.spring.PerfectMatchWebConfig;
 })
 public class PerfectMatchApplication {
 
-
 	public static void main(String[] args) {
 
         SpringApplication.run(PerfectMatchApplication.class, args);

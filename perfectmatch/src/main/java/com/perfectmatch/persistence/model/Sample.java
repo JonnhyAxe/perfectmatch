@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 
@@ -28,15 +28,35 @@ public class Sample {
     @Column(name = "SAMPLE_ID", nullable = false)
     private String id;
 
+    @Column(name = "NAME", nullable = false)
+    private String name;
+
 
     @Column(name = "TIMESTAMP", nullable = false)
     private int timestamp;
 
     // @formatter:off
-    @OneToMany( /* cascade = { CascadeType.REMOVE }, */fetch = FetchType.EAGER)
-    @JoinTable(name = "SAMPLE_MATH", joinColumns = { @JoinColumn(name = "SAMPLE_ID") }, inverseJoinColumns = {
-            @JoinColumn(name = "SAMPLE_FROM") })
+    @ManyToMany( /* cascade = { CascadeType.REMOVE }, */fetch = FetchType.EAGER)
+    @JoinTable(name = "SAMPLE_MATCH", joinColumns = { @JoinColumn(name = "SAMPLE_ID") }, inverseJoinColumns = {
+            @JoinColumn(name = "MATCH_ID") })
     private Set<Match> mathes;
+
+    /**
+     * @return the mathes
+     */
+    public Set<Match> getMathes() {
+
+        return mathes;
+    }
+
+    /**
+     * @param mathes
+     *            the mathes to set
+     */
+    public void setMathes(Set<Match> mathes) {
+
+        this.mathes = mathes;
+    }
 
     /**
      * @return the id
@@ -73,6 +93,23 @@ public class Sample {
         this.timestamp = timestamp;
     }
 
+    /**
+     * @return the name
+     */
+    public String getName() {
+
+        return name;
+    }
+
+    /**
+     * @param name
+     *            the name to set
+     */
+    public void setName(String name) {
+
+        this.name = name;
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -84,6 +121,8 @@ public class Sample {
         final int prime = 31;
         int result = 1;
         result = prime * result + (id == null ? 0 : id.hashCode());
+        result = prime * result + (mathes == null ? 0 : mathes.hashCode());
+        result = prime * result + (name == null ? 0 : name.hashCode());
         result = prime * result + timestamp;
         return result;
     }
@@ -114,11 +153,26 @@ public class Sample {
         else if (!id.equals(other.id)) {
             return false;
         }
+        if (mathes == null) {
+            if (other.mathes != null) {
+                return false;
+            }
+        }
+        else if (!mathes.equals(other.mathes)) {
+            return false;
+        }
+        if (name == null) {
+            if (other.name != null) {
+                return false;
+            }
+        }
+        else if (!name.equals(other.name)) {
+            return false;
+        }
         if (timestamp != other.timestamp) {
             return false;
         }
         return true;
     }
-
 
 }
