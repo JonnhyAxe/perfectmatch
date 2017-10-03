@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.perfectmatch.persistence.dao.MusicRepository;
 import com.perfectmatch.persistence.model.Music;
 import com.perfectmatch.web.exception.MyBadRequestException;
+import com.perfectmatch.web.services.impl.MusicServiceBean;
 
 
 /*
@@ -32,6 +33,9 @@ public class MusicController {
     @Autowired
     private MusicRepository musicJpaRepository;
 
+    @Autowired
+    private MusicServiceBean musicService;
+
     @RequestMapping(path = "/repo", method = RequestMethod.GET)
     @Secured({ "ROLE_USER_READ" })
     public Iterable<Music> findByRepo() throws IOException {
@@ -44,7 +48,7 @@ public class MusicController {
     @Valid
     final String musicName) throws IOException {
 
-        return musicJpaRepository.findByName(musicName);
+        return musicService.findByName(musicName);
     }
 
     @RequestMapping(method = RequestMethod.POST)

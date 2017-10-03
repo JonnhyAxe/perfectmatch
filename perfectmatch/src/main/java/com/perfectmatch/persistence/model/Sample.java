@@ -13,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.perfectmatch.common.model.NameableEntity;
 
 /**
  * This class represents an Sample of one specific music
@@ -20,13 +21,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "SAMPLE")
-public class Sample {
+public class Sample implements NameableEntity {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "SAMPLE_ID", nullable = false)
-    private String id;
+    private Long id;
 
     @Column(name = "NAME", nullable = false)
     private String name;
@@ -61,7 +62,8 @@ public class Sample {
     /**
      * @return the id
      */
-    public String getId() {
+    @Override
+    public Long getId() {
 
         return id;
     }
@@ -70,7 +72,7 @@ public class Sample {
      * @param id
      *            the id to set
      */
-    public void setId(String id) {
+    public void setId(Long id) {
 
         this.id = id;
     }
@@ -96,6 +98,7 @@ public class Sample {
     /**
      * @return the name
      */
+    @Override
     public String getName() {
 
         return name;
@@ -174,5 +177,6 @@ public class Sample {
         }
         return true;
     }
+
 
 }

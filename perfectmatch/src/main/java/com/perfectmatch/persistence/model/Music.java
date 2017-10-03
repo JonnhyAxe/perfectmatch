@@ -16,20 +16,22 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.perfectmatch.common.interfaces.ByArtistQueryable;
-import com.perfectmatch.common.interfaces.ByNameQueryable;
+import com.perfectmatch.common.model.NameableEntity;
 
 /**
+ *
  * This class represents an Music to sample from
  *
  */
 @Entity
 @Table(name = "MUSIC")
-public class Music implements ByNameQueryable, ByArtistQueryable {
+public class Music implements NameableEntity, ByArtistQueryable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "MUSIC_ID")
     private Long id;
+
 
     @Column(name = "ARTIST", nullable = false)
     @NotNull
@@ -52,6 +54,24 @@ public class Music implements ByNameQueryable, ByArtistQueryable {
             @JoinColumn(name = "SAMPLE_ID") })
     private Set<Sample> samples;
 
+
+    /**
+     * @return the id
+     */
+    @Override
+    public Long getId() {
+
+        return id;
+    }
+
+    /**
+     * @param id
+     *            the id to set
+     */
+    public void setId(Long id) {
+
+        this.id = id;
+    }
 
     /**
      * @return the artist
@@ -185,6 +205,7 @@ public class Music implements ByNameQueryable, ByArtistQueryable {
         }
         return true;
     }
+
 
 
 }

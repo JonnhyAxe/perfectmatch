@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 
-
 /**
  *
  * Represents an match between two samples

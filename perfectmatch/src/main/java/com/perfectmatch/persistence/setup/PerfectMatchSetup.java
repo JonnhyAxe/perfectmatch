@@ -80,7 +80,7 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
         sampleDef.setTimestamp(3 * 60); // Start time stamp at 00:03:00m
         sampleDef.setName(musicDef.getArtist() + ":" + musicDef.getName());
 
-        musicPleaseStop.setSamples(new HashSet<Sample>(Arrays.asList(sampleDef)));
+        musicDef.setSamples(new HashSet<Sample>(Arrays.asList(sampleDef)));
 
 
         Match newMatch = new Match();
