@@ -2,7 +2,8 @@
 
 #How to run
 
-mvn spring-boot:run
+mvn spring-boot:run 
+mvn spring-boot:run -Drun.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"
 
 #How to Test
 http://localhost:8080/login

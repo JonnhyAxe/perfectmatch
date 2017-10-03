@@ -29,14 +29,20 @@ public class PerfectMatchSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(final HttpSecurity http) throws Exception {
+    protected void configure(final HttpSecurity httpSecurity) throws Exception {
 
         // @formatter:off
-        http.authorizeRequests().
+        httpSecurity.authorizeRequests().
         // antMatchers("/api/**"). // if you want a more explicit mapping here
                 anyRequest().permitAll();
         // .and().httpBasic().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         // @formatter:on
+
+        httpSecurity.authorizeRequests().antMatchers("/").permitAll().and()
+                .authorizeRequests().antMatchers("/console/**").permitAll();
+
+        httpSecurity.csrf().disable();
+        httpSecurity.headers().frameOptions().disable();
     }
 
 }
