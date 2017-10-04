@@ -99,16 +99,15 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
 
         samplePleaseStop.setMathes(new HashSet<Match>(Arrays.asList(newMatch)));
 
-        Match samplePleaseStopSample = sampleMatchService.findByName(samplePleaseStop.getName());
-        if (Objects.isNull(samplePleaseStopSample)) {
+        if (Objects.isNull(sampleMatchService.findByName(newMatch.getName()))) {
             sampleMatchService.create(newMatch);
         }
 
-        if (Objects.isNull(sampleMatchService.findByName(samplePleaseStop.getName()))) {
+        if (Objects.isNull(sampleService.findByName(samplePleaseStop.getName()))) {
             sampleService.create(samplePleaseStop);
         }
 
-        if (Objects.isNull(sampleMatchService.findByName(sampleDef.getName()))) {
+        if (Objects.isNull(sampleService.findByName(sampleDef.getName()))) {
             sampleService.create(sampleDef);
         }
 

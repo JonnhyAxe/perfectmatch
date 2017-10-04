@@ -25,7 +25,7 @@ public class Sample implements NameableEntity {
 
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -4288830678875960178L;
 
@@ -117,6 +117,7 @@ public class Sample implements NameableEntity {
 
         this.name = name;
     }
+
 
     /*
      * (non-Javadoc)
