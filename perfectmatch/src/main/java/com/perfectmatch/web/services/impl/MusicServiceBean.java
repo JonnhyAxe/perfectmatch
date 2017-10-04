@@ -10,6 +10,8 @@
  */
 package com.perfectmatch.web.services.impl;
 
+import java.util.Set;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ import com.perfectmatch.persistence.model.Music;
 import com.perfectmatch.web.services.MusicService;
 
 /**
- * <class description>
+ * Expose web services for Music Entity
  *
  */
 @Service
@@ -32,16 +34,24 @@ public class MusicServiceBean extends AbstractRawService<Music> implements Music
     private MusicRepository dao;
 
     /**
-     * @return the dao
+     * @return the MusicRepository
      */
+    @Override
     public MusicRepository getDao() {
 
         return dao;
     }
 
+    @Override
     public Music findByName(final String name) {
 
         return getDao().findByName(name);
+    }
+
+    @Override
+    public Set<Music> findByArtist(final String name) {
+
+        return getDao().findByArtist(name);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.perfectmatch.controller;
+package com.perfectmatch.web.controller;
 
 
 import java.io.IOException;

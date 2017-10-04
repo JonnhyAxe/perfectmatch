@@ -2,19 +2,20 @@ package com.perfectmatch.persistence.setup;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-import com.perfectmatch.persistence.dao.MusicRepository;
-import com.perfectmatch.persistence.dao.SampleMatchRepository;
-import com.perfectmatch.persistence.dao.SampleRepository;
 import com.perfectmatch.persistence.model.Match;
 import com.perfectmatch.persistence.model.Music;
 import com.perfectmatch.persistence.model.Sample;
 import com.perfectmatch.persistence.model.Style;
+import com.perfectmatch.web.services.MusicService;
+import com.perfectmatch.web.services.SampleMatchService;
+import com.perfectmatch.web.services.SampleService;
 
 /**
  * This simple setup class will run during the bootstrap process of Spring and
@@ -28,14 +29,23 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
     // Only for setup purposes
     private boolean setupDone;
 
-    @Autowired
-    private MusicRepository musicRepo;
+    // @Autowired
+    // private MusicRepository musicRepo;
+    //
+    // @Autowired
+    // private SampleRepository sampleRepo;
+    //
+    // @Autowired
+    // private SampleMatchRepository sampleMaTchRepo;
 
     @Autowired
-    private SampleRepository sampleRepo;
+    private MusicService musicService;
 
     @Autowired
-    private SampleMatchRepository sampleMaTchRepo;
+    private SampleService sampleService;
+
+    @Autowired
+    private SampleMatchService sampleMatchService;
 
     /*
      * (non-Javadoc)
@@ -49,7 +59,6 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
 
         if (!setupDone) {
             createMusic();
-
         }
 
     }
@@ -84,19 +93,32 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
 
 
         Match newMatch = new Match();
-        newMatch.setSampleFrom(samplePleaseStop.getName());
+        newMatch.setName(samplePleaseStop.getName());
         newMatch.setSampleFromRule(sampleDef.getName());
         newMatch.setRule("BY_SAME_ARTIST_NAME");
 
         samplePleaseStop.setMathes(new HashSet<Match>(Arrays.asList(newMatch)));
 
-        sampleMaTchRepo.save(newMatch);
+        Match samplePleaseStopSample = sampleMatchService.findByName(samplePleaseStop.getName());
+        if (Objects.isNull(samplePleaseStopSample)) {
+            sampleMatchService.create(newMatch);
+        }
 
-        sampleRepo.save(samplePleaseStop);
-        sampleRepo.save(sampleDef);
+        if (Objects.isNull(sampleMatchService.findByName(samplePleaseStop.getName()))) {
+            sampleService.create(samplePleaseStop);
+        }
 
-        musicRepo.save(musicPleaseStop);
-        musicRepo.save(musicDef);
+        if (Objects.isNull(sampleMatchService.findByName(sampleDef.getName()))) {
+            sampleService.create(sampleDef);
+        }
+
+        if (Objects.isNull(musicService.findByName(musicPleaseStop.getName()))) {
+            musicService.create(musicPleaseStop);
+        }
+
+        if (Objects.isNull(musicService.findByName(musicDef.getName()))) {
+            musicService.create(musicDef);
+        }
 
     }
 

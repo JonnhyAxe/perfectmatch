@@ -24,6 +24,11 @@ import com.perfectmatch.common.model.NameableEntity;
 public class Sample implements NameableEntity {
 
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -4288830678875960178L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "SAMPLE_ID", nullable = false)

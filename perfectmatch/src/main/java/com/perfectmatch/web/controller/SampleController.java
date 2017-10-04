@@ -1,5 +1,4 @@
-
-package com.perfectmatch.controller;
+package com.perfectmatch.web.controller;
 
 import java.io.IOException;
 
@@ -8,20 +7,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.perfectmatch.persistence.dao.SampleMatchRepository;
-import com.perfectmatch.persistence.model.Match;
+import com.perfectmatch.persistence.dao.SampleRepository;
+import com.perfectmatch.persistence.model.Sample;
 
 @RestController
-@RequestMapping("/match")
-public class SampleMatchController {
+@RequestMapping("/sample")
+public class SampleController {
 
     @Autowired
-    private SampleMatchRepository matchJpaRepository;
+    private SampleRepository sampleJpaRepository;
 
     @RequestMapping(path = "/repo", method = RequestMethod.GET)
-    public Iterable<Match> findByRepo() throws IOException {
+    public Iterable<Sample> findByRepo() throws IOException {
 
-        return matchJpaRepository.findAll();
+        return sampleJpaRepository.findAll();
     }
 
 }

@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.perfectmatch.common.model.NameableEntity;
 
 /**
  *
@@ -17,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "MATCH")
-public class Match implements Serializable {
+public class Match implements NameableEntity, Serializable {
 
     /**
      *
@@ -30,9 +31,30 @@ public class Match implements Serializable {
     private Long id;
 
 
-    @Column(name = "SAMPLE_FROM", nullable = false)
-    private String sampleFrom;
+    @Column(name = "NAME", nullable = false)
+    private String name;
 
+
+    /**
+     * @param name
+     *            the name to set
+     */
+    public void setName(String name) {
+
+        this.name = name;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.perfectmatch.common.interfaces.ByNameQueryable#getName()
+     */
+    @Override
+    public String getName() {
+
+        // TODO Auto-generated method stub
+        return null;
+    }
 
     @Column(name = "SAMPLE_TO", nullable = false)
     private String sampleFromRule;
@@ -42,22 +64,6 @@ public class Match implements Serializable {
     private String rule;
 
 
-    /**
-     * @return the sampleFrom
-     */
-    public String getSampleFrom() {
-
-        return sampleFrom;
-    }
-
-    /**
-     * @param sampleFrom
-     *            the sampleFrom to set
-     */
-    public void setSampleFrom(String sampleFrom) {
-
-        this.sampleFrom = sampleFrom;
-    }
 
     /**
      * @return the sampleFromRule
@@ -96,6 +102,7 @@ public class Match implements Serializable {
     /**
      * @return the id
      */
+    @Override
     public Long getId() {
 
         return id;
@@ -122,7 +129,7 @@ public class Match implements Serializable {
         int result = 1;
         result = prime * result + (id == null ? 0 : id.hashCode());
         result = prime * result + (rule == null ? 0 : rule.hashCode());
-        result = prime * result + (sampleFrom == null ? 0 : sampleFrom.hashCode());
+        result = prime * result + (name == null ? 0 : name.hashCode());
         result = prime * result + (sampleFromRule == null ? 0 : sampleFromRule.hashCode());
         return result;
     }
@@ -161,12 +168,12 @@ public class Match implements Serializable {
         else if (!rule.equals(other.rule)) {
             return false;
         }
-        if (sampleFrom == null) {
-            if (other.sampleFrom != null) {
+        if (name == null) {
+            if (other.name != null) {
                 return false;
             }
         }
-        else if (!sampleFrom.equals(other.sampleFrom)) {
+        else if (!name.equals(other.name)) {
             return false;
         }
         if (sampleFromRule == null) {
@@ -179,6 +186,7 @@ public class Match implements Serializable {
         }
         return true;
     }
+
 
 
 }

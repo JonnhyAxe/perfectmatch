@@ -27,6 +27,11 @@ import com.perfectmatch.common.model.NameableEntity;
 @Table(name = "MUSIC")
 public class Music implements NameableEntity, ByArtistQueryable {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6021901171439734300L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "MUSIC_ID")
