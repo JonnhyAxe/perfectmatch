@@ -1,13 +1,3 @@
-/*
- * Copyright 2017 by Brisa Inovação e Tecnologia S.A.
- * All rights reserved.
- *
- * This software is the confidential and proprietary information
- * of Brisa, SA ("Confidential Information").  You
- * shall not disclose such Confidential Information and shall use
- * it only in accordance with the terms of the license agreement
- * you entered into with Brisa.
- */
 package com.perfectmatch.perfectmatch.persistence.dao;
 
 
@@ -20,10 +10,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
+import com.perfectmatch.perfectmatch.spring.PerfectMatchWebConfig;
 import com.perfectmatch.persistence.dao.SampleRepository;
 import com.perfectmatch.persistence.model.Sample;
+import com.perfectmatch.spring.PerfectMatchPersistenceJpaConfig;
+import com.perfectmatch.spring.PerfectMatchServletConfig;
 
 /**
  * Integration Test between JPA and Persistence modules
@@ -31,6 +26,9 @@ import com.perfectmatch.persistence.model.Sample;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@ContextConfiguration(classes = { PerfectMatchPersistenceJpaConfig.class, PerfectMatchWebConfig.class,
+        PerfectMatchServletConfig.class }, loader = AnnotationConfigContextLoader.class)
+
 public class SampleRepositoryIntegrationTests {
 
     @Autowired

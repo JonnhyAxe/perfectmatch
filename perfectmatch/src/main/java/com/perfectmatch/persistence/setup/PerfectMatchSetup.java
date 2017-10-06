@@ -29,15 +29,6 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
     // Only for setup purposes
     private boolean setupDone;
 
-    // @Autowired
-    // private MusicRepository musicRepo;
-    //
-    // @Autowired
-    // private SampleRepository sampleRepo;
-    //
-    // @Autowired
-    // private SampleMatchRepository sampleMaTchRepo;
-
     @Autowired
     private MusicService musicService;
 

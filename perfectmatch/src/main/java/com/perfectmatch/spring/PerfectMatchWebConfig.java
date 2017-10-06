@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -20,7 +21,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
  */
 
 @Configuration
-@ComponentScan({ "com.perfectmatch.controller" })
+@ComponentScan({ "com.perfectmatch.web" })
+@ActiveProfiles({ "Dev" })
 public class PerfectMatchWebConfig extends WebMvcConfigurationSupport {
 
     @Bean
@@ -46,7 +48,23 @@ public class PerfectMatchWebConfig extends WebMvcConfigurationSupport {
 
         ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
         registrationBean.addUrlMappings("/console/*");
+
+        // final Map<String, String> params = new HashMap<String, String>();
+        // params.put("contextClass",
+        // "org.springframework.web.context.support.AnnotationConfigWebApplicationContext");
+        // params.put("contextConfigLocation", "org.spring.sec2.spring");
+        // params.put("dispatchOptionsRequest", "true");
+        // registrationBean.setInitParameters(params);
+        //
+        // registrationBean.setLoadOnStartup(1);
+
         return registrationBean;
     }
+
+    // @Bean
+    // public DispatcherServlet dispatcherServlet() {
+    //
+    // return new DispatcherServlet();
+    // }
 
 }
