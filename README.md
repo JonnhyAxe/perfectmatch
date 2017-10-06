@@ -85,3 +85,7 @@ POST response
 	}
 }
  
+#Actuator
+http://localhost:8080/info
+http://localhost:8080/health
+http://localhost:8080/metrics
