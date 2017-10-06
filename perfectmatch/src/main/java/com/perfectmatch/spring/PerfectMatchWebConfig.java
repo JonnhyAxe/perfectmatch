@@ -3,7 +3,10 @@ package com.perfectmatch.spring;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.servlet.Filter;
+
 import org.h2.server.web.WebServlet;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.filter.ShallowEtagHeaderFilter;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
@@ -93,6 +97,23 @@ public class PerfectMatchWebConfig extends WebMvcConfigurationSupport {
 
         registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+
+    @Bean
+    public FilterRegistrationBean someFilterRegistration() {
+
+        final FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(etagFilter());
+        registration.addUrlPatterns("/*");
+        registration.setName("etagFilter");
+        registration.setOrder(1);
+        return registration;
+    }
+
+    @Bean(name = "etagFilter")
+    public Filter etagFilter() {
+
+        return new ShallowEtagHeaderFilter();
     }
 
 }
