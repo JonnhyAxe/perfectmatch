@@ -54,3 +54,34 @@ SAMPLE entity with two @ID
 
 #Swagger 
 http://localhost:8080/swagger-ui.html
+
+#HATEOS
+
+POST example 
+{
+"id": null,
+"artist": "LatmunXPTO2",
+"name": "Please Stop (Original Mix)XPTO2",
+"style": "TECH_HOUSE",
+"samples": []
+}
+POST response
+
+{
+"music": {
+"id": 6,
+"artist": "LatmunXPTO2",
+"name": "Please Stop (Original Mix)XPTO2",
+"style": "TECH_HOUSE",
+"samples": [],
+},
+"_links": {
+	"music": {
+		"href": "http://localhost:8080/music"
+		},
+		"self": {
+		"href": "http://localhost:8080/music/Please%20Stop%20(Original%20Mix)XPTO2"
+		}
+	}
+}
+ 
