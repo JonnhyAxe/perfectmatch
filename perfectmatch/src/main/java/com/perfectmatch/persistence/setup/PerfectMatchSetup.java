@@ -110,6 +110,15 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
             musicService.create(musicDef);
         }
 
+        // Test insert music without samples and Match
+
+        Music music = new Music();
+        music.setArtist("LatmunXPTO");
+        music.setName("Please Stop (Original Mix)XPTO");
+        music.setStyle(Style.TECH_HOUSE.name());
+
+        musicService.create(music);
+
     }
 
 }

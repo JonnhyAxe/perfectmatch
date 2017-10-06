@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.perfectmatch.persistence.dao.MusicRepository;
 import com.perfectmatch.persistence.model.Music;
 import com.perfectmatch.web.exception.MyBadRequestException;
+import com.perfectmatch.web.services.hatoas_impl.MusicResource;
 import com.perfectmatch.web.services.impl.MusicServiceBean;
 
 
@@ -46,21 +47,22 @@ public class MusicController {
     @RequestMapping(path = "/{name}", method = RequestMethod.GET)
     public Music findByName(@PathVariable("name")
     @Valid
-    final String musicName) throws IOException {
+    final String musicName) {
 
         return musicService.findByName(musicName);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody
+    public MusicResource create(@RequestBody
     @Valid
     final Music resource) {
 
         if (resource.getArtist() == null) {
             throw new MyBadRequestException("Artist must not be null");
         }
-        musicJpaRepository.save(resource);
+        final Music entity = musicJpaRepository.save(resource);
+        return new MusicResource(entity);
     }
 
 }
