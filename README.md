@@ -50,3 +50,7 @@ http://www.studytrails.com/frameworks/spring/spring-security-method-level/
 
 TODOS:
 SAMPLE entity with two @ID
+
+
+#Swagger 
+http://localhost:8080/swagger-ui.html

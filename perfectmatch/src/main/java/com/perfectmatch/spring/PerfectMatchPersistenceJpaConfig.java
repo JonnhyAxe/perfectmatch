@@ -18,7 +18,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 @Configuration
 @ComponentScan({ "com.perfectmatch.persistence" })
-@PropertySource({ "classpath:persistence-${persistenceTarget:test}.properties" })
+@PropertySource({ "classpath:application-${persistenceTarget:h2}.properties" })
 @EnableJpaRepositories(basePackages = "com.perfectmatch.persistence.dao")
 public class PerfectMatchPersistenceJpaConfig {
 
