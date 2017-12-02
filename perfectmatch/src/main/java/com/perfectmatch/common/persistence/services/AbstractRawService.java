@@ -1,4 +1,4 @@
-package com.perfectmatch.common.persistence.srvices;
+package com.perfectmatch.common.persistence.services;
 
 
 import java.util.ArrayList;
@@ -32,12 +32,13 @@ public abstract class AbstractRawService<T extends NameableEntity> implements IO
 
     // find - one
 
-    @Override
-    @Transactional(readOnly = true)
-    public T findOne(final long id) {
-
-        return getDao().findOne(id);
-    }
+    //TODO: whey this 
+//    @Override
+//    @Transactional(readOnly = true)
+//    public T findOne(final long id) {
+//
+//        return getDao().findOne(id);
+//    }
 
     // find - all
 
@@ -79,14 +80,14 @@ public abstract class AbstractRawService<T extends NameableEntity> implements IO
         getDao().deleteAll();
     }
 
-    @Override
-    public void delete(final long id) {
-
-        final T entity = getDao().findOne(id);
-        ServicePreconditions.checkEntityExists(entity);
-
-        getDao().delete(entity);
-    }
+//    @Override
+//    public void delete(final long id) {
+//
+//        final T entity = getDao().findOne(id);
+//        ServicePreconditions.checkEntityExists(entity);
+//
+//        getDao().delete(entity);
+//    }
 
     // count
 

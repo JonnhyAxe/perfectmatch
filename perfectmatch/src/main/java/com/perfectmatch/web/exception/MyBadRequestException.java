@@ -2,7 +2,12 @@ package com.perfectmatch.web.exception;
 
 public final class MyBadRequestException extends RuntimeException {
 
-    public MyBadRequestException() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public MyBadRequestException() {
         super();
     }
 

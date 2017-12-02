@@ -37,7 +37,7 @@ public class MusicRepositoryIntegrationTests {
 
         List<Music> musics = repository.findAll();
         assertFalse(musics.isEmpty());
-        assertEquals(2, musics.size());
+        assertEquals(3, musics.size());
     }
 
 }

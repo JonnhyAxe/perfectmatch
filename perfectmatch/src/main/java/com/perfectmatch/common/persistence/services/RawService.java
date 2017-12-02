@@ -1,4 +1,4 @@
-package com.perfectmatch.common.persistence.srvices;
+package com.perfectmatch.common.persistence.services;
 
 import com.perfectmatch.common.interfaces.Entity;
 import com.perfectmatch.common.interfaces.IOperations;

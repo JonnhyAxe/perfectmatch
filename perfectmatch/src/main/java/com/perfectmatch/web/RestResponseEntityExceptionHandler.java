@@ -1,20 +1,8 @@
-/*
- * Copyright 2017 by Brisa Inovação e Tecnologia S.A.
- * All rights reserved.
- *
- * This software is the confidential and proprietary information
- * of Brisa, SA ("Confidential Information").  You
- * shall not disclose such Confidential Information and shall use
- * it only in accordance with the terms of the license agreement
- * you entered into with Brisa.
- */
 package com.perfectmatch.web;
-
-
 
 import javax.validation.ConstraintViolationException;
 
-import org.apache.tomcat.util.ExceptionUtils;
+//import org.apache.tomcat.util.;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -30,7 +18,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.perfectmatch.web.exception.ApiError;
 import com.perfectmatch.web.exception.MyBadRequestException;
-
 
 
 @ControllerAdvice
@@ -70,9 +57,11 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     private final ApiError message(final HttpStatus httpStatus, final Exception ex) {
 
         final String message = ex.getMessage() == null ? ex.getClass().getSimpleName() : ex.getMessage();
-        final String devMessage = ExceptionUtils.unwrapInvocationTargetException(ex).getMessage();
+        
+        //TODO: change this
+        //final String devMessage = ExceptionUtils.unwrapInvocationTargetException(ex).getMessage();
 
-        return new ApiError(httpStatus.value(), message, devMessage);
+        return new ApiError(httpStatus.value(), message, message);
     }
 
 }

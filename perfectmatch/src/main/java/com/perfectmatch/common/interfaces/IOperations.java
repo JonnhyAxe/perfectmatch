@@ -7,7 +7,7 @@ public interface IOperations<T extends Serializable> {
 
     // find - one
 
-    T findOne(final long id);
+    //T findOne(final long id);
 
     /**
      * - contract: if nothing is found, an empty list will be returned to the
@@ -26,7 +26,7 @@ public interface IOperations<T extends Serializable> {
 
     // delete
 
-    void delete(final long id);
+    //void delete(final long id);
 
     void deleteAll();
 

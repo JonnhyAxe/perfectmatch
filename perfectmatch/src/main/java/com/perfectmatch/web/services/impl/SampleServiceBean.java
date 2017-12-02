@@ -5,7 +5,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.perfectmatch.common.persistence.srvices.AbstractRawService;
+import com.perfectmatch.common.persistence.services.AbstractRawService;
 import com.perfectmatch.persistence.dao.SampleRepository;
 import com.perfectmatch.persistence.model.Sample;
 import com.perfectmatch.web.services.SampleService;
