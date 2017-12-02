@@ -13,7 +13,7 @@ import com.perfectmatch.spring.PerfectMatchServletConfig;
  *
  */
 @Configuration
-@Import({ PerfectMatchPersistenceJpaConfig.class, PerfectMatchWebConfig.class, PerfectMatchServletConfig.class })
+@Import({ PerfectMatchPersistenceJpaConfig.class, PerfectMatchWebTestConfig.class, PerfectMatchServletConfig.class })
 public class PerfectMatchLiveTestConfig {
 
     @Bean

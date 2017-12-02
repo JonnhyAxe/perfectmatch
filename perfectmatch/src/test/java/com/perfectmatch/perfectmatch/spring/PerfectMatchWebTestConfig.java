@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan({ "com.perfectmatch.web" })
-public class PerfectMatchWebConfig {
+public class PerfectMatchWebTestConfig {
 
 
 

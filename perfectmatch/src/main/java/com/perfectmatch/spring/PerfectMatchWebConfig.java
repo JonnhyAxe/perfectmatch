@@ -34,7 +34,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @ComponentScan({ "com.perfectmatch.web" })
-// @ActiveProfiles({ "Dev" })
 @EnableSwagger2
 public class PerfectMatchWebConfig extends WebMvcConfigurationSupport {
 

@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 
 @Configuration
-public class PerfectMatchServletConfig {
+public class PerfectMatchServletTestConfig {
 
-    public PerfectMatchServletConfig() {
+    public PerfectMatchServletTestConfig() {
         super();
     }
 
