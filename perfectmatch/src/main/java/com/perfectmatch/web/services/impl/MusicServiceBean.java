@@ -2,7 +2,7 @@ package com.perfectmatch.web.services.impl;
 
 import java.util.Set;
 
-import javax.transaction.Transactional;
+//import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import com.perfectmatch.web.services.MusicService;
  *
  */
 @Service
-@Transactional
+//@Transactional
 public class MusicServiceBean extends AbstractRawService<Music> implements MusicService {
 
     @Autowired

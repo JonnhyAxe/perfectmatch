@@ -7,6 +7,6 @@ package com.perfectmatch.common.interfaces;
  */
 public interface ByIdQueryable {
 
-    public Long getId();
+    public String getId();
 
 }

@@ -1,6 +1,6 @@
 package com.perfectmatch.web.services.impl;
 
-import javax.transaction.Transactional;
+//import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import com.perfectmatch.web.services.SampleMatchService;
  *
  */
 @Service
-@Transactional
+//@Transactional
 public class SampleMatchServiceBean extends AbstractRawService<Match> implements SampleMatchService {
 
     @Autowired

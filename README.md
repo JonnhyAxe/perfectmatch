@@ -89,3 +89,9 @@ POST response
 http://localhost:8080/info
 http://localhost:8080/health
 http://localhost:8080/metrics
+
+
+
+#MongoDB
+
+C:\dev\tools\MongoDB\Server\3.4\bin>mongod.exe --dbpath C:\dev\tools\MongoDB\data

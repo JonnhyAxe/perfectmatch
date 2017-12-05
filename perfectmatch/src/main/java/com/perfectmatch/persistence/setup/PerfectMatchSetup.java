@@ -49,6 +49,9 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
     public void onApplicationEvent(ContextRefreshedEvent arg0) {
 
         if (!setupDone) {
+        	musicService.deleteAll();
+        	sampleService.deleteAll();
+        	sampleMatchService.deleteAll();
             createMusic();
         }
 
@@ -60,6 +63,7 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
      */
     private void createMusic() {
 
+    	
         Music musicPleaseStop = new Music();
         musicPleaseStop.setArtist("Latmun");
         musicPleaseStop.setName("Please Stop (Original Mix)");

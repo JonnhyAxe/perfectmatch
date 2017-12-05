@@ -1,23 +1,24 @@
 package com.perfectmatch.persistence.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 import com.perfectmatch.common.model.NameableEntity;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.springframework.data.annotation.Id;
 /**
  *
  * Represents an match between two samples
  *
  */
-@Entity
-@Table(name = "MATCH")
+
+@Getter
+@Setter
+@ToString
 public class Match implements NameableEntity, Serializable {
 
     /**
@@ -26,23 +27,11 @@ public class Match implements NameableEntity, Serializable {
     private static final long serialVersionUID = -9166396470466850949L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "MATCH_ID")
-    private Long id;
-
-
-    @Column(name = "NAME", nullable = false)
+    private String id;
     private String name;
+    private String sampleFromRule;
+    private String rule;
 
-
-    /**
-     * @param name
-     *            the name to set
-     */
-    public void setName(String name) {
-
-        this.name = name;
-    }
 
     /*
      * (non-Javadoc)
@@ -53,71 +42,39 @@ public class Match implements NameableEntity, Serializable {
     public String getName() {
 
         // TODO Auto-generated method stub
-        return null;
+        return this.name;
     }
 
-    @Column(name = "SAMPLE_TO", nullable = false)
-    private String sampleFromRule;
-
-
-    @Column(name = "RULE", nullable = false)
-    private String rule;
-
-
-
-    /**
-     * @return the sampleFromRule
-     */
-    public String getSampleFromRule() {
-
-        return sampleFromRule;
-    }
-
-    /**
-     * @param sampleFromRule
-     *            the sampleFromRule to set
-     */
-    public void setSampleFromRule(String sampleFromRule) {
-
-        this.sampleFromRule = sampleFromRule;
-    }
-
-    /**
-     * @return the rule
-     */
-    public String getRule() {
-
-        return rule;
-    }
-
-    /**
-     * @param rule
-     *            the rule to set
-     */
-    public void setRule(String rule) {
-
-        this.rule = rule;
-    }
 
     /**
      * @return the id
      */
     @Override
-    public Long getId() {
+    public String getId() {
 
         return id;
     }
 
-    /**
-     * @param id
-     *            the id to set
-     */
-    public void setId(Long id) {
 
-        this.id = id;
-    }
+    public void setName(String name) {
+		this.name = name;
+	}
 
-    /*
+
+
+	public void setSampleFromRule(String sampleFromRule) {
+		this.sampleFromRule = sampleFromRule;
+	}
+
+
+
+	public void setRule(String rule) {
+		this.rule = rule;
+	}
+
+
+
+	/*
      * (non-Javadoc)
      *
      * @see java.lang.Object#hashCode()
@@ -125,13 +82,7 @@ public class Match implements NameableEntity, Serializable {
     @Override
     public int hashCode() {
 
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (id == null ? 0 : id.hashCode());
-        result = prime * result + (rule == null ? 0 : rule.hashCode());
-        result = prime * result + (name == null ? 0 : name.hashCode());
-        result = prime * result + (sampleFromRule == null ? 0 : sampleFromRule.hashCode());
-        return result;
+        return Objects.hash(id, rule, name, sampleFromRule);
     }
 
     /*
@@ -152,41 +103,11 @@ public class Match implements NameableEntity, Serializable {
             return false;
         }
         Match other = (Match) obj;
-        if (id == null) {
-            if (other.id != null) {
-                return false;
-            }
-        }
-        else if (!id.equals(other.id)) {
-            return false;
-        }
-        if (rule == null) {
-            if (other.rule != null) {
-                return false;
-            }
-        }
-        else if (!rule.equals(other.rule)) {
-            return false;
-        }
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        }
-        else if (!name.equals(other.name)) {
-            return false;
-        }
-        if (sampleFromRule == null) {
-            if (other.sampleFromRule != null) {
-                return false;
-            }
-        }
-        else if (!sampleFromRule.equals(other.sampleFromRule)) {
-            return false;
-        }
-        return true;
+        return id == other.id && 
+        		Objects.equals(rule, other.rule) && 
+        		Objects.equals(name, other.name) && 
+        		Objects.equals(sampleFromRule, other.sampleFromRule);
+
     }
-
-
 
 }

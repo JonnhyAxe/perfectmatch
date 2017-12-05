@@ -2,25 +2,14 @@ package com.perfectmatch.persistence.model;
 
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-
+import org.springframework.data.annotation.Id;
 import com.perfectmatch.common.model.NameableEntity;
 
 /**
  * This class represents an Sample of one specific music
  *
  */
-@Entity
-@Table(name = "SAMPLE")
+
 public class Sample implements NameableEntity {
 
 
@@ -29,22 +18,15 @@ public class Sample implements NameableEntity {
      */
     private static final long serialVersionUID = -4288830678875960178L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "SAMPLE_ID", nullable = false)
-    private Long id;
 
-    @Column(name = "NAME", nullable = false)
+    @Id
+    private String id;
+
     private String name;
 
 
-    @Column(name = "TIMESTAMP", nullable = false)
     private int timestamp;
 
-    // @formatter:off
-    @ManyToMany( /* cascade = { CascadeType.REMOVE }, */fetch = FetchType.EAGER)
-    @JoinTable(name = "SAMPLE_MATCH", joinColumns = { @JoinColumn(name = "SAMPLE_ID") }, inverseJoinColumns = {
-            @JoinColumn(name = "MATCH_ID") })
     private Set<Match> mathes;
 
     /**
@@ -68,7 +50,7 @@ public class Sample implements NameableEntity {
      * @return the id
      */
     @Override
-    public Long getId() {
+    public String getId() {
 
         return id;
     }
@@ -77,7 +59,7 @@ public class Sample implements NameableEntity {
      * @param id
      *            the id to set
      */
-    public void setId(Long id) {
+    public void setId(String id) {
 
         this.id = id;
     }
