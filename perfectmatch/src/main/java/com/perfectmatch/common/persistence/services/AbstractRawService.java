@@ -12,7 +12,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.perfectmatch.common.ServicePreconditions;
 import com.perfectmatch.common.interfaces.IOperations;
 import com.perfectmatch.common.model.NameableEntity;
 

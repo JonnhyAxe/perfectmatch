@@ -23,7 +23,7 @@ http://localhost:8080/console
 
 http://localhost:8080/sample/repo
 http://localhost:8080/music/repo
-http://localhost:8080/matches/repo
+http://localhost:8443/match/repo
 
 
 #Maven download dependencies Spurces and JavaDocs 
