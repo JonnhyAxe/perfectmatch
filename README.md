@@ -95,3 +95,47 @@ http://localhost:8080/metrics
 #MongoDB
 
 C:\dev\tools\MongoDB\Server\3.4\bin>mongod.exe --dbpath C:\dev\tools\MongoDB\data
+
+
+# Artist app 
+
+>ng new artist-app --routing
+
+
+#Generating the Artist Components
+In this app, a major module is a artist module. It will include artist-list sub component and artist-create sub component.
+
+* artist-list sub component – use for list users.
+* artist-create sub component – use for artist creating and editing form.
+
+
+#Routing
+The Routing artist for redirect to the related page base on the url.
+Modify artist-routing.module.ts in the artist module
+
+
+Then, add the ArtistModule into the app.module.ts.
+
+
+
+#Artist class 
+
+
+
+#Generating the Music Components
+
+
+
+
+#Generating the Sample Components
+
+
+
+#Generating the Match Components
+
+
+
+#Generate Services
+
+
+
