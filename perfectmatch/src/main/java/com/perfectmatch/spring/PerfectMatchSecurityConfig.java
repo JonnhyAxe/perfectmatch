@@ -10,10 +10,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-@Configuration
-@EnableWebSecurity
-@ComponentScan("com.baeldung.um.security")
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+//@Configuration
+//@EnableWebSecurity
+//@ComponentScan("com.baeldung.um.security")
+//@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class PerfectMatchSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired

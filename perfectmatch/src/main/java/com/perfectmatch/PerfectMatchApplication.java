@@ -1,9 +1,10 @@
 package com.perfectmatch;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Import;
-
 
 //import com.perfectmatch.spring.PerfectMatchPersistenceJpaConfig;
 import com.perfectmatch.spring.PerfectMatchWebConfig;
@@ -12,8 +13,10 @@ import com.perfectmatch.spring.PerfectMatchWebConfig;
 
 @SpringBootApplication
 @Import({
-//        PerfectMatchPersistenceJpaConfig.class,
-        PerfectMatchWebConfig.class
+	PerfectMatchWebConfig.class
+})
+@EnableAutoConfiguration(exclude = { 
+	SecurityAutoConfiguration.class 
 })
 public class PerfectMatchApplication {
 
