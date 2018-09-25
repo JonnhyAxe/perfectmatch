@@ -64,8 +64,7 @@
 
 <script>
 // import axios from 'axios'
-import {AXIOS} from './http-common'
-
+import {findByRepoUsingGET} from './api'
 export default {
   name: 'service',
 
@@ -79,7 +78,8 @@ export default {
   methods: {
     // Fetches posts when the component is created.
     callRestService () {
-      AXIOS.get(`http://localhost:8081/music/repo`)
+      let params = {$domain: 'http://localhost:8081'}
+      findByRepoUsingGET(params)
         .then(response => {
           // JSON responses are automatically parsed.
           this.response = response.data
