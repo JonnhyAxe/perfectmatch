@@ -80,6 +80,7 @@
         <b-btn @click="onOk" size="sm" variant="primary">Ok</b-btn>
       </div>
     </b-popover>
+  <b-btn v-b-modal.modal-center>Launch centered modal</b-btn>
   </div>
 </template>
 
@@ -96,7 +97,9 @@ export default {
       ],
       msg: 'HowTo call REST-Services:',
       response: [],
-      errors: []
+      errors: [],
+      name: '',
+      names: []
     }
   }
 }

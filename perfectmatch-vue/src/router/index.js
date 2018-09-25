@@ -9,13 +9,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'PerfectMatch',
-      component: PerfectMatch
-    },
-    {
-      path: '/hello',
       name: 'HelloWorld',
       component: HelloWorld
+    },
+    {
+      path: '/match',
+      name: 'PerfectMatch',
+      component: PerfectMatch
     }
   ]
 })
