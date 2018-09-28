@@ -35,6 +35,131 @@ export const request = (method, url, body, queryParameters, form, config) => {
  *                    Api Documentation
  ==========================================================*/
 /**
+ * links
+ * request: linksUsingGET
+ * url: linksUsingGETURL
+ * method: linksUsingGET_TYPE
+ * raw_url: linksUsingGET_RAW_URL
+ */
+export const linksUsingGET = function(parameters = {}) {
+  const domain = parameters.$domain ? parameters.$domain : getDomain()
+  const config = parameters.$config
+  let path = '/actuator'
+  let body
+  let queryParameters = {}
+  let form = {}
+  if (parameters.$queryParameters) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
+    });
+  }
+  return request('get', domain + path, body, queryParameters, form, config)
+}
+export const linksUsingGET_RAW_URL = function() {
+  return '/actuator'
+}
+export const linksUsingGET_TYPE = function() {
+  return 'get'
+}
+export const linksUsingGETURL = function(parameters = {}) {
+  let queryParameters = {}
+  const domain = parameters.$domain ? parameters.$domain : getDomain()
+  let path = '/actuator'
+  if (parameters.$queryParameters) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
+    })
+  }
+  let keys = Object.keys(queryParameters)
+  return domain + path + (keys.length > 0 ? '?' + (keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&')) : '')
+}
+/**
+ * handle
+ * request: handleUsingGET
+ * url: handleUsingGETURL
+ * method: handleUsingGET_TYPE
+ * raw_url: handleUsingGET_RAW_URL
+ * @param body - body
+ */
+export const handleUsingGET = function(parameters = {}) {
+  const domain = parameters.$domain ? parameters.$domain : getDomain()
+  const config = parameters.$config
+  let path = '/actuator/health'
+  let body
+  let queryParameters = {}
+  let form = {}
+  if (parameters['body'] !== undefined) {
+    body = parameters['body']
+  }
+  if (parameters.$queryParameters) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
+    });
+  }
+  return request('get', domain + path, body, queryParameters, form, config)
+}
+export const handleUsingGET_RAW_URL = function() {
+  return '/actuator/health'
+}
+export const handleUsingGET_TYPE = function() {
+  return 'get'
+}
+export const handleUsingGETURL = function(parameters = {}) {
+  let queryParameters = {}
+  const domain = parameters.$domain ? parameters.$domain : getDomain()
+  let path = '/actuator/health'
+  if (parameters.$queryParameters) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
+    })
+  }
+  let keys = Object.keys(queryParameters)
+  return domain + path + (keys.length > 0 ? '?' + (keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&')) : '')
+}
+/**
+ * handle
+ * request: handleUsingGET_1
+ * url: handleUsingGET_1URL
+ * method: handleUsingGET_1_TYPE
+ * raw_url: handleUsingGET_1_RAW_URL
+ * @param body - body
+ */
+export const handleUsingGET_1 = function(parameters = {}) {
+  const domain = parameters.$domain ? parameters.$domain : getDomain()
+  const config = parameters.$config
+  let path = '/actuator/info'
+  let body
+  let queryParameters = {}
+  let form = {}
+  if (parameters['body'] !== undefined) {
+    body = parameters['body']
+  }
+  if (parameters.$queryParameters) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
+    });
+  }
+  return request('get', domain + path, body, queryParameters, form, config)
+}
+export const handleUsingGET_1_RAW_URL = function() {
+  return '/actuator/info'
+}
+export const handleUsingGET_1_TYPE = function() {
+  return 'get'
+}
+export const handleUsingGET_1URL = function(parameters = {}) {
+  let queryParameters = {}
+  const domain = parameters.$domain ? parameters.$domain : getDomain()
+  let path = '/actuator/info'
+  if (parameters.$queryParameters) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
+    })
+  }
+  let keys = Object.keys(queryParameters)
+  return domain + path + (keys.length > 0 ? '?' + (keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&')) : '')
+}
+/**
  * error
  * request: errorUsingGET
  * url: errorUsingGETURL
@@ -308,16 +433,16 @@ export const errorUsingPATCHURL = function(parameters = {}) {
   return domain + path + (keys.length > 0 ? '?' + (keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&')) : '')
 }
 /**
- * findByRepo
- * request: findByRepoUsingGET
- * url: findByRepoUsingGETURL
- * method: findByRepoUsingGET_TYPE
- * raw_url: findByRepoUsingGET_RAW_URL
+ * Find all Matchs - without pagination
+ * request: findAllMatchsUsingGET
+ * url: findAllMatchsUsingGETURL
+ * method: findAllMatchsUsingGET_TYPE
+ * raw_url: findAllMatchsUsingGET_RAW_URL
  */
-export const findByRepoUsingGET = function(parameters = {}) {
+export const findAllMatchsUsingGET = function(parameters = {}) {
   const domain = parameters.$domain ? parameters.$domain : getDomain()
   const config = parameters.$config
-  let path = '/match/repo'
+  let path = '/match'
   let body
   let queryParameters = {}
   let form = {}
@@ -328,16 +453,16 @@ export const findByRepoUsingGET = function(parameters = {}) {
   }
   return request('get', domain + path, body, queryParameters, form, config)
 }
-export const findByRepoUsingGET_RAW_URL = function() {
-  return '/match/repo'
+export const findAllMatchsUsingGET_RAW_URL = function() {
+  return '/match'
 }
-export const findByRepoUsingGET_TYPE = function() {
+export const findAllMatchsUsingGET_TYPE = function() {
   return 'get'
 }
-export const findByRepoUsingGETURL = function(parameters = {}) {
+export const findAllMatchsUsingGETURL = function(parameters = {}) {
   let queryParameters = {}
   const domain = parameters.$domain ? parameters.$domain : getDomain()
-  let path = '/match/repo'
+  let path = '/match'
   if (parameters.$queryParameters) {
     Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
       queryParameters[parameterName] = parameters.$queryParameters[parameterName]
@@ -347,14 +472,53 @@ export const findByRepoUsingGETURL = function(parameters = {}) {
   return domain + path + (keys.length > 0 ? '?' + (keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&')) : '')
 }
 /**
- * create
- * request: createUsingPOST
- * url: createUsingPOSTURL
- * method: createUsingPOST_TYPE
- * raw_url: createUsingPOST_RAW_URL
+ * Find all musics - without pagination
+ * request: getAllMusicsUsingGET
+ * url: getAllMusicsUsingGETURL
+ * method: getAllMusicsUsingGET_TYPE
+ * raw_url: getAllMusicsUsingGET_RAW_URL
+ */
+export const getAllMusicsUsingGET = function(parameters = {}) {
+  const domain = parameters.$domain ? parameters.$domain : getDomain()
+  const config = parameters.$config
+  let path = '/music'
+  let body
+  let queryParameters = {}
+  let form = {}
+  if (parameters.$queryParameters) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
+    });
+  }
+  return request('get', domain + path, body, queryParameters, form, config)
+}
+export const getAllMusicsUsingGET_RAW_URL = function() {
+  return '/music'
+}
+export const getAllMusicsUsingGET_TYPE = function() {
+  return 'get'
+}
+export const getAllMusicsUsingGETURL = function(parameters = {}) {
+  let queryParameters = {}
+  const domain = parameters.$domain ? parameters.$domain : getDomain()
+  let path = '/music'
+  if (parameters.$queryParameters) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
+    })
+  }
+  let keys = Object.keys(queryParameters)
+  return domain + path + (keys.length > 0 ? '?' + (keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&')) : '')
+}
+/**
+ * createMusic
+ * request: createMusicUsingPOST
+ * url: createMusicUsingPOSTURL
+ * method: createMusicUsingPOST_TYPE
+ * raw_url: createMusicUsingPOST_RAW_URL
  * @param resource - resource
  */
-export const createUsingPOST = function(parameters = {}) {
+export const createMusicUsingPOST = function(parameters = {}) {
   const domain = parameters.$domain ? parameters.$domain : getDomain()
   const config = parameters.$config
   let path = '/music'
@@ -374,13 +538,13 @@ export const createUsingPOST = function(parameters = {}) {
   }
   return request('post', domain + path, body, queryParameters, form, config)
 }
-export const createUsingPOST_RAW_URL = function() {
+export const createMusicUsingPOST_RAW_URL = function() {
   return '/music'
 }
-export const createUsingPOST_TYPE = function() {
+export const createMusicUsingPOST_TYPE = function() {
   return 'post'
 }
-export const createUsingPOSTURL = function(parameters = {}) {
+export const createMusicUsingPOSTURL = function(parameters = {}) {
   let queryParameters = {}
   const domain = parameters.$domain ? parameters.$domain : getDomain()
   let path = '/music'
@@ -393,53 +557,14 @@ export const createUsingPOSTURL = function(parameters = {}) {
   return domain + path + (keys.length > 0 ? '?' + (keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&')) : '')
 }
 /**
- * findByRepo
- * request: findByRepoUsingGET_1
- * url: findByRepoUsingGET_1URL
- * method: findByRepoUsingGET_1_TYPE
- * raw_url: findByRepoUsingGET_1_RAW_URL
+ * Find Music by name
+ * request: getMusicByNameUsingGET
+ * url: getMusicByNameUsingGETURL
+ * method: getMusicByNameUsingGET_TYPE
+ * raw_url: getMusicByNameUsingGET_RAW_URL
+ * @param name - name
  */
-export const findByRepoUsingGET_1 = function(parameters = {}) {
-  const domain = parameters.$domain ? parameters.$domain : getDomain()
-  const config = parameters.$config
-  let path = '/music/repo'
-  let body
-  let queryParameters = {}
-  let form = {}
-  if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
-      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
-    });
-  }
-  return request('get', domain + path, body, queryParameters, form, config)
-}
-export const findByRepoUsingGET_1_RAW_URL = function() {
-  return '/music/repo'
-}
-export const findByRepoUsingGET_1_TYPE = function() {
-  return 'get'
-}
-export const findByRepoUsingGET_1URL = function(parameters = {}) {
-  let queryParameters = {}
-  const domain = parameters.$domain ? parameters.$domain : getDomain()
-  let path = '/music/repo'
-  if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
-      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
-    })
-  }
-  let keys = Object.keys(queryParameters)
-  return domain + path + (keys.length > 0 ? '?' + (keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&')) : '')
-}
-/**
- * findByName
- * request: findByNameUsingGET
- * url: findByNameUsingGETURL
- * method: findByNameUsingGET_TYPE
- * raw_url: findByNameUsingGET_RAW_URL
- * @param name - musicName
- */
-export const findByNameUsingGET = function(parameters = {}) {
+export const getMusicByNameUsingGET = function(parameters = {}) {
   const domain = parameters.$domain ? parameters.$domain : getDomain()
   const config = parameters.$config
   let path = '/music/{name}'
@@ -457,13 +582,13 @@ export const findByNameUsingGET = function(parameters = {}) {
   }
   return request('get', domain + path, body, queryParameters, form, config)
 }
-export const findByNameUsingGET_RAW_URL = function() {
+export const getMusicByNameUsingGET_RAW_URL = function() {
   return '/music/{name}'
 }
-export const findByNameUsingGET_TYPE = function() {
+export const getMusicByNameUsingGET_TYPE = function() {
   return 'get'
 }
-export const findByNameUsingGETURL = function(parameters = {}) {
+export const getMusicByNameUsingGETURL = function(parameters = {}) {
   let queryParameters = {}
   const domain = parameters.$domain ? parameters.$domain : getDomain()
   let path = '/music/{name}'
@@ -477,16 +602,16 @@ export const findByNameUsingGETURL = function(parameters = {}) {
   return domain + path + (keys.length > 0 ? '?' + (keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&')) : '')
 }
 /**
- * findByRepo
- * request: findByRepoUsingGET_2
- * url: findByRepoUsingGET_2URL
- * method: findByRepoUsingGET_2_TYPE
- * raw_url: findByRepoUsingGET_2_RAW_URL
+ * Find all Samples - without pagination
+ * request: findAllSamplesUsingGET
+ * url: findAllSamplesUsingGETURL
+ * method: findAllSamplesUsingGET_TYPE
+ * raw_url: findAllSamplesUsingGET_RAW_URL
  */
-export const findByRepoUsingGET_2 = function(parameters = {}) {
+export const findAllSamplesUsingGET = function(parameters = {}) {
   const domain = parameters.$domain ? parameters.$domain : getDomain()
   const config = parameters.$config
-  let path = '/sample/repo'
+  let path = '/sample'
   let body
   let queryParameters = {}
   let form = {}
@@ -497,16 +622,16 @@ export const findByRepoUsingGET_2 = function(parameters = {}) {
   }
   return request('get', domain + path, body, queryParameters, form, config)
 }
-export const findByRepoUsingGET_2_RAW_URL = function() {
-  return '/sample/repo'
+export const findAllSamplesUsingGET_RAW_URL = function() {
+  return '/sample'
 }
-export const findByRepoUsingGET_2_TYPE = function() {
+export const findAllSamplesUsingGET_TYPE = function() {
   return 'get'
 }
-export const findByRepoUsingGET_2URL = function(parameters = {}) {
+export const findAllSamplesUsingGETURL = function(parameters = {}) {
   let queryParameters = {}
   const domain = parameters.$domain ? parameters.$domain : getDomain()
-  let path = '/sample/repo'
+  let path = '/sample'
   if (parameters.$queryParameters) {
     Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
       queryParameters[parameterName] = parameters.$queryParameters[parameterName]

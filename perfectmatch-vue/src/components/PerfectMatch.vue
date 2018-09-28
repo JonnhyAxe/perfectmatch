@@ -85,6 +85,8 @@
 </template>
 
 <script>
+import {getAllMusicsUsingGET} from './api'
+
 export default {
   data () {
     return {
@@ -96,11 +98,23 @@ export default {
         { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
       ],
       msg: 'HowTo call REST-Services:',
-      response: [],
       errors: [],
       name: '',
-      names: []
+      names: [],
+      musics: []
     }
+  },
+  callRestService () {
+    let params = {$domain: 'http://localhost:8081'}
+    getAllMusicsUsingGET(params)
+      .then(response => {
+        // JSON responses are automatically parsed.
+        this.musics = response.data
+        console.log(response.data)
+      })
+      .catch(e => {
+        this.errors.push(e)
+      })
   }
 }
 </script>

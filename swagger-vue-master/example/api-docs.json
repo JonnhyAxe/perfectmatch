@@ -6,19 +6,27 @@
       "title":"Api Documentation",
       "termsOfService":"urn:tos",
       "contact":{  
-         "name":"Contact Email"
+
       },
       "license":{  
          "name":"Apache 2.0",
          "url":"http://www.apache.org/licenses/LICENSE-2.0"
       }
    },
-   "host":"localhost:8080",
+   "host":"localhost:8081",
    "basePath":"/",
    "tags":[  
       {  
-         "name":"match-controller",
-         "description":"Match Controller"
+         "name":"web-mvc-endpoint-handler-mapping",
+         "description":"Web Mvc Endpoint Handler Mapping"
+      },
+      {  
+         "name":"sample-match-controller",
+         "description":"Sample Match Controller"
+      },
+      {  
+         "name":"operation-handler",
+         "description":"Operation Handler"
       },
       {  
          "name":"music-controller",
@@ -34,6 +42,136 @@
       }
    ],
    "paths":{  
+      "/actuator":{  
+         "get":{  
+            "tags":[  
+               "web-mvc-endpoint-handler-mapping"
+            ],
+            "summary":"links",
+            "operationId":"linksUsingGET",
+            "consumes":[  
+               "application/json"
+            ],
+            "produces":[  
+               "application/json",
+               "application/vnd.spring-boot.actuator.v2+json"
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"OK",
+                  "schema":{  
+                     "type":"object",
+                     "additionalProperties":{  
+                        "$ref":"#/definitions/Map«string,Link»"
+                     }
+                  }
+               },
+               "401":{  
+                  "description":"Unauthorized"
+               },
+               "403":{  
+                  "description":"Forbidden"
+               },
+               "404":{  
+                  "description":"Not Found"
+               }
+            }
+         }
+      },
+      "/actuator/health":{  
+         "get":{  
+            "tags":[  
+               "operation-handler"
+            ],
+            "summary":"handle",
+            "operationId":"handleUsingGET",
+            "consumes":[  
+               "application/json"
+            ],
+            "produces":[  
+               "application/json",
+               "application/vnd.spring-boot.actuator.v2+json"
+            ],
+            "parameters":[  
+               {  
+                  "in":"body",
+                  "name":"body",
+                  "description":"body",
+                  "required":false,
+                  "schema":{  
+                     "type":"object",
+                     "additionalProperties":{  
+                        "type":"string"
+                     }
+                  }
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"OK",
+                  "schema":{  
+                     "type":"object"
+                  }
+               },
+               "401":{  
+                  "description":"Unauthorized"
+               },
+               "403":{  
+                  "description":"Forbidden"
+               },
+               "404":{  
+                  "description":"Not Found"
+               }
+            }
+         }
+      },
+      "/actuator/info":{  
+         "get":{  
+            "tags":[  
+               "operation-handler"
+            ],
+            "summary":"handle",
+            "operationId":"handleUsingGET_1",
+            "consumes":[  
+               "application/json"
+            ],
+            "produces":[  
+               "application/json",
+               "application/vnd.spring-boot.actuator.v2+json"
+            ],
+            "parameters":[  
+               {  
+                  "in":"body",
+                  "name":"body",
+                  "description":"body",
+                  "required":false,
+                  "schema":{  
+                     "type":"object",
+                     "additionalProperties":{  
+                        "type":"string"
+                     }
+                  }
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"OK",
+                  "schema":{  
+                     "type":"object"
+                  }
+               },
+               "401":{  
+                  "description":"Unauthorized"
+               },
+               "403":{  
+                  "description":"Forbidden"
+               },
+               "404":{  
+                  "description":"Not Found"
+               }
+            }
+         }
+      },
       "/error":{  
          "get":{  
             "tags":[  
@@ -273,13 +411,13 @@
             }
          }
       },
-      "/match/repo":{  
+      "/match":{  
          "get":{  
             "tags":[  
-               "match-controller"
+               "sample-match-controller"
             ],
-            "summary":"findByRepo",
-            "operationId":"findByRepoUsingGET",
+            "summary":"Find all Matchs - without pagination",
+            "operationId":"findAllMatchsUsingGET",
             "consumes":[  
                "application/json"
             ],
@@ -290,7 +428,10 @@
                "200":{  
                   "description":"OK",
                   "schema":{  
-                     "$ref":"#/definitions/Flux«Match»"
+                     "type":"array",
+                     "items":{  
+                        "$ref":"#/definitions/Match"
+                     }
                   }
                },
                "401":{  
@@ -306,12 +447,45 @@
          }
       },
       "/music":{  
+         "get":{  
+            "tags":[  
+               "music-controller"
+            ],
+            "summary":"Find all musics - without pagination",
+            "operationId":"getAllMusicsUsingGET",
+            "consumes":[  
+               "application/json"
+            ],
+            "produces":[  
+               "*/*"
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"OK",
+                  "schema":{  
+                     "type":"array",
+                     "items":{  
+                        "$ref":"#/definitions/Music"
+                     }
+                  }
+               },
+               "401":{  
+                  "description":"Unauthorized"
+               },
+               "403":{  
+                  "description":"Forbidden"
+               },
+               "404":{  
+                  "description":"Not Found"
+               }
+            }
+         },
          "post":{  
             "tags":[  
                "music-controller"
             ],
-            "summary":"create",
-            "operationId":"createUsingPOST",
+            "summary":"createMusic",
+            "operationId":"createMusicUsingPOST",
             "consumes":[  
                "application/json"
             ],
@@ -330,45 +504,10 @@
                }
             ],
             "responses":{  
-               "200":{  
-                  "description":"OK",
-                  "schema":{  
-                     "$ref":"#/definitions/Mono«ResponseEntity«object»»"
-                  }
-               },
                "201":{  
-                  "description":"Created"
-               },
-               "401":{  
-                  "description":"Unauthorized"
-               },
-               "403":{  
-                  "description":"Forbidden"
-               },
-               "404":{  
-                  "description":"Not Found"
-               }
-            }
-         }
-      },
-      "/music/repo":{  
-         "get":{  
-            "tags":[  
-               "music-controller"
-            ],
-            "summary":"findByRepo",
-            "operationId":"findByRepoUsingGET_1",
-            "consumes":[  
-               "application/json"
-            ],
-            "produces":[  
-               "*/*"
-            ],
-            "responses":{  
-               "200":{  
-                  "description":"OK",
+                  "description":"Created",
                   "schema":{  
-                     "$ref":"#/definitions/Flux«Music»"
+                     "$ref":"#/definitions/MusicResource"
                   }
                },
                "401":{  
@@ -388,8 +527,8 @@
             "tags":[  
                "music-controller"
             ],
-            "summary":"findByName",
-            "operationId":"findByNameUsingGET",
+            "summary":"Find Music by name",
+            "operationId":"getMusicByNameUsingGET",
             "consumes":[  
                "application/json"
             ],
@@ -400,7 +539,7 @@
                {  
                   "name":"name",
                   "in":"path",
-                  "description":"musicName",
+                  "description":"name",
                   "required":true,
                   "type":"string"
                }
@@ -409,7 +548,7 @@
                "200":{  
                   "description":"OK",
                   "schema":{  
-                     "$ref":"#/definitions/Mono«Music»"
+                     "$ref":"#/definitions/Music"
                   }
                },
                "401":{  
@@ -424,13 +563,13 @@
             }
          }
       },
-      "/sample/repo":{  
+      "/sample":{  
          "get":{  
             "tags":[  
                "sample-controller"
             ],
-            "summary":"findByRepo",
-            "operationId":"findByRepoUsingGET_2",
+            "summary":"Find all Samples - without pagination",
+            "operationId":"findAllSamplesUsingGET",
             "consumes":[  
                "application/json"
             ],
@@ -441,7 +580,10 @@
                "200":{  
                   "description":"OK",
                   "schema":{  
-                     "$ref":"#/definitions/Flux«Sample»"
+                     "type":"array",
+                     "items":{  
+                        "$ref":"#/definitions/Sample"
+                     }
                   }
                },
                "401":{  
@@ -458,64 +600,33 @@
       }
    },
    "definitions":{  
-      "Flux«Sample»":{  
+      "MusicResource":{  
+         "type":"object",
          "properties":{  
-            "prefetch":{  
-               "type":"integer",
-               "format":"int32"
-            }
-         }
-      },
-      "ObjectId":{  
-         "properties":{  
-            "counter":{  
-               "type":"integer",
-               "format":"int32"
+            "links":{  
+               "type":"array",
+               "items":{  
+                  "$ref":"#/definitions/Link"
+               }
             },
-            "date":{  
-               "type":"string",
-               "format":"date-time"
-            },
-            "machineIdentifier":{  
-               "type":"integer",
-               "format":"int32"
-            },
-            "processIdentifier":{  
-               "type":"integer",
-               "format":"int32"
-            },
-            "time":{  
-               "type":"integer",
-               "format":"int64"
-            },
-            "timeSecond":{  
-               "type":"integer",
-               "format":"int32"
-            },
-            "timestamp":{  
-               "type":"integer",
-               "format":"int32"
-            }
-         }
-      },
-      "Flux«Music»":{  
-         "properties":{  
-            "prefetch":{  
-               "type":"integer",
-               "format":"int32"
+            "music":{  
+               "$ref":"#/definitions/Music"
             }
          }
       },
       "Music":{  
+         "type":"object",
          "properties":{  
             "artist":{  
-               "type":"string"
+               "type":"string",
+               "description":"Name of the music artis - without format contrains"
             },
             "id":{  
-               "$ref":"#/definitions/ObjectId"
+               "type":"string"
             },
             "name":{  
-               "type":"string"
+               "type":"string",
+               "description":"Name of the music - without format contrains"
             },
             "samples":{  
                "type":"array",
@@ -526,29 +637,36 @@
             "style":{  
                "type":"string"
             }
-         }
+         },
+         "description":"All details about the music "
       },
       "Sample":{  
+         "type":"object",
          "properties":{  
             "id":{  
-               "$ref":"#/definitions/ObjectId"
+               "type":"string"
+            },
+            "mathes":{  
+               "type":"array",
+               "description":"Reference for all match used by this sample",
+               "items":{  
+                  "$ref":"#/definitions/Match"
+               }
             },
             "name":{  
-               "type":"string"
+               "type":"string",
+               "description":"Name of the sample"
             },
             "timestamp":{  
                "type":"integer",
-               "format":"int32"
+               "format":"int32",
+               "description":"Specific position of the original music"
             }
-         }
-      },
-      "ModelMap":{  
-         "type":"object",
-         "additionalProperties":{  
-            "type":"object"
-         }
+         },
+         "description":"Details of the Sample"
       },
       "ModelAndView":{  
+         "type":"object",
          "properties":{  
             "empty":{  
                "type":"boolean"
@@ -645,45 +763,43 @@
             }
          }
       },
-      "Mono«ResponseEntity«object»»":{  
-
-      },
-      "Flux«Match»":{  
-         "properties":{  
-            "prefetch":{  
-               "type":"integer",
-               "format":"int32"
-            }
+      "Map«string,Link»":{  
+         "type":"object",
+         "additionalProperties":{  
+            "$ref":"#/definitions/Link"
          }
       },
       "View":{  
+         "type":"object",
          "properties":{  
             "contentType":{  
                "type":"string"
             }
          }
       },
-      "Match":{  
+      "Link":{  
+         "type":"object",
          "properties":{  
-            "id":{  
-               "$ref":"#/definitions/ObjectId"
-            },
-            "name":{  
+            "href":{  
                "type":"string"
             },
-            "rule":{  
-               "type":"string"
-            },
-            "thatSampleFromRule":{  
-               "type":"object"
-            },
-            "thisSample":{  
-               "type":"object"
+            "templated":{  
+               "type":"boolean"
             }
          }
       },
-      "Mono«Music»":{  
-
+      "Match":{  
+         "type":"object",
+         "properties":{  
+            "id":{  
+               "type":"string"
+            },
+            "name":{  
+               "type":"string",
+               "description":"Name of the music, i.e. some sample of another music"
+            }
+         },
+         "description":"Details of the match"
       }
    }
 }
