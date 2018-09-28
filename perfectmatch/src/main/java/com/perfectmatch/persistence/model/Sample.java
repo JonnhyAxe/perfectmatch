@@ -5,11 +5,14 @@ import java.util.Set;
 import org.springframework.data.annotation.Id;
 import com.perfectmatch.common.model.NameableEntity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * This class represents an Sample of one specific music
  *
  */
-
+@ApiModel(description="Details of the Sample")
 public class Sample implements NameableEntity {
 
 
@@ -22,11 +25,13 @@ public class Sample implements NameableEntity {
     @Id
     private String id;
 
+    @ApiModelProperty(notes="Name of the sample")
     private String name;
 
-
+    @ApiModelProperty(notes="Specific position of the original music")
     private int timestamp;
 
+    @ApiModelProperty(notes="Reference for all match used by this sample")
     private Set<Match> mathes;
 
     /**

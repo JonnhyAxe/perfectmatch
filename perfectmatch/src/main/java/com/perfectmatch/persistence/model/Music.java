@@ -8,12 +8,15 @@ import org.springframework.data.annotation.Id;
 import com.perfectmatch.common.interfaces.ByArtistQueryable;
 import com.perfectmatch.common.model.NameableEntity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  *
  * This class represents an Music to sample from
  *
  */
-
+@ApiModel(description="All details about the music ")
 public class Music implements NameableEntity, ByArtistQueryable {
 
     /**
@@ -24,12 +27,16 @@ public class Music implements NameableEntity, ByArtistQueryable {
     @Id
     private String id;
 
+	@ApiModelProperty(notes="Name of the music artis - without format contrains")
     private String artist;
 
+	@ApiModelProperty(notes="Name of the music - without format contrains")
 	private String name;
 
+	@ApiModelProperty(notes="Style of the music of type Style")
     private String style;
 
+	@ApiModelProperty(notes="Samples of the music - at least one sample")
     private Set<Sample> samples;
 
 

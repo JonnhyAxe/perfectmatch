@@ -3,13 +3,17 @@ package com.perfectmatch.persistence.model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import org.springframework.data.annotation.Id;
 
 import com.perfectmatch.common.model.NameableEntity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.annotation.Id;
+
+
 /**
  *
  * Represents an match between two samples
@@ -19,6 +23,7 @@ import org.springframework.data.annotation.Id;
 @Getter
 @Setter
 @ToString
+@ApiModel(description="Details of the match")
 public class Match implements NameableEntity, Serializable {
 
     /**
@@ -28,8 +33,14 @@ public class Match implements NameableEntity, Serializable {
 
     @Id
     private String id;
+	
+    @ApiModelProperty(notes="Name of the music, i.e. some sample of another music")
     private String name;
+	
+    @ApiModelProperty(notes="Sample used to in the match, i.e. some sample of another music ")
     private String sampleFromRule;
+	
+    @ApiModelProperty(notes="Rule used in the match, default is by key and same artist ")
     private String rule;
 
 

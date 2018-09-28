@@ -19,7 +19,7 @@ public class MusicResource extends ResourceSupport {
     public MusicResource(Music music) {
         this.music = music;
         this.add(linkTo(MusicController.class).withRel("music"));
-        this.add(linkTo(methodOn(MusicController.class, music).findByName(music.getName())).withSelfRel());
+        this.add(linkTo(methodOn(MusicController.class, music).getMusicByName(music.getName())).withSelfRel());
 
     }
 
