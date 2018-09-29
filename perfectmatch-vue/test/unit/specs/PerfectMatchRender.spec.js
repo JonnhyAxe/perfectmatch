@@ -5,7 +5,6 @@ import Vue from 'vue'
 describe('PerfectMatch.vue', () => {
   it('should render empty table', () => {
     const wrapper = mount(PerfectMatch)
-    const vm = wrapper.vm
     const table = wrapper.find('b-table')
     expect(table.attributes('fields')).toEqual({'fields': 'artist,name,show_details', 'items': ''})
     expect(table.attributes().fields).toBe('artist,name,show_details')
@@ -15,12 +14,9 @@ describe('PerfectMatch.vue', () => {
   })
 
   it('should render table with content', () => {
-    const wrapper = mount(PerfectMatch)
     // const vm = wrapper.vm
 
     const cmp = Vue.extend(PerfectMatch) // Create a copy of the original component
-  
-
     const vm = new cmp({
       data: { // Replace data value with this fake data
         musics: [
@@ -67,6 +63,5 @@ describe('PerfectMatch.vue', () => {
         ]
       }
     }).$mount() // Instances and mounts the component
-
   })
 })

@@ -1,5 +1,4 @@
 import PerfectMatch from '@/components/PerfectMatch'
-import { shallowMount } from '@vue/test-utils'
 import { shallow } from 'vue-test-utils'
 
 describe('PerfectMatch.vue', () => {
