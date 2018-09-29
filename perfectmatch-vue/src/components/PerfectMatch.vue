@@ -6,9 +6,9 @@
   <b-table :items="musics" :fields="fields">
     <template slot="show_details" slot-scope="row">
       <!-- we use @click.stop here to prevent emitting of a 'row-clicked' event  -->
-      <b-button size="sm" @click.stop="row.toggleDetails" class="mr-2">
+      <button size="sm" @click.stop="row.toggleDetails" class="mr-2">
        {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
-      </b-button>
+      </button>
     </template>
     <template slot="row-details" slot-scope="row">
       <b-card>
@@ -25,7 +25,7 @@
 
           </b-table>
         </b-row>
-        <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
+        <button size="sm" @click="row.toggleDetails">Hide Details</button>
       </b-card>
     </template>
 
@@ -35,11 +35,9 @@
 
 <script>
 import {getAllMusicsUsingGET} from './api'
-import bButton from 'bootstrap-vue/es/components/button/button'
 
 export default {
   name: 'PerfectMatch',
-  components: {bButton},
   created () {
     // fetch the data when the view is created and the data is
     // already being observed
