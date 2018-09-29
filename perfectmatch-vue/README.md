@@ -47,3 +47,6 @@ https://alexjoverm.github.io/series/Unit-Testing-Vue-js-Components-with-the-Offi
 https://alexjoverm.github.io/2017/08/21/Write-the-first-Vue-js-Component-Unit-Test-in-Jest/
 https://medium.com/@rickhanlonii/understanding-jest-mocks-f0046c68e53c
 https://github.com/alexjoverm/vue-testing-series/tree/lesson-1
+
+References for End-2-End Testing
+http://nightwatchjs.org/guide/#writing-tests
