@@ -40,7 +40,19 @@ public class Music implements NameableEntity, ByArtistQueryable {
     private Set<Sample> samples;
 
 
-    /**
+	public String getStyle() {
+		return style;
+	}
+
+	public Set<Sample> getSamples() {
+		return samples;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	/**
      * @return the id
      */
     @Override

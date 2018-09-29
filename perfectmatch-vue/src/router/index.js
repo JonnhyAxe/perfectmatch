@@ -8,12 +8,12 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/hello',
       name: 'HelloWorld',
       component: HelloWorld
     },
     {
-      path: '/match',
+      path: '/',
       name: 'PerfectMatch',
       component: PerfectMatch
     }

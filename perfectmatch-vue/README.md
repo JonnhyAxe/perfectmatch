@@ -39,3 +39,9 @@ google it : vue rxjs example
 https://vueds.com/
 https://vue-burger-menu.netlify.com/
 https://www.laravel-enso.com/examples/table
+
+References for Unit Testing
+https://alexjoverm.github.io/series/Unit-Testing-Vue-js-Components-with-the-Official-Vue-Testing-Tools-and-Jest/
+https://alexjoverm.github.io/2017/08/21/Write-the-first-Vue-js-Component-Unit-Test-in-Jest/
+https://medium.com/@rickhanlonii/understanding-jest-mocks-f0046c68e53c
+https://github.com/alexjoverm/vue-testing-series/tree/lesson-1

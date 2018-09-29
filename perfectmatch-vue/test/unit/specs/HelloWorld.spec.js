@@ -7,7 +7,7 @@ describe('HelloWorld.vue', () => {
     const wrapper = mount(HelloWorld)
     console.log(wrapper.html())
     const vm = wrapper.vm
-    expect(vm.$el.querySelector('.hello button').textContent)
-      .toEqual('Hello Button')
+    expect(vm.$el.querySelector('button').textContent)
+      .toEqual('CALL Spring Boot REST backend service')
   })
 })
