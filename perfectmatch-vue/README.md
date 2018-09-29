@@ -26,6 +26,8 @@ npm test
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
+Web Editor - https://vuejs.org/v2/examples/ 
+
 Swagger Generator
 https://github.com/chenweiqun/swagger-vue
 https://api-platform.com/docs/client-generator/vuejs/
