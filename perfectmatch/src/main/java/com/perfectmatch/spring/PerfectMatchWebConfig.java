@@ -95,6 +95,9 @@ public class PerfectMatchWebConfig extends WebMvcConfigurationSupport {
 
         registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/META-INF/resources/index.html");
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/META-INF/resources/static/");
+        registry.addResourceHandler("/").addResourceLocations("classpath:/META-INF/resources/index.html");
     }
 
     @Bean
