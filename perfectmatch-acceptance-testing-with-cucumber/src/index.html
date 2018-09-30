@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Acceptance Testing with Nightwatch.js, Cucumber.js and BrowserStack</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+      .error,
+      .success {
+        display: none;
+      }
+
+      .error.is-visible,
+      .success.is-visible {
+        display: block;
+      }
+
+      .error {
+        color: red;
+      }
+
+      .success {
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-qa="hero">
+      <h1>Acceptance Testing with Nightwatch.js, Cucumber.js and BrowserStack</h1>
+      <form class="js-newsletter-form" data-qa="newsletter form">
+        <h2>Newsletter 1</h2>
+        <input class="js-newsletter-input" placeholder="Your email address" data-qa="email input">
+        <div class="error js-newsletter-error" data-qa="error message">Error</div>
+        <div class="success js-newsletter-success" data-qa="success message">Success</div>
+        <button data-qa="submit button">Submit</button>
+      </form>
+    </div>
+
+    <p>Some very long text. Lorem Ipsum.</p>
+
+    <footer data-qa="footer">
+      <form class="js-newsletter-form" data-qa="newsletter form">
+        <h2>Newsletter 2</h2>
+        <input class="js-newsletter-input" placeholder="Your email address" data-qa="email input">
+        <div class="error js-newsletter-error" data-qa="error message">Error</div>
+        <div class="success js-newsletter-success" data-qa="success message">Success</div>
+        <button data-qa="submit button">Submit</button>
+      </form>
+    </footer>
+    <script>
+      const $newsletterForms = document.querySelectorAll('.js-newsletter-form');
+
+      [].slice.call($newsletterForms).forEach(($newsletterForm) => {
+        const $newsletterInput = $newsletterForm.querySelector('.js-newsletter-input');
+        const $newsletterError = $newsletterForm.querySelector('.js-newsletter-error');
+        const $newsletterSuccess = $newsletterForm.querySelector('.js-newsletter-success');
+
+        $newsletterForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+
+          if (/\S+@\S+\.\S+/.test($newsletterInput.value)) {
+            $newsletterError.classList.remove('is-visible');
+            $newsletterSuccess.classList.add('is-visible');
+          } else {
+            $newsletterError.classList.add('is-visible');
+            $newsletterSuccess.classList.remove('is-visible');
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
