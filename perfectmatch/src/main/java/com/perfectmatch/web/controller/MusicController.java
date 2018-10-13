@@ -41,6 +41,13 @@ public class MusicController {
     @Autowired
     private MusicServiceBean musicService;
 
+    public MusicController() {
+	}
+    
+    public MusicController(MusicRepository musicJpaRepository) {
+		this.musicJpaRepository = musicJpaRepository;
+	}
+    
     @GetMapping
     @Secured({ "ROLE_USER_READ" })
 	@ApiOperation(value = "Find all musics - without pagination"
