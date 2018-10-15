@@ -9,6 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.web.reactive.function.server.RequestPredicates;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.RouterFunctions;
+import org.springframework.web.reactive.function.server.ServerResponse;
 
 import com.perfectmatch.persistence.dao.MusicRepository;
 import com.perfectmatch.persistence.model.Music;
@@ -43,7 +47,8 @@ public class MusicControllerTest {
     @Test
     public void whenAllRolesAreRetrieved_then200OK() {
 
-        this.webTestClient.get().uri(URI)
+        this.webTestClient
+        .get().uri(URI)
 		.exchange()
 		.expectStatus().isOk(); //TODO: why NO CONTENT???
 //		.expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8);
