@@ -1,8 +1,8 @@
 {
-  "name": "acceptance-testing-with-nightwatch-cucumber-and-browserstack",
+  "name": "acceptance-testing-with-cucumber",
   "version": "0.0.1",
-  "author": "Markus Oberlehner",
-  "homepage": "https://github.com/maoberlehner/acceptance-testing-with-nightwatch-cucumber-and-browserstack",
+  "author": "Joao Machado",
+  "homepage": ",
   "license": "MIT",
   "scripts": {
     "test": "nightwatch -c test/conf/default.conf.js --success first --kill-others",

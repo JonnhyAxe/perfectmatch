@@ -1,6 +1,10 @@
 import PerfectMatch from '@/components/PerfectMatch'
 import { shallowMount } from '@vue/test-utils'
 
+import bTable from 'bootstrap-vue/es/components/table/table';
+
+Vue.component('b-table', bTable);
+
 describe('PerfectMatch.vue', () => {
   let cmp
 

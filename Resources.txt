@@ -1,0 +1,17 @@
+sprinb-boot-reactive-web contains benchmark TC suite - https://thepracticaldeveloper.com/2018/01/02/full-reactive-stack-conclusions/
+
+
+https://thepracticaldeveloper.com/2017/11/04/full-reactive-stack-with-spring-webflux-and-angularjs/
+https://github.com/mechero/full-reactive-stack
+https://leanpub.com/full-reactive
+https://thepracticaldeveloper.com/full-reactive-stack/
+https://grokonez.com/reactive-programming/angular-4-spring-webflux-spring-data-reactive-mongodb-example-full-reactive-angular-4-http-client-spring-boot-restapi-server
+https://medium.com/@beladiyahardik7/spring-boot-2-mongodb-reactive-programming-b20a9a5bd6c
+https://bclozel.github.io/webflux-workshop/
+https://piotrminkowski.wordpress.com/2018/05/04/reactive-microservices-with-spring-webflux-and-spring-cloud/
+
+
+Serenity 
+https://github.com/serenity-bdd/serenity-demos
+https://github.com/serenity-bdd/serenity-rest-taxi-stands/tree/master/src/test/java/net/serenitybdd/demos/taxiranks/features
+https://github.com/Fruzenshtein/WebTesting
