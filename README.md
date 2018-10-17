@@ -11,29 +11,21 @@ Open the file in the Visual Studio and click on the `Open Preview on the side` b
 Import the project in the in eclipse (for development java purposes) and Visual studio (for Vue development).
 
 ```
-├─┬ backend     					→ backend module with Java/Spring Boot code
+├─┬ backend     				  → backend module with Java/Spring Boot code
 │ ├── src
 │ └── pom.xml     
-├─┬ vue    						→ frontend module with Vue.js code
+├─┬ vue    					  → frontend module with Vue.js code
 │ ├── src
 │ └── pom.xml 
-```
-│ └── [README.md](./perfectmatch-vue/README.md)
-```
+│ └── README.md
 ├─┬ swagger-vue-master  → Swagger Vuejs API code generator with Axios
-```
-│ └── [README.md](./swagger-vue-master/README.md)
-```
-├─┬ perfectmatch-acceptance-testing-with-cucumber  	→ Acceptance Testing with Nightwatch.js, Cucumber.js and BrowserStack
-```
-│ └── [README.md](./perfectmatch-acceptance-testing-with-cucumber/README.md)
-```
-├─┬ junit-webtests  					→ Automated web tests using Serenity, JBehave and Maven
-```
-│ └── [README.md](./junit-webtests/README.md)
-```
+│ └── README.md
+├─┬ perfectmatch-acceptance-testing-with-cucumber → Acceptance Testing with Nightwatch.js, Cucumber.js and BrowserStack
+│ └── README.md
+├─┬ junit-webtests  				  → Automated web tests using Serenity, JBehave and Maven
+│ └── README.md
 └── pom.xml     → Maven parent pom managing both modules
-```
+
 
 ## First App run
 ---
