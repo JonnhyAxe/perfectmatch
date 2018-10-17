@@ -18,7 +18,7 @@ Import the project in the in eclipse (for development java purposes) and Visual 
 │ ├── src
 │ └── pom.xml 
 │ └── README.md
-├─┬ swagger-vue-master  → Swagger Vuejs API code generator with Axios
+├─┬ swagger-vue-master 				  → Swagger Vuejs API code generator with Axios
 │ └── README.md
 ├─┬ perfectmatch-acceptance-testing-with-cucumber → Acceptance Testing with Nightwatch.js, Cucumber.js and BrowserStack
 │ └── README.md
