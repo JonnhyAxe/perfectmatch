@@ -17,13 +17,21 @@ Import the project in the in eclipse (for development java purposes) and Visual 
 ├─┬ vue    						→ frontend module with Vue.js code
 │ ├── src
 │ └── pom.xml 
+```
 │ └── [README.md](./perfectmatch-vue/README.md)
+```
 ├─┬ swagger-vue-master  → Swagger Vuejs API code generator with Axios
+```
 │ └── [README.md](./swagger-vue-master/README.md)
+```
 ├─┬ perfectmatch-acceptance-testing-with-cucumber  	→ Acceptance Testing with Nightwatch.js, Cucumber.js and BrowserStack
+```
 │ └── [README.md](./perfectmatch-acceptance-testing-with-cucumber/README.md)
+```
 ├─┬ junit-webtests  					→ Automated web tests using Serenity, JBehave and Maven
+```
 │ └── [README.md](./junit-webtests/README.md)
+```
 └── pom.xml     → Maven parent pom managing both modules
 ```
 
@@ -96,7 +104,14 @@ Alternatively execute the java class `<path_to_app>.Application` in the backend 
 Now go to http://localhost:8081/ and the app should load.
 
 All javascrip (under the folder node_mdules) and java dependencies are resolved and no additional steps is required. 
-You can refer to the file `"C:\<PATH_TO_GIT>\...\vue\README.md"`, to just resolve Javascript dependencies.
+You can refer to the file [README.md](./perfectmatch-vue/README.md), to just resolve Javascript dependencies.
+
+Additional info can be found in specific project folder:
+
+* [Vue js module](./perfectmatch-vue/README.md)
+* [Swagger Vuejs Api code generator](./swagger-vue-master/README.md)
+* [Acceptance Testing with Nightwatch.js, Cucumber.js and BrowserStack](./perfectmatch-acceptance-testing-with-cucumber/README.md)
+* [Automated web tests using Serenity, JBehave and Maven](./junit-webtests/README.md)
 
 ## Fast feedback with webpack-dev-server
 ---
