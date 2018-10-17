@@ -34,6 +34,12 @@ Web Editor - https://vuejs.org/v2/examples/
 * https://github.com/chenweiqun/swagger-vue
 * https://api-platform.com/docs/client-generator/vuejs/
 
+## Debug Jest
+* https://www.youtube.com/watch?v=OSA1t3y3Mns
+* https://www.youtube.com/watch?v=ZvIzxXv1dJU
+* https://jestjs.io/docs/pt-BR/troubleshooting
+
+
 ## Reactive Javascript 
 * https://www.vuemastery.com/courses/advanced-components/build-a-reactivity-system/
 
