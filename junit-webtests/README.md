@@ -13,7 +13,7 @@ The reports will be generated in `target/site/thucydides`.
 ## JBehave VS Cucumber
 
 In order to understand which tool is better for a given part of the layer code under testing, and considering they have support for Serenity reporting, the following link have a good comparison.
-* http://mkolisnyk.blogspot.com/2013/03/jbehave-vs-cucumber-jvm-comparison.html
+* http://mkolisnyk.blogspot.com/2013/03/jbehave-vs-cucumber-jvm-comparison.html (2013 post)
 * http://thucydides.info/docs/articles/an-introduction-to-serenity-bdd-with-cucumber.html
 
 For the backend the Serenity Spring might be handy (https://mvnrepository.com/artifact/net.serenity-bdd/serenity-spring/2.0.8), as it allow us to load the application context and run intergration test for different layers (web/REST, Service and Repository), and gerenate the reports. 
