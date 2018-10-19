@@ -20,11 +20,10 @@ For the backend the Serenity Spring might be handy (https://mvnrepository.com/ar
 
 Having a look on the dependencies, it looks like it has support for https://mvnrepository.com/artifact/net.serenity-bdd/serenity-cucumber/1.9.19. The following section has how to use. 
 
-As a PoC the both following section has the Spring
 
 It is also possible to use Serenity with Jbehave and Spring https://www.baeldung.com/serenity-spring-jbehave
 
-Serenity has the support to merge reports, therefore reports created by different projects may work if the use same versions.
+As a PoC the Serenity has the support to merge reports, therefore reports created by different projects may work if the use same versions.
 
 ## Serenity with Cucumber (without Serenity-spring)
 
