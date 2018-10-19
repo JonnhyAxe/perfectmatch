@@ -30,6 +30,7 @@ As a PoC the Serenity has the support to merge reports, therefore reports create
 * http://testerstories.com/2016/07/using-serenity-with-cucumber-part-1/
 * http://testerstories.com/2016/07/using-serenity-with-cucumber-part-2/
 * http://testerstories.com/2016/07/using-serenity-with-cucumber-part-3/
+* https://github.com/serenity-bdd/serenity-demos
 
 ## Serenity with Cucumber and Spring/Spring Boot
 * https://groups.google.com/forum/#!topic/thucydides-dev/_u62OTxEbZg
