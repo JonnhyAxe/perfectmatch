@@ -24,13 +24,13 @@ As a PoC the both following section has the Spring
 
 It is also possible to use Serenity with Jbehave and Spring https://www.baeldung.com/serenity-spring-jbehave
 
-## Serenity with (without Serenity-spring)
+## Serenity with Cucumber (without Serenity-spring)
 
 * http://testerstories.com/2016/07/using-serenity-with-cucumber-part-1/
 * http://testerstories.com/2016/07/using-serenity-with-cucumber-part-2/
 * http://testerstories.com/2016/07/using-serenity-with-cucumber-part-3/
 
-# With Spring/Spring Boot
+## Serenity with Cucumber and Spring/Spring Boot
 * https://groups.google.com/forum/#!topic/thucydides-dev/_u62OTxEbZg
 * http://blizzardcomputing.com/blog/microservices/component-testing-with-wiremock-part1
 * http://www.blizzardcomputing.com/blog/microservices/component-testing-with-wiremock-part2
