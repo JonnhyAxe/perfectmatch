@@ -24,6 +24,8 @@ As a PoC the both following section has the Spring
 
 It is also possible to use Serenity with Jbehave and Spring https://www.baeldung.com/serenity-spring-jbehave
 
+Serenity has the support to merge reports, therefore reports created by different projects may work if the use same versions.
+
 ## Serenity with Cucumber (without Serenity-spring)
 
 * http://testerstories.com/2016/07/using-serenity-with-cucumber-part-1/
