@@ -36,7 +36,7 @@ As a PoC the Serenity has the support to merge reports, therefore reports create
 * https://groups.google.com/forum/#!topic/thucydides-dev/_u62OTxEbZg
 * http://blizzardcomputing.com/blog/microservices/component-testing-with-wiremock-part1
 * http://www.blizzardcomputing.com/blog/microservices/component-testing-with-wiremock-part2
-
+* https://github.com/serenity-bdd/serenity-core
 
 ## Serenity with JBehave 
 
