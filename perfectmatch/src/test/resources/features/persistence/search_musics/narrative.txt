@@ -1,4 +1,4 @@
 Filter music
-I need to be able to filter my music by their name
+I need to be able to query music by their name
 
 These features illustrate using Cucumber step definitions with Serenity steps for the task layer.

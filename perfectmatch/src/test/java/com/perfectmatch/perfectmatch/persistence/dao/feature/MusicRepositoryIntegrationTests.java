@@ -5,31 +5,41 @@ import static org.junit.Assert.assertFalse;
 
 import java.util.List;
 
-import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.test.context.ContextConfiguration;
 
 import com.perfectmatch.perfectmatch.persistence.dao.feature.steps.MusicDaoRepositorySteps;
 import com.perfectmatch.persistence.dao.MusicRepository;
 import com.perfectmatch.persistence.model.Music;
 
 import cucumber.api.CucumberOptions;
-import net.serenitybdd.junit.spring.integration.SpringIntegrationSerenityRunner;
+import cucumber.api.java.Before;
+import net.serenitybdd.cucumber.CucumberWithSerenity;
+import net.serenitybdd.junit.spring.integration.SpringIntegrationMethodRule;
+//import net.serenitybdd.junit.spring.integration.SpringIntegrationSerenityRunner;
 import net.thucydides.core.annotations.Steps;
-
 
 /**
  * Integration Test between JPA and Persistence modules
  *
  */
-@RunWith(SpringIntegrationSerenityRunner.class)
+//@RunWith(SpringIntegrationSerenityRunner.class)
+@RunWith(CucumberWithSerenity.class)
+
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @CucumberOptions(features="src/test/resources/features/persistence/search_musics/music_repository.feature")
+@ContextConfiguration(classes = MusicRepository.class)
+@Ignore
 public class MusicRepositoryIntegrationTests {
 
+	@Rule public SpringIntegrationMethodRule springIntegration = new SpringIntegrationMethodRule();
+	 
 	@Steps
 	MusicDaoRepositorySteps musicDaoRepositorySteps;
 	
@@ -46,6 +56,7 @@ public class MusicRepositoryIntegrationTests {
 
     @Before 
     public void init() {
+    	System.out.println("Repos " + repository);
     	musicDaoRepositorySteps.setRepository(repository);
     }
     

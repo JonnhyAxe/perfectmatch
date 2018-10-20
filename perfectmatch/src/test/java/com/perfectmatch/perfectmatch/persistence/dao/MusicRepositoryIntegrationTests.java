@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import com.perfectmatch.persistence.model.Music;
  * Integration Test between JPA and Persistence modules
  *
  */
+@Ignore //this a web test that require the app running locally
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class MusicRepositoryIntegrationTests {
