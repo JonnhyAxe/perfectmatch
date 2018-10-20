@@ -1,4 +1,4 @@
-package steps;
+package net.serenitybdd.demos.todos.features.stepdefinitions;
 
 import static org.hamcrest.Matchers.is;
 
