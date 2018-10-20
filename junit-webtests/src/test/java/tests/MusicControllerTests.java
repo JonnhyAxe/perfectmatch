@@ -7,13 +7,15 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import net.serenitybdd.junit.runners.SerenityRunner;
+//@RunWith(SerenityRunner.class)
+
+import net.serenitybdd.cucumber.CucumberWithSerenity;
 import net.thucydides.core.annotations.Steps;
 import steps.MusicControllerByNameSteps;
 import steps.MusicControllerRepositorySteps;
 
+@RunWith(CucumberWithSerenity.class)
 
-@RunWith(SerenityRunner.class)
 public class MusicControllerTests {
    
 	@Steps
