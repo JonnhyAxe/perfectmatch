@@ -25,12 +25,15 @@ Import the project in the in eclipse (for development java purposes) and Visual 
 │ └── README.md
 ├─┬ perfectmatch-acceptance-testing-with-cucumber → Acceptance Testing with Nightwatch.js, Cucumber.js and BrowserStack
 │ └── README.md
-├─┬ junit-webtests  				  → Automated web tests using Serenity, JBehave and Maven
+├─┬ junit-webtests  				  → Automated web tests using Serenity, Cucumber and Maven
 │ └── README.md
 └── pom.xml     → Maven parent pom managing both modules
 
 
 ## First App run
+
+Please keep in mind that this app uses an MongoDb running as an System service. It does not not create or start any mongo instance. Therefore, all the tests and aplication context MUST be successfully executed.
+
 ---
 Copy NodeJs from `"\\\...\NodeJs`` to "C:\dev\tools\"`, as defined in the `<installDirectory>` xml element in the `"...\vue\pom.xml"`.
 
@@ -106,8 +109,8 @@ Additional info can be found in specific project folder:
 * [Vue js module](./perfectmatch-vue/README.md)
 * [Swagger Vuejs Api code generator](./swagger-vue-master/README.md)
 * [Acceptance Testing with Nightwatch.js, Cucumber.js and BrowserStack](./perfectmatch-acceptance-testing-with-cucumber/README.md)
-* [Automated web tests using Serenity, JBehave and Maven](./junit-webtests/README.md)
-
+* [Automated web tests using Serenity, Cucumbwer and Maven](./junit-webtests/README.md)
+* [Backend module](./perfectmatch/README.md)
 ## Fast feedback with webpack-dev-server
 ---
 The webpack-dev-server, which will update and build every change through all the parts of the JavaScript build-chain, is pre-configured in Vue.js out-of-the-box! So the only thing needed to get fast feedback development-cycle is to cd into `"C:\<PATH_TO_GIT>\.....\vue"` and run:

@@ -8,7 +8,7 @@ mvn clean verify
 
 The reports will be generated in `target/site/serenity`.
 
-Please keep in my that these tests requires an running server side application locally. Alternatively, Serenity Spring allow us to start the application context and DI capabilities for more flexible testing suites. 
+Please keep in my that these tests uses Serenity Spring that use application context and DI capabilities for more flexible testing suites. 
 
 ## JBehave VS Cucumber
 
