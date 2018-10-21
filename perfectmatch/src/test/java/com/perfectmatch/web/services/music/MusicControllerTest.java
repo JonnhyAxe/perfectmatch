@@ -46,11 +46,11 @@ public class MusicControllerTest {
     public void whenAllRolesAreRetrieved_then200OK() {
 
         this.webTestClient
-        .get().uri(URI)
-		.exchange()
-		.expectStatus().isOk(); //TODO: why NO CONTENT???
-//		.expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8);
-		//.expectBodyList(Music.class).isEqualTo(expectedMusic);
+	        .get().uri(URI)
+			.exchange()
+			.expectStatus().isOk(); //TODO: why NO CONTENT???
+	//		.expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8);
+			//.expectBodyList(Music.class).isEqualTo(expectedMusic);
 
 
     }

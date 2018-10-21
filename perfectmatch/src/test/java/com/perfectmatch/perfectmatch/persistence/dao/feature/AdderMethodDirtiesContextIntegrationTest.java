@@ -1,6 +1,7 @@
 package com.perfectmatch.perfectmatch.persistence.dao.feature;
 
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,8 +12,8 @@ import org.springframework.test.context.ContextConfiguration;
 import com.perfectmatch.web.services.AdderService;
 
 import net.serenitybdd.junit.runners.SerenityRunner;
-import net.thucydides.core.annotations.Steps;
 import net.serenitybdd.junit.spring.integration.SpringIntegrationMethodRule;
+import net.thucydides.core.annotations.Steps;
 
 @RunWith(SerenityRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

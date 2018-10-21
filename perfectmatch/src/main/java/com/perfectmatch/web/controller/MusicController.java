@@ -35,8 +35,8 @@ import io.swagger.annotations.ApiOperation;
 
 public class MusicController {
 
-    @Autowired
-    private MusicRepository musicJpaRepository;
+//    @Autowired
+//    private MusicRepository musicJpaRepository;
 
     @Autowired
     private MusicServiceBean musicService;
@@ -44,9 +44,9 @@ public class MusicController {
     public MusicController() {
 	}
     
-    public MusicController(MusicRepository musicJpaRepository) {
-		this.musicJpaRepository = musicJpaRepository;
-	}
+//    public MusicController(MusicRepository musicJpaRepository) {
+//		this.musicJpaRepository = musicJpaRepository;
+//	}
     
     @GetMapping
     @Secured({ "ROLE_USER_READ" })
@@ -55,7 +55,7 @@ public class MusicController {
     //https://github.com/in28minutes/spring-boot-examples/blob/master/spring-boot-2-rest-service-with-swagger/src/main/java/com/in28minutes/springboot/rest/example/student/StudentResource.java
     public List<Music> getAllMusics() throws IOException {
 
-        return musicJpaRepository.findAll();
+        return musicService.getDao().findAll();
     }
 
     @GetMapping(path = "/{name}")
@@ -77,7 +77,7 @@ public class MusicController {
         if (resource.getArtist() == null) {
             throw new MyBadRequestException("Artist must not be null");
         }
-        return new MusicResource(musicJpaRepository.save(resource));
+        return new MusicResource(musicService.getDao().save(resource));
     }
 
 }
