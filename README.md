@@ -20,6 +20,7 @@ Import the project in the in eclipse (for development java purposes) and Visual 
 │ ├── src
 │ └── pom.xml 
 │ └── README.md
+│ └── /test/unit/coverage/lcov-report/index.html 	→ javascript unit tests coverage report
 ├─┬ swagger-vue-master 				  	→ Swagger Vuejs API code generator with Axios
 │ └── README.md
 ├─┬ perfectmatch-acceptance-testing-with-cucumber → Acceptance Testing with Nightwatch.js, Cucumber.js and BrowserStack
