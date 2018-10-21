@@ -11,14 +11,16 @@ Open the file in the Visual Studio and click on the `Open Preview on the side` b
 Import the project in the in eclipse (for development java purposes) and Visual studio (for Vue development).
 
 ```
-├─┬ backend     				  → backend module with Java/Spring Boot code
+├─┬ backend     				  		→ backend module with Java/Spring Boot code
 │ ├── src
 │ └── pom.xml     
-├─┬ vue    					  → frontend module with Vue.js code
+│ └── target/site/jacoco/index.html 	→ java unit tests coverage report
+│ └── target/site/serenity/index.html 	→ java module acceptance tests coverage report
+├─┬ vue    					 			 → frontend module with Vue.js code
 │ ├── src
 │ └── pom.xml 
 │ └── README.md
-├─┬ swagger-vue-master 				  → Swagger Vuejs API code generator with Axios
+├─┬ swagger-vue-master 				  	→ Swagger Vuejs API code generator with Axios
 │ └── README.md
 ├─┬ perfectmatch-acceptance-testing-with-cucumber → Acceptance Testing with Nightwatch.js, Cucumber.js and BrowserStack
 │ └── README.md

@@ -7,6 +7,7 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+
 import bTable from 'bootstrap-vue/es/components/table/table';
 import bButton from 'bootstrap-vue/es/components/button/button';
 
