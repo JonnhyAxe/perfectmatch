@@ -1,11 +1,9 @@
-import PerfectMatch from '@/components/PerfectMatch'
+// import PerfectMatch from '@/components/PerfectMatch'
 import { mount } from '@vue/test-utils'
-
 import Vue from 'vue'
 
-import bTable from 'bootstrap-vue/es/components/table/table';
-
-Vue.component('b-table', bTable);
+// import bTable from 'bootstrap-vue/es/components/table/table';
+// Vue.component('b-table', bTable);
 
 
 describe('PerfectMatch.vue', () => {
