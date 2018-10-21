@@ -5,7 +5,6 @@
   ">
   <b-table :items="musics" :fields="fields">
     <template slot="show_details" slot-scope="row">
-      <!-- we use @click.stop here to prevent emitting of a 'row-clicked' event  -->
       <button size="sm" @click.stop="row.toggleDetails" class="mr-2">
        {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
       </button>
@@ -34,6 +33,11 @@
 </template>
 
 <script>
+import bTable from 'bootstrap-vue/es/components/table/table';
+import bButton from 'bootstrap-vue/es/components/button/button';
+
+Vue.component('b-button', bButton);
+Vue.component('b-table', bTable);
 import {getAllMusicsUsingGET} from './api'
 
 export default {

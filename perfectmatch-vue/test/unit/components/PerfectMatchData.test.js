@@ -1,5 +1,6 @@
 import PerfectMatch from '@/components/PerfectMatch'
 import { shallowMount } from '@vue/test-utils'
+import Vue from 'vue'
 
 import bTable from 'bootstrap-vue/es/components/table/table';
 
