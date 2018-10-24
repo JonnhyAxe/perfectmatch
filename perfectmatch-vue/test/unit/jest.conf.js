@@ -16,7 +16,10 @@ module.exports = {
   },
   testPathIgnorePatterns: [
     '<rootDir>/test/e2e'
-    ],
+  ],
+  transformIgnorePatterns: [
+    'node_modules/(?!(bootstrap-vue)/)' // <-- add this line to fix SyntaxError: Unexpected token import
+  ],
   snapshotSerializers: ['<rootDir>/node_modules/jest-serializer-vue'],
   setupFiles: ['<rootDir>/test/unit/setup'],
   coverageDirectory: '<rootDir>/test/unit/coverage',
@@ -25,5 +28,6 @@ module.exports = {
     '!src/main.js',
     '!src/router/index.js',
     '!**/node_modules/**'
-  ]
+  ],
+  testURL: 'http://localhost'
 }
