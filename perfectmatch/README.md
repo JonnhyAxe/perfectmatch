@@ -45,6 +45,7 @@ As a PoC the Serenity has the support to merge reports, therefore reports create
 ## EhCache 
 
 * https://blog.goyello.com/2010/07/29/quick-start-with-ehcache-annotations-for-spring/
+* https://docs.spring.io/spring/docs/3.1.0.RC1/spring-framework-reference/html/cache.html
 * https://code.google.com/archive/p/ehcache-spring-annotations/
 * https://blog.zenika.com/2014/06/03/spring-cache/
 * https://blog.goyello.com/2012/01/20/quick-start-with-methods-caching-using-spring-3-1-and-ehcache/
