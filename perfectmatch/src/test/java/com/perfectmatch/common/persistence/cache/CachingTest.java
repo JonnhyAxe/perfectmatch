@@ -89,7 +89,7 @@ public class CachingTest {
 		sw.stop(); 
 
 		sw.start("addMessage-1"); // Start a named task
-		controller.addMessage(new Message());
+		controller.addMessage(new Message("user:6", "content-6"));
 		sw.stop(); 
 		
 		sw.start("getAllMessages-3"); // Start a named task
@@ -106,22 +106,22 @@ public class CachingTest {
 		StopWatch sw = new org.springframework.util.StopWatch();
 		sw.start("getMessageById-1"); // Start a named task
 
-		controller.getMessageById(1);
+		controller.getMessageById(1001);
 		sw.stop(); 
 		
 		sw.start("getMessageById-2"); // Start a named task
-		controller.getMessageById(1);
+		controller.getMessageById(1001);
 		sw.stop(); 
 		
 		sw.start("addMessage-1"); // Start a named task
-		controller.addMessage(new Message());
+		controller.addMessage(new Message("user:7", "content-7"));
 		sw.stop();
 		
 		sw.start("getMessageById-3"); // Start a named task
-		controller.getMessageById(1);
+		controller.getMessageById(1001);
 		sw.stop(); 
 
-		verify(storageDelegate, times(1)).findMessage(1);
+		verify(storageDelegate, times(1)).findMessage(1001);
 		verify(storageDelegate, times(1)).addMessage(any(Message.class));
 		print(sw);
 	}

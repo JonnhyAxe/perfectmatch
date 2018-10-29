@@ -33,7 +33,7 @@ public class MemoryMessageStorage implements MessageStorage {
 
 	public MemoryMessageStorage() {
 		messages = Collections.synchronizedMap(new HashMap<Long, Message>());
-		newID = new AtomicLong(0);
+		newID = new AtomicLong(1000);
 	}
 	
 	@Override
