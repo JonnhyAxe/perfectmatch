@@ -49,4 +49,7 @@ As a PoC the Serenity has the support to merge reports, therefore reports create
 * https://code.google.com/archive/p/ehcache-spring-annotations/
 * https://blog.zenika.com/2014/06/03/spring-cache/
 * https://blog.goyello.com/2012/01/20/quick-start-with-methods-caching-using-spring-3-1-and-ehcache/
+* https://dzone.com/articles/spring-cache-annotation-tips-and-tricks
 
+## Couchbase
+* https://blog.couchbase.com/couchbase-spring-cache/
