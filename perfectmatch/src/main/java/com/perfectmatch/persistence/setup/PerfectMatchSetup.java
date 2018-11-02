@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +25,7 @@ import com.perfectmatch.web.services.SampleService;
  * matches
  */
 @Component
+@Profile("dev")
 public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEvent> {
 
     // Only for setup purposes
@@ -31,6 +33,7 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
 
     @Autowired
     private MusicService musicService;
+
 
     @Autowired
     private SampleService sampleService;
@@ -49,9 +52,9 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
     public void onApplicationEvent(ContextRefreshedEvent arg0) {
 
         if (!setupDone) {
-        	musicService.deleteAll();
-        	sampleService.deleteAll();
-        	sampleMatchService.deleteAll();
+        	getMusicServiceBean().deleteAll();
+        	getSampleServiceBean().deleteAll();
+        	getSampleMatchServiceBean().deleteAll();
             createMusic();
         }
 
@@ -94,24 +97,24 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
 
         samplePleaseStop.setMathes(new HashSet<Match>(Arrays.asList(newMatch)));
 
-        if (Objects.isNull(sampleMatchService.findByName(newMatch.getName()))) {
-            sampleMatchService.create(newMatch);
+        if (Objects.isNull(getSampleMatchServiceBean().findByName(newMatch.getName()))) {
+            getSampleMatchServiceBean().create(newMatch);
         }
 
-        if (Objects.isNull(sampleService.findByName(samplePleaseStop.getName()))) {
-            sampleService.create(samplePleaseStop);
+        if (Objects.isNull(getSampleServiceBean().findByName(samplePleaseStop.getName()))) {
+            getSampleServiceBean().create(samplePleaseStop);
         }
 
-        if (Objects.isNull(sampleService.findByName(sampleDef.getName()))) {
-            sampleService.create(sampleDef);
+        if (Objects.isNull(getSampleServiceBean().findByName(sampleDef.getName()))) {
+            getSampleServiceBean().create(sampleDef);
         }
 
-        if (Objects.isNull(musicService.findByName(musicPleaseStop.getName()))) {
-            musicService.create(musicPleaseStop);
+        if (Objects.isNull(getMusicServiceBean().findByName(musicPleaseStop.getName()))) {
+            getMusicServiceBean().create(musicPleaseStop);
         }
 
-        if (Objects.isNull(musicService.findByName(musicDef.getName()))) {
-            musicService.create(musicDef);
+        if (Objects.isNull(getMusicServiceBean().findByName(musicDef.getName()))) {
+            getMusicServiceBean().create(musicDef);
         }
 
         // Test insert music without samples and Match
@@ -121,8 +124,38 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
         music.setName("Please Stop (Original Mix)XPTO");
         music.setStyle(Style.TECH_HOUSE.name());
 
-        musicService.create(music);
+        getMusicServiceBean().create(music);
 
     }
+
+
+	private MusicService getMusicServiceBean() {
+		return musicService;
+	}
+
+
+//	public void setMusicServiceBean(MusicService musicServiceBean) {
+//		this.musicService = musicServiceBean;
+//	}
+
+
+	private SampleService getSampleServiceBean() {
+		return sampleService;
+	}
+
+
+//	public void setSampleServiceBean(SampleService sampleServiceBean) {
+//		this.sampleService = sampleServiceBean;
+//	}
+
+
+	private SampleMatchService getSampleMatchServiceBean() {
+		return sampleMatchService;
+	}
+
+//
+//	public void setSampleMatchServiceBean(SampleMatchService sampleMatchServiceBean) {
+//		this.sampleMatchService = sampleMatchServiceBean;
+//	}
 
 }

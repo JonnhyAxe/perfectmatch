@@ -23,7 +23,8 @@ import com.perfectmatch.persistence.model.Sample;
 @Ignore //this a web test that require the app running locally
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)public class SampleRepositoryIntegrationTests {
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+public class SampleRepositoryIntegrationTests {
 
     @Autowired
     private SampleRepository repository;

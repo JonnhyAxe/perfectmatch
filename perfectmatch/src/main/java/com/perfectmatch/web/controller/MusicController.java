@@ -17,11 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.perfectmatch.persistence.dao.MusicRepository;
 import com.perfectmatch.persistence.model.Music;
 import com.perfectmatch.web.exception.MyBadRequestException;
+import com.perfectmatch.web.services.MusicService;
 import com.perfectmatch.web.services.hatoas_impl.MusicResource;
-import com.perfectmatch.web.services.impl.MusicServiceBean;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -39,7 +38,7 @@ public class MusicController {
 //    private MusicRepository musicJpaRepository;
 
     @Autowired
-    private MusicServiceBean musicService;
+    private MusicService musicService;
 
     public MusicController() {
 	}
@@ -55,7 +54,7 @@ public class MusicController {
     //https://github.com/in28minutes/spring-boot-examples/blob/master/spring-boot-2-rest-service-with-swagger/src/main/java/com/in28minutes/springboot/rest/example/student/StudentResource.java
     public List<Music> getAllMusics() throws IOException {
 
-        return musicService.getDao().findAll();
+        return musicService.findAll();
     }
 
     @GetMapping(path = "/{name}")
@@ -77,7 +76,7 @@ public class MusicController {
         if (resource.getArtist() == null) {
             throw new MyBadRequestException("Artist must not be null");
         }
-        return new MusicResource(musicService.getDao().save(resource));
+        return new MusicResource(musicService.save(resource));
     }
 
 }

@@ -20,7 +20,7 @@ import com.perfectmatch.persistence.model.Music;
  * Integration Test between JPA and Persistence modules
  *
  */
-@Ignore //this a web test that require the app running locally
+//@Ignore //this a web test that require the app running locally
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)

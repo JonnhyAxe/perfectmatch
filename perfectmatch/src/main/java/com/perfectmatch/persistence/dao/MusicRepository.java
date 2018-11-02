@@ -10,3 +10,4 @@ import com.perfectmatch.persistence.model.Music;
 public interface MusicRepository extends MongoRepository<Music, Long>, ByNameSearchable<Music>, ByArtistSearchable<Music> {
 
 }
+ 

@@ -5,21 +5,21 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.perfectmatch.persistence.model.Music;
 import com.perfectmatch.spring.PerfectMatchPersistenceConfig;
-import com.perfectmatch.web.services.impl .MusicServiceBean;
+import com.perfectmatch.web.services.MusicService;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-@ContextConfiguration(classes = PerfectMatchPersistenceConfig.class)
+
 public class MusicDaoRepositorySteps {
 	
-   @Autowired
-   private MusicServiceBean repository;
+   private MusicService repository;
     
    private Music music;
    
@@ -44,7 +44,7 @@ public class MusicDaoRepositorySteps {
 	   assertEquals(name, music.getArtist());
    }
   
-   public void setRepository(MusicServiceBean repository) {
+   public void setRepository(MusicService repository) {
 	   this.repository = repository;
    }	
 }

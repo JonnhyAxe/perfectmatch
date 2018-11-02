@@ -1,5 +1,6 @@
 package com.perfectmatch.web.services.impl;
 
+import java.util.List;
 import java.util.Set;
 
 //import javax.transaction.Transactional;
@@ -32,6 +33,13 @@ public class MusicServiceBean extends AbstractRawService<Music> implements Music
         return dao;
     }
 
+    
+	@Override
+	public List<Music> findAll(){
+
+        return getDao().findAll();
+    }
+	
     @Override
     public Music findByName(final String name) {
 
@@ -43,5 +51,11 @@ public class MusicServiceBean extends AbstractRawService<Music> implements Music
 
         return getDao().findByArtist(name);
     }
+
+	@Override
+	public Music save(Music resource) {
+		
+		return getDao().save(resource);
+	}
 
 }

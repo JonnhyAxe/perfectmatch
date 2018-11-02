@@ -4,11 +4,16 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.perfectmatch.perfectmatch.persistence.dao.feature.steps.MusicDaoRepositorySteps;
-import com.perfectmatch.spring.PerfectMatchPersistenceConfig;
-import com.perfectmatch.web.services.impl.MusicServiceBean;
+import com.perfectmatch.web.services.MusicService;
+import com.perfectmatch.web.services.SampleMatchService;
+import com.perfectmatch.web.services.SampleService;
 
 import cucumber.api.CucumberOptions;
 import net.serenitybdd.junit.spring.integration.SpringIntegrationSerenityRunner;
@@ -18,29 +23,30 @@ import net.thucydides.core.annotations.Steps;
  *
  */
 @RunWith(SpringIntegrationSerenityRunner.class)
-//@RunWith(CucumberWithSerenity.class)
-//@EnableAutoConfiguration
-//@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@EnableAutoConfiguration
 @CucumberOptions(features="src/test/resources/features/persistence/search_musics/music_repository.feature")
-@ContextConfiguration(classes = {PerfectMatchPersistenceConfig.class, 
+@ContextConfiguration(classes = {
+
 		PerfectMatchServiceConfig.class})
-@Ignore //Unable to start web server; nested exception is org.springframework.context.ApplicationContextException: Unable to start ServletWebServerApplicationContext due to missing ServletWebServerFactory bean.
 
-public class MusicRepositoryIntegrationTests {
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@EnableMongoRepositories(basePackages = {"com.perfectmatch.persistence"})//, "com.perfectmatch.web"
+@Ignore
+public class IntegrationTestsMusicRepository {
 
-//	@Bean 
-//	  ServletWebServerFactory servletWebServerFactory(){
-//	  return new TomcatServletWebServerFactory();
-//	}
-	
 	@Steps
 	MusicDaoRepositorySteps musicDaoRepositorySteps;
 	
-//	@Rule public SpringIntegrationMethodRule springIntegration = new SpringIntegrationMethodRule();
-//	 
-	
     @Autowired
-    private MusicServiceBean repository;
+    private MusicService musicService;
+    
+    @Autowired  
+    private SampleMatchService sampleMatchService;
+    
+    @Autowired  
+    private SampleService sampleService;
+       
+
 
 //    @Test
 //    public void testAllMusics() throws Exception {
@@ -49,17 +55,13 @@ public class MusicRepositoryIntegrationTests {
 //        assertEquals(3, musics.size());
 //    }
 
-//    @Before 
-//    public void init() {
-//    	System.out.println("Repos " + repository);
-//    	musicDaoRepositorySteps.setRepository(repository);
-//    }
+
     
 //    @DirtiesContex
     @Test
     public void testMusicByName() throws Exception {
     	//Given music repository
-    	musicDaoRepositorySteps.setRepository(repository);
+    	musicDaoRepositorySteps.setRepository(musicService);
     	musicDaoRepositorySteps.searchMusics();
         
     	//When I get music with name 'Please Stop (Original Mix)'
