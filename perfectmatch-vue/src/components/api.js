@@ -1,8 +1,10 @@
 /* eslint-disable */
-import axios from 'axios'
+import axios from 'axios/index.js'
 import qs from 'qs'
 let domain = ''
-let axiosInstance = axios.create()
+let axiosInstance = axios.create({
+  baseURL: `/`
+})
 export const getDomain = () => {
   return domain
 }

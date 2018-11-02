@@ -10,8 +10,8 @@
 </template>
 
 <script>
-// import axios from 'axios'
-import {getAllMusicsUsingGET} from './api'
+import axios from 'axios'
+
 export default {
   name: 'service',
 
@@ -25,8 +25,8 @@ export default {
   methods: {
     // Fetches posts when the component is created.
     callRestService () {
-      let params = {$domain: 'http://localhost:8081'}
-      getAllMusicsUsingGET(params)
+        axios
+        .get('http://localhost:8081/')
         .then(response => {
           // JSON responses are automatically parsed.
           this.response = response.data

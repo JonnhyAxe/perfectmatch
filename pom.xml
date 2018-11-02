@@ -25,9 +25,9 @@
 		<build-plugin.coveralls.version>4.3.0</build-plugin.coveralls.version>
     </properties>
 	
-	<modules>
+	<modules>        
+		<module>perfectmatch-vue</module>
         <module>perfectmatch</module>
-        <module>perfectmatch-vue</module>
     </modules>
 
 	<build>

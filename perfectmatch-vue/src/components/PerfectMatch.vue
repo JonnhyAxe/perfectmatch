@@ -36,10 +36,11 @@
 import Vue from 'vue'
 import bTable from 'bootstrap-vue/es/components/table/table';
 import bButton from 'bootstrap-vue/es/components/button/button';
-
+import axios from 'axios'
 Vue.component('b-button', bButton);
 Vue.component('b-table', bTable);
-import {getAllMusicsUsingGET} from './api'
+Vue.use(axios)
+
 
 export default {
   name: 'PerfectMatch',
@@ -58,8 +59,8 @@ export default {
   },
   methods: {
     getMusics () {
-      let params = {$domain: 'http://localhost:8081'}
-      getAllMusicsUsingGET(params)
+      axios
+      .get('http://localhost:8081/')
         .then(response => {
           // JSON responses are automatically parsed.
           this.musics = response.data
@@ -70,8 +71,9 @@ export default {
         })
     },
     callRestService () {
-      let params = {$domain: 'http://localhost:8081'}
-      getAllMusicsUsingGET(params)
+
+      axios
+      .get('http://localhost:8081/')
         .then(response => {
           // JSON responses are automatically parsed.
           this.musics = response.data
