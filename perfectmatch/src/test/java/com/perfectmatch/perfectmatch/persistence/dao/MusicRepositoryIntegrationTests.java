@@ -24,6 +24,7 @@ import com.perfectmatch.persistence.model.Music;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@Ignore
 public class MusicRepositoryIntegrationTests {
 
     @Autowired
