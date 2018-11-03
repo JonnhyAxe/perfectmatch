@@ -1,12 +1,12 @@
 package com.perfectmatch.perfectmatch.persistence.dao.feature;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -22,18 +22,19 @@ import net.thucydides.core.annotations.Steps;
  * Integration Test between JPA and Persistence modules
  *
  */
-@RunWith(SpringIntegrationSerenityRunner.class)
+@RunWith(SpringIntegrationSerenityRunner.class) //doesn not produce report inside index
+//@RunWith(SerenityRunner.class)
+//@RunWith(CucumberWithSerenity.class) //TODO does not autowire
 @EnableAutoConfiguration
 @CucumberOptions(features="src/test/resources/features/persistence/search_musics/music_repository.feature")
-@ContextConfiguration(classes = {
-
-		PerfectMatchServiceConfig.class})
-
+@ContextConfiguration(classes = { PerfectMatchServiceConfig.class })
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @EnableMongoRepositories(basePackages = {"com.perfectmatch.persistence"})//, "com.perfectmatch.web"
-@Ignore
-public class IntegrationTestsMusicRepository {
+public class MusicRepositoryIntegrationTests {
 
+//    @Rule public SpringIntegrationMethodRule springIntegration = new SpringIntegrationMethodRule();
+
+    
 	@Steps
 	MusicDaoRepositorySteps musicDaoRepositorySteps;
 	

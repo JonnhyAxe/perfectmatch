@@ -1,4 +1,4 @@
-package com.perfectmatch.persistence.setup;
+package com.perfectmatch.spring;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -25,7 +25,7 @@ import com.perfectmatch.web.services.SampleService;
  * matches
  */
 @Component
-@Profile("dev")
+//@Profile("dev")
 public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEvent> {
 
     // Only for setup purposes

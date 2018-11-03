@@ -60,24 +60,14 @@ export default {
   methods: {
     getMusics () {
       axios
-      .get('http://localhost:8081/')
+      .get('http://localhost:8081//music')
         .then(response => {
           // JSON responses are automatically parsed.
-          this.musics = response.data
-          console.log(response.data)
-        })
-        .catch(e => {
-          this.errors.push(e)
-        })
-    },
-    callRestService () {
-
-      axios
-      .get('http://localhost:8081/')
-        .then(response => {
-          // JSON responses are automatically parsed.
-          this.musics = response.data
-          console.log(response.data)
+          if(response.data !== undefined){
+           this.musics = response.data
+          }
+          // console.log(response.status)
+          // console.log(response.data)
         })
         .catch(e => {
           this.errors.push(e)

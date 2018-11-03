@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import com.perfectmatch.perfectmatch.persistence.dao.feature.steps.MusicDaoRepositorySteps;
+import com.perfectmatch.spring.PerfectMatchSetup;
 import com.perfectmatch.spring.PerfectMatchWebConfig;
 
 @Configuration
@@ -22,5 +22,8 @@ public class PerfectMatchServiceConfig {
     	return new TomcatServletWebServerFactory();
     }
     
+    @Bean PerfectMatchSetup perfectMatchSetup() {
+    	return new PerfectMatchSetup();
+    }
     
 }
