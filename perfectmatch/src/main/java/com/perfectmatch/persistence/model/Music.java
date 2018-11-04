@@ -1,5 +1,8 @@
 package com.perfectmatch.persistence.model;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -27,8 +30,8 @@ public class Music implements NameableEntity, ByArtistQueryable {
     @Id
     private String id;
 
-	@ApiModelProperty(notes="Name of the music artis - without format contrains")
-    private String artist;
+	@ApiModelProperty(notes="Names of the music artist - without contrains")
+    private List<String> artists;
 
 	@ApiModelProperty(notes="Name of the music - without format contrains")
 	private String name;
@@ -38,7 +41,12 @@ public class Music implements NameableEntity, ByArtistQueryable {
 
 	@ApiModelProperty(notes="Samples of the music - at least one sample")
     private Set<Sample> samples;
+	
+	@ApiModelProperty(notes="Names of the remixers artist - without contrains")
+    private Set<String> remixers = new HashSet<String>();
 
+	@ApiModelProperty(notes="Record Label name")
+    private String recordLabel;
 
 	public String getStyle() {
 		return style;
@@ -61,8 +69,8 @@ public class Music implements NameableEntity, ByArtistQueryable {
         return id;
     }
 
-    public void setArtist(String artist) {
-		this.artist = artist;
+    public void setArtists(List<String> artists) {
+		this.artists = artists;
 	}
 
     
@@ -70,12 +78,19 @@ public class Music implements NameableEntity, ByArtistQueryable {
      * @return the artist
      */
     @Override
-    public String getArtist() {
-
-        return artist;
+    public List<String> getArtists() {
+        return artists;
     }
     
-
+    /**
+     * @return the artist
+     */
+    @Override
+    public String getArtist() {
+        return artists.get(0);
+    }
+    
+    
 
 	public void setName(String name) {
 		this.name = name;
@@ -95,6 +110,23 @@ public class Music implements NameableEntity, ByArtistQueryable {
 	}
 
 
+	public Set<String> getRemixers() {
+		return remixers;
+	}
+
+	public void setRemixers(Set<String> remixers) {
+		this.remixers = remixers;
+	}
+
+
+	public String getRecordLabel() {
+		return recordLabel;
+	}
+
+	public void setRecordLabel(String record) {
+		this.recordLabel = record;
+	}
+	
     /*
      * (non-Javadoc)
      *
@@ -102,9 +134,7 @@ public class Music implements NameableEntity, ByArtistQueryable {
      */
     @Override
     public int hashCode() {
-
-
-        return Objects.hash(this.artist, this.id, this.name, this.samples);
+        return Objects.hash(this.artists, this.id, this.name, this.remixers);
     }
 
     /*
@@ -127,11 +157,11 @@ public class Music implements NameableEntity, ByArtistQueryable {
         Music other = (Music) obj;
        
         return Objects.equals(id, other.id) && 
-        		Objects.equals(artist, other.artist) && 
+        		Objects.equals(artists, other.artists) && 
         		Objects.equals(name, other.name) && 
         		Objects.equals(style, other.style) &&
-        		Objects.equals(samples, other.samples);
+        		Objects.equals(remixers, other.remixers)
+        		;
     }
-
 
 }

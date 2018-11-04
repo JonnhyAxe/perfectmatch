@@ -6,14 +6,15 @@ import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import com.perfectmatch.persistence.model.Artist;
 import com.perfectmatch.persistence.model.Match;
 import com.perfectmatch.persistence.model.Music;
 import com.perfectmatch.persistence.model.Sample;
 import com.perfectmatch.persistence.model.Style;
+import com.perfectmatch.web.services.ArtistService;
 import com.perfectmatch.web.services.MusicService;
 import com.perfectmatch.web.services.SampleMatchService;
 import com.perfectmatch.web.services.SampleService;
@@ -25,15 +26,17 @@ import com.perfectmatch.web.services.SampleService;
  * matches
  */
 @Component
-//@Profile("dev")
 public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEvent> {
 
     // Only for setup purposes
     private boolean setupDone;
 
+    
+    @Autowired
+    private ArtistService artistService;
+    
     @Autowired
     private MusicService musicService;
-
 
     @Autowired
     private SampleService sampleService;
@@ -66,9 +69,15 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
      */
     private void createMusic() {
 
+    	Artist latmun = new Artist();
+    	latmun.setName("Latmun");
     	
+        if (Objects.isNull(artistService.getArtistByName(latmun.getName()))) {
+        	latmun = artistService.createArtist(latmun);
+        }
+        
         Music musicPleaseStop = new Music();
-        musicPleaseStop.setArtist("Latmun");
+        musicPleaseStop.setArtists(Arrays.asList(latmun.getName()));
         musicPleaseStop.setName("Please Stop (Original Mix)");
         musicPleaseStop.setStyle(Style.TECH_HOUSE.name());
 
@@ -79,7 +88,7 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
         musicPleaseStop.setSamples(new HashSet<Sample>(Arrays.asList(samplePleaseStop)));
 
         Music musicDef = new Music();
-        musicDef.setArtist("Latmun");
+        musicDef.setArtists(Arrays.asList(latmun.getName()));
         musicDef.setName("def (Original Mix)");
         musicDef.setStyle(Style.TECH_HOUSE.name());
 
@@ -119,8 +128,15 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
 
         // Test insert music without samples and Match
 
+    	Artist latmunXPTO = new Artist();
+    	latmun.setName("LatmunXPTO");
+    	
+        if (Objects.isNull(artistService.getArtistByName(latmunXPTO.getName()))) {
+        	latmunXPTO = artistService.createArtist(latmunXPTO);
+        }
+        
         Music music = new Music();
-        music.setArtist("LatmunXPTO");
+        music.setArtists(Arrays.asList(latmunXPTO.getName()));
         music.setName("Please Stop (Original Mix)XPTO");
         music.setStyle(Style.TECH_HOUSE.name());
 

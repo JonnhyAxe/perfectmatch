@@ -2,8 +2,6 @@ package com.perfectmatch.web.services;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import com.perfectmatch.common.interfaces.ByArtistSearchable;
 import com.perfectmatch.common.interfaces.ByNameSearchable;
 import com.perfectmatch.common.interfaces.IOperations;
@@ -19,4 +17,6 @@ public interface MusicService extends PersistenceService<Music>, IOperations<Mus
 	List<Music> findAll();
 
 	Music save(Music resource);
+	
+	Music updateMusic(Music resource);
 }

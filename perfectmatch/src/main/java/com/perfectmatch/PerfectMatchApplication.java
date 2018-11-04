@@ -12,16 +12,11 @@ import com.perfectmatch.spring.PerfectMatchWebConfig;
 
 
 @SpringBootApplication
-@Import({
-	PerfectMatchWebConfig.class
-})
-@EnableAutoConfiguration(exclude = { 
-	SecurityAutoConfiguration.class 
-})
+@Import({ PerfectMatchWebConfig.class })
+@EnableAutoConfiguration(exclude = {  SecurityAutoConfiguration.class  })
 public class PerfectMatchApplication {
 
 	public static void main(String[] args) {
-
         SpringApplication.run(PerfectMatchApplication.class, args);
 	}
 

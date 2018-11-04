@@ -1,0 +1,2 @@
+Create artist
+I need to be able to create an artist with her/his name and links to websites. 

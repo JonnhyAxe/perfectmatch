@@ -1,0 +1,4 @@
+Create default criteria match list
+	I need to be able to process default rule criterias match list
+	I need to be able to process Camelot rule criterias match list
+	I need to be able to process more than one rule and aditional criterias match list

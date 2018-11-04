@@ -8,8 +8,8 @@ import java.io.Serializable;
  */
 public interface Entity extends Serializable {
 
-    Long getId();
+    String getId();
 
-    void setId(final Long id);
+    void setId(final String id);
 
 }

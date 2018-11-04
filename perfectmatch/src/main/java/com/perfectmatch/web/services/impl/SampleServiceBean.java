@@ -16,7 +16,6 @@ import com.perfectmatch.web.services.SampleService;
  *
  */
 @Service
-//@Transactional
 public class SampleServiceBean extends AbstractRawService<Sample> implements SampleService {
 
     @Autowired

@@ -15,9 +15,7 @@ import lombok.ToString;
  * This class represents an Music to sample from
  *
  */
-@Getter
-@Setter
-@ToString
+
 @Document(collection = "Music")
 public class MongoMusic extends Music implements NameableEntity, ByArtistQueryable {
 

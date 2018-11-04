@@ -1,45 +1,232 @@
 package net.perfectmatch.webservices.features.stepdefinitions;
 
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
+import java.util.List;
+import java.util.Set;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.ibm.icu.impl.Assert;
+import com.perfectmatch.persistence.model.Music;
+
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import net.serenitybdd.rest.SerenityRest;
+
+
+import static org.junit.Assert.*;
+
 
 public class MusicControllerRepositorySteps {
 	
-   private String ISO_CODE_SEARCH = "http://localhost:8081/music";
-   private Response response;
+	private String ISO_CODE_CREATE = "http://localhost:8081/music";
+	private Response response;
 
+   	private String musicName = null; 
+   	private String style = null;
+	private List<String> remixers;
+	private String recordLabel;
    
-   @Given("^A complete fetch of music repository")
-   public void searchMusics(){
-       response = SerenityRest.when().get(ISO_CODE_SEARCH);
-       searchIsExecutedSuccesfully();
-   }
-
-   @When("^I have a successfully response")
-   public void searchIsExecutedSuccesfully(){
-       response.then().statusCode(200);
-   }
-
-   @Then("^music number '(.*)' should contains id '(.*)'")
-   public void shouldContainsIdForMusicNumber(int number, String id){
-       response.then().body("[" + number + "].id", is(id));
+	@Given("^the music name '(.*)'")
+   public void given_music_name(String musicName){
+	   this.musicName = musicName;
    }
    
-   
-   @Then("^music number '(.*)' should contains artist name '(.*)'")
-   public void shouldContainsArtistNameForMusicNumber(int number, String name ){
-       response.then().body("[" + number + "].artist", is(name));
-   }
-   
-   @Then("^music number '(.*)' should contains artist Music name '(.*)'")
-   public void shouldContainsMusicNameForMusicNumber(int number, String name){
-       response.then().body("[" + number + "].name", is(name));
+   @Given("^the music style '(.*)'")
+   public void given_music_style(String musicStyle){
+	   this.style = musicStyle;
    }
 
+
+   @When("^I create the music for '(.*)' artist")
+   public void createMusic(String artist){
+
+	   JsonArray jsonArr = new JsonArray();
+	   jsonArr.add(artist);
+	   
+	   JsonObject music = new JsonObject();
+		   music.add("artists", jsonArr);
+	   music.addProperty("name",  musicName);
+	   music.addProperty("style",  style);
+		   
+	   response =  given().
+			   			accept(ContentType.JSON).
+		           		contentType(ContentType.JSON).
+		           		body(music.toString()).
+		           when().
+		           		post(ISO_CODE_CREATE);
+
+   }
+
+   @When("^I create the music with artists")
+   public void createMusicWithArtist(List<String> artists){
+	      
+	   JsonArray jsonArr = new JsonArray();
+	   artists.stream().forEach(artist -> jsonArr.add(artist));
+	   
+	   JsonObject music = new JsonObject();
+		   music.add("artists",  jsonArr);
+	   music.addProperty("name",  musicName);
+	   music.addProperty("style",  style);
+		   
+	   response =  given().
+			   			accept(ContentType.JSON).
+		           		contentType(ContentType.JSON).
+		           		body(music.toString()).
+		           when().
+		           		post(ISO_CODE_CREATE);
+
+   }
+
+   
+   @Then("^the music is created")
+   public void musicIsCreated(){
+       response.then().statusCode(201);
+   }
+   
+   @Then("^the music is not created")
+   public void musicIsNotCreated(){
+       response.then().statusCode(500);
+   }
+   
+   @Then("^the music contains an id")
+   public void musicContainsId(){
+	   response.then().body("music.id", notNullValue());
+   }
+   
+   @Then("^the music artist name is '(.*)'")
+   public void musicShouldContainsArtistName(String artistName){
+       response.then().body("music.artist", is(artistName));
+   }
+   
+   @Then("^the music name is '(.*)'")
+   public void musicShouldContainsName(String name ){
+       response.then().body("music.name", is(name));
+   }
+   
+   @Then("^the music style is '(.*)'")
+   public void musicShouldContainsStyle(String name){
+       response.then().body("music.style", is(name));
+   }
+   @Then("^the reason is Artist Name '(.*)' not found$")
+   public void the_reason_is_Artist_name_already_created(String artist) {
+	   response.then().body("message", is("Artist Name " + artist +" not found"));
+   }
+   
+   @Given("^and the source file provider 'https://www\\.youtube\\.com/watch\\?v=(\\d+)SdvDZS(\\d+)MIQ'$")
+   public void and_the_source_file_provider_https_www_youtube_com_watch_v_SdvDZS_MIQ(int arg1, int arg2) {
+       // Write code here that turns the phrase above into concrete actions
+       throw new PendingException();
+   }
+
+   @When("^I add the audio file$")
+   public void i_add_the_audio_file() {
+       // Write code here that turns the phrase above into concrete actions
+       throw new PendingException();
+   }
+
+   @Then("^the music contains playable audio file$")
+   public void the_music_contains_playable_audio_file() {
+       // Write code here that turns the phrase above into concrete actions
+       throw new PendingException();
+   }
+
+   @Then("^the music contains audio file provider 'https://www\\.youtube\\.com/watch\\?v=(\\d+)SdvDZS(\\d+)MIQ'$")
+   public void the_music_contains_audio_file_provider_https_www_youtube_com_watch_v_SdvDZS_MIQ(int arg1, int arg2) {
+       // Write code here that turns the phrase above into concrete actions
+       throw new PendingException();
+   }
+
+   @Given("^the music with audio file with metadata$")
+   public void the_music_with_audio_file_with_metadata() {
+       // Write code here that turns the phrase above into concrete actions
+       throw new PendingException();
+   }
+
+   @When("^I search for the Key$")
+   public void i_search_for_the_Key() {
+       // Write code here that turns the phrase above into concrete actions
+       throw new PendingException();
+   }
+
+   @Then("^the result is 'G maj'$")
+   public void the_result_is_G_maj() {
+       // Write code here that turns the phrase above into concrete actions
+       throw new PendingException();
+   }
+
+   @When("^I search for Energy$")
+   public void i_search_for_Energy() {
+       // Write code here that turns the phrase above into concrete actions
+       throw new PendingException();
+   }
+
+   @Then("^the result is '(\\d+)'$")
+   public void the_result_is(int arg1) {
+       // Write code here that turns the phrase above into concrete actions
+       throw new PendingException();
+   }
+
+   @When("^I search for Tempo$")
+   public void i_search_for_Tempo() {
+       // Write code here that turns the phrase above into concrete actions
+       throw new PendingException();
+   }
+
+   @Given("^remixers names")
+   public void givenRemixersNames(List<String> remixers) {
+	   this.remixers = remixers;
+   }
+
+   @Given("^record label name '(.*)'")
+   public void i_update_with_remixers(String recordLabel) {
+	   this.recordLabel = recordLabel;
+   }
+   
+   @When("^I update music$")
+   public void i_update_music() {
+	   JsonArray jsonArr = new JsonArray();
+	   remixers.stream().forEach(remixers -> jsonArr.add(remixers));
+
+	   JsonObject music = new JsonObject();
+	   music.addProperty("name",  musicName);
+	   music.add("remixers",  jsonArr);
+   	   music.addProperty("recordLabel",  recordLabel);
+	   	   
+	   response =  given().
+	   		   			accept(ContentType.JSON).
+	   	           		contentType(ContentType.JSON).
+	   	           		body(music.toString()).
+	   	           when().
+	   	           		put(ISO_CODE_CREATE);
+   }
+   
+   
+
+
+
+
+   @Then("the music contains remixers:")
+   public void the_music_contains_remixers(List<String> remixers) {
+		JsonPath jsonPathEvaluator = response.jsonPath();
+		List<String> allRemixers  = jsonPathEvaluator.getList("music.remixers", String.class);
+		remixers.stream().forEach(remixer -> {
+			assertTrue("Remixer name " + remixer + " does not exist" ,   allRemixers.contains(remixer));
+		});
+   }
+
+   @Then("^the music contains record label '(.*)'$")
+   public void the_music_contains_record_label_Vendetta_Records(String recordLabel) {
+       response.then().body("music.recordLabel", is(recordLabel));
+
+   }
+   
 
 }

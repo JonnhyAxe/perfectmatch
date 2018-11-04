@@ -7,10 +7,10 @@ public interface IOperations<T extends Serializable> {
 
     // find - one
 
-    //T findOne(final long id);
+    T findOne(final String id);
 
     /**
-     * - contract: if nothing is found, an empty list will be returned to the
+     * if nothing is found, an empty list will be returned to the
      * calling client <br>
      */
     List<T> findAll();
@@ -26,12 +26,13 @@ public interface IOperations<T extends Serializable> {
 
     // delete
 
-    //void delete(final long id);
+    void delete(final String id);
 
     void deleteAll();
 
     // count
 
     long count();
+
 
 }

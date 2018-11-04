@@ -3,6 +3,7 @@ package com.perfectmatch.web.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 import javax.validation.Valid;
 
@@ -12,6 +13,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -34,8 +36,6 @@ import io.swagger.annotations.ApiOperation;
 
 public class MusicController {
 
-//    @Autowired
-//    private MusicRepository musicJpaRepository;
 
     @Autowired
     private MusicService musicService;
@@ -77,6 +77,15 @@ public class MusicController {
             throw new MyBadRequestException("Artist must not be null");
         }
         return new MusicResource(musicService.save(resource));
+    }
+    
+    @PutMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public MusicResource updateMusic(@RequestBody
+    @Valid
+    final Music resource) {
+
+        return new MusicResource(musicService.updateMusic(resource));
     }
 
 }

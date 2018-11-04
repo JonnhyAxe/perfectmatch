@@ -12,7 +12,7 @@ package com.perfectmatch.persistence.model;
 
 
 /**
- * <class description>
+ * Music Style 
  *
  */
 public enum Style {

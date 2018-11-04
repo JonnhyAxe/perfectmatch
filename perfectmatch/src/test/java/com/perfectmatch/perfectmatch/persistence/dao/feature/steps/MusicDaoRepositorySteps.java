@@ -16,9 +16,10 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-
+@Component
 public class MusicDaoRepositorySteps {
 	
+	@Autowired
    private MusicService repository;
     
    private Music music;

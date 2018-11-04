@@ -194,6 +194,12 @@
             <scope>compile</scope>
         </dependency>
         
+        
+        <dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		</dependency>
+        
 	</dependencies>
 	<build>
 		<plugins>
@@ -208,7 +214,6 @@
                         <id>copy Vue.js frontend content</id>
                         <phase>generate-resources</phase>
                         <goals>
-                            <goal>copy-resources</goal>
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>

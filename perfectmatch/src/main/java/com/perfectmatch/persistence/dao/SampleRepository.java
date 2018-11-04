@@ -7,6 +7,6 @@ import com.perfectmatch.common.interfaces.ByNameSearchable;
 import com.perfectmatch.persistence.model.Sample;
 
 
-public interface SampleRepository extends MongoRepository<Sample, Long>, ByNameSearchable<Sample> {
+public interface SampleRepository extends MongoRepository<Sample, String>, ByNameSearchable<Sample> {
 
 }
