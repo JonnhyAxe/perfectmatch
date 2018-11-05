@@ -6,9 +6,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.annotation.Id;
 
 import com.perfectmatch.common.interfaces.ByArtistQueryable;
+import com.perfectmatch.common.interfaces.MetaDataQueryable;
 import com.perfectmatch.common.model.NameableEntity;
 
 import io.swagger.annotations.ApiModel;
@@ -20,7 +23,7 @@ import io.swagger.annotations.ApiModelProperty;
  *
  */
 @ApiModel(description="All details about the music ")
-public class Music implements NameableEntity, ByArtistQueryable {
+public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryable {
 
     /**
      *
@@ -33,20 +36,33 @@ public class Music implements NameableEntity, ByArtistQueryable {
 	@ApiModelProperty(notes="Names of the music artist - without contrains")
     private List<String> artists;
 
+//	@NotNull TODO: add this
 	@ApiModelProperty(notes="Name of the music - without format contrains")
 	private String name;
-
+	
+//	@NotNull TODO: add this
 	@ApiModelProperty(notes="Style of the music of type Style")
     private String style;
 
 	@ApiModelProperty(notes="Samples of the music - at least one sample")
-    private Set<Sample> samples;
+    private Set<Sample> samples = new HashSet<>();
 	
 	@ApiModelProperty(notes="Names of the remixers artist - without contrains")
-    private Set<String> remixers = new HashSet<String>();
+    private Set<String> remixers = new HashSet<>();
 
 	@ApiModelProperty(notes="Record Label name")
     private String recordLabel;
+
+	@ApiModelProperty(notes="key of the music")
+	private String key;
+
+	@ApiModelProperty(notes="Energy of the music")
+	private String energy;
+
+	@ApiModelProperty(notes="Tempo of the music")
+	private String tempo;
+	
+	
 
 	public String getStyle() {
 		return style;
@@ -87,11 +103,37 @@ public class Music implements NameableEntity, ByArtistQueryable {
      */
     @Override
     public String getArtist() {
-        return artists.get(0);
+        return artists.get(0); //TODO: remove this
     }
     
-    
 
+	@Override
+	public String getKey() {
+		return this.key;
+	}
+
+	@Override
+	public String getEnergy() {
+		return this.energy;
+	}
+
+	@Override
+	public String getTempo() {
+		return this.tempo;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	public void setEnergy(String energy) {
+		this.energy = energy;
+	}
+
+	public void setTempo(String tempo) {
+		this.tempo = tempo;
+	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -163,5 +205,6 @@ public class Music implements NameableEntity, ByArtistQueryable {
         		Objects.equals(remixers, other.remixers)
         		;
     }
+
 
 }

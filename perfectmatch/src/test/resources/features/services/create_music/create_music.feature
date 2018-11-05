@@ -39,13 +39,16 @@ Feature: Create an music for a given Artist
 		
 	Scenario: Update music with audio file metadata provider
 		Given the music name 'Play it Loud'
-		Given the music with audio file with metadata
-		When I search for the Key
-		Then the result is 'G maj'
-		When I search for Energy
-		Then the result is '7'
-		When I search for Tempo
-		Then the result is '127'
+		Given the Key 'G maj'
+		Given the Tempo '127'
+		Given the Energy '7'
+		When I update music metadata
+		Then the music Key is 'G maj'
+		Then the music Tempo is '127'
+		Then the music Energy is '7'	
+		Then the music name is 'Play it Loud'
+		Then the music style is 'TECHNO'
+		Then the music artist name is 'Marco Carola'
 		
 	Scenario: Update music with remixer and record Label
 		Given the music name 'Play it Loud'

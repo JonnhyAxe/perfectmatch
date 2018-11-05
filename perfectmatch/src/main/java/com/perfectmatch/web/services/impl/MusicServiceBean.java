@@ -85,15 +85,30 @@ public class MusicServiceBean extends AbstractRawService<Music> implements Music
 		throw new MyPreconditionFailedException("Music name " + music.getName() + " does not exist");
 	}
 	
+	//TODO: find merge method as Hibernate merge
 	private void merge(Music musicToUpdate, Music music) {
+		addRemixers(musicToUpdate, music);
+		if(Objects.nonNull(music.getRecordLabel())) {
+			musicToUpdate.setRecordLabel(music.getRecordLabel());
+		}
+		if(Objects.nonNull(music.getTempo())) {
+			musicToUpdate.setTempo(music.getTempo());
+		}
+		if(Objects.nonNull(music.getKey())) {
+			musicToUpdate.setKey(music.getKey());
+		}
+		if(Objects.nonNull(music.getEnergy())) {
+			musicToUpdate.setEnergy(music.getEnergy());
+		}
+	}
+
+
+	private void addRemixers(Music musicToUpdate, Music music) {
 		Set<String> remixers = musicToUpdate.getRemixers();
 		Set<String> remixersToAdd = music.getRemixers();
 		if(!remixersToAdd.isEmpty()) {
 			remixersToAdd.stream()
 				.forEach(newRemixer -> remixers.add(newRemixer));
-		}
-		if(Objects.nonNull(music.getRecordLabel())) {
-			musicToUpdate.setRecordLabel(music.getRecordLabel());
 		}
 	}
 
@@ -118,7 +133,7 @@ public class MusicServiceBean extends AbstractRawService<Music> implements Music
 		}
 		if(Objects.isNull(music.getArtist())) {
 			throw new MyPreconditionFailedException("Artist id is mandatory to create musics");
-		}			
+		}		
 		if(Objects.isNull(artistDao.findByName(music.getArtist()))) {
 			throw new MyPreconditionFailedException("Artist Name " + music.getArtist() + " not found");
 		}
