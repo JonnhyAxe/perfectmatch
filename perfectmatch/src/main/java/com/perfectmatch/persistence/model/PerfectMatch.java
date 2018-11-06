@@ -23,7 +23,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@ApiModel(description="Details of the match")
+@ApiModel(description="Details of the match - second step process envolving music samples")
 public class PerfectMatch implements NameableEntity, Serializable {
 
     /**
@@ -34,11 +34,11 @@ public class PerfectMatch implements NameableEntity, Serializable {
     @Id
     private String id;
 	
-    @ApiModelProperty(notes="Name of the music, i.e. some sample of another music")
-    private String name;
+    @ApiModelProperty(notes="Sample of the music 1")
+    private String sampleMusicThis;
 	
-    @ApiModelProperty(notes="Sample used to in the match, i.e. some sample of another music ")
-    private String sampleFromRule;
+    @ApiModelProperty(notes="Sample of the music 2")
+    private String sampleMusicThat;
 	
     @ApiModelProperty(notes="Rule used in the match, default is by key and same artist ")
     private String rule;
@@ -51,9 +51,7 @@ public class PerfectMatch implements NameableEntity, Serializable {
      */
     @Override
     public String getName() {
-
-        // TODO Auto-generated method stub
-        return this.name;
+        return this.sampleMusicThis + "," + this.sampleMusicThat;
     }
 
 
@@ -67,14 +65,28 @@ public class PerfectMatch implements NameableEntity, Serializable {
     }
 
 
-    public void setName(String name) {
-		this.name = name;
+	public String getSampleMusicThis() {
+		return sampleMusicThis;
 	}
 
 
+	public void setSampleMusicThis(String sampleMusicThis) {
+		this.sampleMusicThis = sampleMusicThis;
+	}
+
+
+	public String getSampleMusicThat() {
+		return sampleMusicThat;
+	}
+
+
+	public void setSampleMusicThat(String sampleMusicThat) {
+		this.sampleMusicThat = sampleMusicThat;
+	}
+
 
 	public void setSampleFromRule(String sampleFromRule) {
-		this.sampleFromRule = sampleFromRule;
+		this.sampleMusicThat = sampleFromRule;
 	}
 
 
@@ -93,7 +105,7 @@ public class PerfectMatch implements NameableEntity, Serializable {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, rule, name, sampleFromRule);
+        return Objects.hash(id, rule, sampleMusicThis, sampleMusicThat);
     }
 
     /*
@@ -116,8 +128,8 @@ public class PerfectMatch implements NameableEntity, Serializable {
         PerfectMatch other = (PerfectMatch) obj;
         return id == other.id && 
         		Objects.equals(rule, other.rule) && 
-        		Objects.equals(name, other.name) && 
-        		Objects.equals(sampleFromRule, other.sampleFromRule);
+        		Objects.equals(sampleMusicThis, other.sampleMusicThis) && 
+        		Objects.equals(sampleMusicThat, other.sampleMusicThat);
 
     }
 

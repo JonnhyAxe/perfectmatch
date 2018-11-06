@@ -16,7 +16,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/match")
-public class SampleMatchController {
+public class MatchController {
 
     @Autowired
     private SampleMatchRepository matchJpaRepository;

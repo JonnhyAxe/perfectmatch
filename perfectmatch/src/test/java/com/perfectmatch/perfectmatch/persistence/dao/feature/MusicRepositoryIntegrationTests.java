@@ -12,7 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import com.perfectmatch.perfectmatch.persistence.dao.feature.steps.MusicDaoRepositorySteps;
 import com.perfectmatch.web.services.MusicService;
-import com.perfectmatch.web.services.SampleMatchService;
+import com.perfectmatch.web.services.MusicMatchService;
 import com.perfectmatch.web.services.SampleService;
 
 import cucumber.api.CucumberOptions;
@@ -45,7 +45,7 @@ public class MusicRepositoryIntegrationTests {
     private MusicService musicService;
     
     @Autowired  
-    private SampleMatchService sampleMatchService;
+    private MusicMatchService sampleMatchService;
     
     @Autowired  
     private SampleService sampleService;

@@ -11,12 +11,13 @@ import org.springframework.stereotype.Component;
 
 import com.perfectmatch.persistence.model.Artist;
 import com.perfectmatch.persistence.model.Match;
+import com.perfectmatch.persistence.model.MatchRule;
 import com.perfectmatch.persistence.model.Music;
 import com.perfectmatch.persistence.model.Sample;
 import com.perfectmatch.persistence.model.Style;
 import com.perfectmatch.web.services.ArtistService;
 import com.perfectmatch.web.services.MusicService;
-import com.perfectmatch.web.services.SampleMatchService;
+import com.perfectmatch.web.services.MusicMatchService;
 import com.perfectmatch.web.services.SampleService;
 
 /**
@@ -42,7 +43,7 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
     private SampleService sampleService;
 
     @Autowired
-    private SampleMatchService sampleMatchService;
+    private MusicMatchService musicMatchService;
 
     /*
      * (non-Javadoc)
@@ -57,7 +58,7 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
         if (!setupDone) {
         	getMusicServiceBean().deleteAll();
         	getSampleServiceBean().deleteAll();
-        	getSampleMatchServiceBean().deleteAll();
+        	getMatchServiceBean().deleteAll();
             createMusic();
         }
 
@@ -93,22 +94,22 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
         musicDef.setStyle(Style.TECH_HOUSE.name());
 
         Sample sampleDef = new Sample();
-        sampleDef.setTimestamp(3 * 60); // Start time stamp at 00:03:00m
+        sampleDef.setTimestamp(3 * 60); // timeStamp at 00:03:00m
         sampleDef.setName(musicDef.getArtist() + ":" + musicDef.getName());
 
         musicDef.setSamples(new HashSet<Sample>(Arrays.asList(sampleDef)));
 
 
         Match newMatch = new Match();
-        newMatch.setName(samplePleaseStop.getName());
-        newMatch.setSampleFromRule(sampleDef.getName());
-        newMatch.setRule("BY_SAME_ARTIST_NAME");
+        newMatch.setMusicNameThis(musicPleaseStop.getName());
+        newMatch.setMusicNameThat(musicDef.getName());
+        newMatch.setRule(MatchRule.DEFAULT.name());
 
-        samplePleaseStop.setMathes(new HashSet<Match>(Arrays.asList(newMatch)));
+//        samplePleaseStop.setMathes(new HashSet<Match>(Arrays.asList(newMatch)));
 
-        if (Objects.isNull(getSampleMatchServiceBean().findByName(newMatch.getName()))) {
-            getSampleMatchServiceBean().create(newMatch);
-        }
+//        if (!getMatchServiceBean().contains(newMatch)) { //replace with contains
+            getMatchServiceBean().create(newMatch);
+//        }
 
         if (Objects.isNull(getSampleServiceBean().findByName(samplePleaseStop.getName()))) {
             getSampleServiceBean().create(samplePleaseStop);
@@ -165,8 +166,8 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
 //	}
 
 
-	private SampleMatchService getSampleMatchServiceBean() {
-		return sampleMatchService;
+	private MusicMatchService getMatchServiceBean() {
+		return musicMatchService;
 	}
 
 //

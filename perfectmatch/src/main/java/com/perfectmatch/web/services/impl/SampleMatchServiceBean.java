@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import com.perfectmatch.common.persistence.services.AbstractRawService;
 import com.perfectmatch.persistence.dao.SampleMatchRepository;
 import com.perfectmatch.persistence.model.Match;
-import com.perfectmatch.web.services.SampleMatchService;
+import com.perfectmatch.web.services.MusicMatchService;
+
+import net.thucydides.core.annotations.NotImplementedException;
 
 /**
  *
@@ -16,7 +18,7 @@ import com.perfectmatch.web.services.SampleMatchService;
  *
  */
 @Service
-public class SampleMatchServiceBean extends AbstractRawService<Match> implements SampleMatchService {
+public class SampleMatchServiceBean extends AbstractRawService<Match> implements MusicMatchService {
 
     @Autowired
     private SampleMatchRepository dao;
@@ -33,6 +35,11 @@ public class SampleMatchServiceBean extends AbstractRawService<Match> implements
         return this.dao;
     }
 
+	@Override
+	public boolean contains(Match newMatch) {
+		throw new NotImplementedException("Match operation not valid");
+	}
+
     /*
      * (non-Javadoc)
      *
@@ -40,10 +47,10 @@ public class SampleMatchServiceBean extends AbstractRawService<Match> implements
      * com.perfectmatch.common.interfaces.ByNameSearchable#findByName(java.lang.
      * String)
      */
-    @Override
-    public Match findByName(String name) {
-
-        return this.getDao().findByName(name);
-    }
+//    @Override
+//    public Match findByName(String name) {
+//
+//        return this.getDao().findByName(name);
+//    }
 
 }

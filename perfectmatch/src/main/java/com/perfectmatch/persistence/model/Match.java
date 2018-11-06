@@ -3,6 +3,8 @@ package com.perfectmatch.persistence.model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.annotation.Id;
 
 import com.perfectmatch.common.model.NameableEntity;
@@ -23,7 +25,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@ApiModel(description="Details of the match")
+@ApiModel(description="Details of the match - first step process without envolving music samples")
 public class Match implements NameableEntity, Serializable {
 
     /**
@@ -34,26 +36,26 @@ public class Match implements NameableEntity, Serializable {
     @Id
     private String id;
 	
-    @ApiModelProperty(notes="Name of the music, i.e. some sample of another music")
-    private String name;
+//    @NotNull
+    @ApiModelProperty(notes="Name of the music 1")
+    private String musicNameThis;
 	
-    @ApiModelProperty(notes="Sample used to in the match, i.e. some sample of another music ")
-    private String sampleFromRule;
-	
+//    @NotNull
+    @ApiModelProperty(notes="Name of the music 2")
+    private String musicNameThat;
+    
+//    @NotNull	
     @ApiModelProperty(notes="Rule used in the match, default is by key and same artist ")
     private String rule;
 
-
-    /*
+	/*
      * (non-Javadoc)
      *
      * @see com.perfectmatch.common.interfaces.ByNameQueryable#getName()
      */
     @Override
     public String getName() {
-
-        // TODO Auto-generated method stub
-        return this.name;
+        return this.musicNameThis + "," + this.musicNameThat;
     }
 
 
@@ -62,28 +64,30 @@ public class Match implements NameableEntity, Serializable {
      */
     @Override
     public String getId() {
-
         return id;
     }
 
 
-    public void setName(String name) {
-		this.name = name;
+    public String getMusicNameThis() {
+		return musicNameThis;
 	}
 
 
-
-	public void setSampleFromRule(String sampleFromRule) {
-		this.sampleFromRule = sampleFromRule;
+	public String getMusicNameThat() {
+		return musicNameThat;
 	}
 
+	public void setMusicNameThis(String musicNameThis) {
+		this.musicNameThis = musicNameThis;
+	}
 
+	public void setMusicNameThat(String musicNameThat) {
+		this.musicNameThat = musicNameThat;
+	}
 
 	public void setRule(String rule) {
 		this.rule = rule;
 	}
-
-
 
 	/*
      * (non-Javadoc)
@@ -93,7 +97,7 @@ public class Match implements NameableEntity, Serializable {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, rule, name, sampleFromRule);
+        return Objects.hash(id, rule, musicNameThis, musicNameThat);
     }
 
     /*
@@ -116,8 +120,8 @@ public class Match implements NameableEntity, Serializable {
         Match other = (Match) obj;
         return id == other.id && 
         		Objects.equals(rule, other.rule) && 
-        		Objects.equals(name, other.name) && 
-        		Objects.equals(sampleFromRule, other.sampleFromRule);
+        		Objects.equals(musicNameThis, other.musicNameThis) && 
+        		Objects.equals(musicNameThat, other.musicNameThat);
 
     }
 

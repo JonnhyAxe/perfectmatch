@@ -6,6 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import com.perfectmatch.common.interfaces.ByNameSearchable;
 import com.perfectmatch.persistence.model.Match;
 
-public interface SampleMatchRepository extends MongoRepository<Match, String>, ByNameSearchable<Match> {
+public interface SampleMatchRepository extends MongoRepository<Match, String> {
 
 }

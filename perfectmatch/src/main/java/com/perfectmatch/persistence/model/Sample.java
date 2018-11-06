@@ -1,8 +1,7 @@
 package com.perfectmatch.persistence.model;
 
-import java.util.Set;
-
 import org.springframework.data.annotation.Id;
+
 import com.perfectmatch.common.model.NameableEntity;
 
 import io.swagger.annotations.ApiModel;
@@ -31,25 +30,7 @@ public class Sample implements NameableEntity {
     @ApiModelProperty(notes="Specific position of the original music")
     private int timestamp;
 
-    @ApiModelProperty(notes="Reference for all match used by this sample")
-    private Set<Match> mathes;
-
-    /**
-     * @return the mathes
-     */
-    public Set<Match> getMathes() {
-
-        return mathes;
-    }
-
-    /**
-     * @param mathes
-     *            the mathes to set
-     */
-    public void setMathes(Set<Match> mathes) {
-
-        this.mathes = mathes;
-    }
+   
 
     /**
      * @return the id
@@ -117,7 +98,6 @@ public class Sample implements NameableEntity {
         final int prime = 31;
         int result = 1;
         result = prime * result + (id == null ? 0 : id.hashCode());
-        result = prime * result + (mathes == null ? 0 : mathes.hashCode());
         result = prime * result + (name == null ? 0 : name.hashCode());
         result = prime * result + timestamp;
         return result;
@@ -147,14 +127,6 @@ public class Sample implements NameableEntity {
             }
         }
         else if (!id.equals(other.id)) {
-            return false;
-        }
-        if (mathes == null) {
-            if (other.mathes != null) {
-                return false;
-            }
-        }
-        else if (!mathes.equals(other.mathes)) {
             return false;
         }
         if (name == null) {
