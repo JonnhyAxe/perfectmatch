@@ -11,10 +11,16 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import bTable from 'bootstrap-vue/es/components/table/table';
 import bButton from 'bootstrap-vue/es/components/button/button';
 
+import VueRx from 'vue-rx'
+ 
+Vue.use(VueRx)
+
 Vue.component('b-button', bButton);
 Vue.component('b-table', bTable);
 
-
+Vue.use(VueRx, {
+  Observable
+})
 
 Vue.config.productionTip = false
 

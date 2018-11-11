@@ -58,9 +58,9 @@ export default {
     }
   },
   methods: {
-    getMusics () {
+    getMusics () { //this points to rxPerfectmatch backend project
       axios
-      .get('http://localhost:8081/music')
+      .get('http://localhost:8081/music/repo') 
         .then(response => {
           // JSON responses are automatically parsed.
           if(response.data !== undefined){

@@ -16,6 +16,11 @@ export default new Router({
       path: '/',
       name: 'PerfectMatch',
       component: PerfectMatch
+    },
+    {
+      path: '/rx',
+      name: 'rxPerfectMatch',
+      component: PerfectMatch
     }
   ]
 })
