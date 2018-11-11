@@ -1,5 +1,7 @@
 package com.perfectmatch.web.services.impl;
 
+import javax.validation.Valid;
+
 //import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +47,9 @@ public class SampleServiceBean extends AbstractRawService<Sample> implements Sam
 
         return this.sampleRepository.findByName(name);
     }
+
+	public Sample save(@Valid Sample resource) {
+		return this.sampleRepository.save(resource);
+	}
 
 }

@@ -11,4 +11,5 @@ import com.perfectmatch.persistence.model.Sample;
  */
 public interface SampleService extends PersistenceService<Sample>, IOperations<Sample>, ByNameSearchable<Sample> {
 
+
 }

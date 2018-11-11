@@ -5,7 +5,6 @@
 
 	<artifactId>backend</artifactId>
 	<packaging>jar</packaging>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>perfectmatch-backend</name>
 	<description>Core Project for Managing matching samples of audio</description>
 
@@ -26,6 +25,9 @@
         <serenity.cucumber.version>1.9.12</serenity.cucumber.version>
         <serenity.maven.version>1.1.34</serenity.maven.version>
         <tags></tags>
+        
+<!--          <querydsl.version>4.1.4</querydsl.version> -->
+         
 	</properties>
 
 	<dependencies>
@@ -38,6 +40,18 @@
 		    <artifactId>de.flapdoodle.embed.mongo</artifactId>
 		    <scope>test</scope>
 		</dependency>
+		
+		 <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-mongodb</artifactId>
+<!--             <version>${querydsl.version}</version> -->
+        </dependency>
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-apt</artifactId>
+<!--             <version>${querydsl.version}</version> -->
+        </dependency>
+        
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -94,7 +108,6 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-
         </dependency>
         
         <dependency>
@@ -199,6 +212,7 @@
 		    <groupId>com.google.code.gson</groupId>
 		    <artifactId>gson</artifactId>
 		</dependency>
+        
         
 	</dependencies>
 	<build>

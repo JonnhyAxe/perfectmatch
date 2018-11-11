@@ -24,7 +24,7 @@ public class Sample implements NameableEntity {
     @Id
     private String id;
 
-    @ApiModelProperty(notes="Name of the sample")
+    @ApiModelProperty(notes="Name of the music")
     private String name;
 
     @ApiModelProperty(notes="Specific position of the original music")
@@ -74,7 +74,7 @@ public class Sample implements NameableEntity {
     @Override
     public String getName() {
 
-        return name;
+        return name + "_" + timestamp + "_" + id;
     }
 
     /**

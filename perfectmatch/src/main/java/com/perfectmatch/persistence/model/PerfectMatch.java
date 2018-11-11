@@ -34,16 +34,9 @@ public class PerfectMatch implements NameableEntity, Serializable {
     @Id
     private String id;
 	
-    @ApiModelProperty(notes="Sample of the music 1")
-    private String sampleMusicThis;
+    @ApiModelProperty(notes="Sample Match id ")
+    private String name;
 	
-    @ApiModelProperty(notes="Sample of the music 2")
-    private String sampleMusicThat;
-	
-    @ApiModelProperty(notes="Rule used in the match, default is by key and same artist ")
-    private String rule;
-
-
     /*
      * (non-Javadoc)
      *
@@ -51,7 +44,11 @@ public class PerfectMatch implements NameableEntity, Serializable {
      */
     @Override
     public String getName() {
-        return this.sampleMusicThis + "," + this.sampleMusicThat;
+        return this.name;
+    }
+    
+    public void setName(String name) {
+       this.name = name;
     }
 
 
@@ -60,42 +57,8 @@ public class PerfectMatch implements NameableEntity, Serializable {
      */
     @Override
     public String getId() {
-
         return id;
     }
-
-
-	public String getSampleMusicThis() {
-		return sampleMusicThis;
-	}
-
-
-	public void setSampleMusicThis(String sampleMusicThis) {
-		this.sampleMusicThis = sampleMusicThis;
-	}
-
-
-	public String getSampleMusicThat() {
-		return sampleMusicThat;
-	}
-
-
-	public void setSampleMusicThat(String sampleMusicThat) {
-		this.sampleMusicThat = sampleMusicThat;
-	}
-
-
-	public void setSampleFromRule(String sampleFromRule) {
-		this.sampleMusicThat = sampleFromRule;
-	}
-
-
-
-	public void setRule(String rule) {
-		this.rule = rule;
-	}
-
-
 
 	/*
      * (non-Javadoc)
@@ -105,7 +68,7 @@ public class PerfectMatch implements NameableEntity, Serializable {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, rule, sampleMusicThis, sampleMusicThat);
+        return Objects.hash(id, name);
     }
 
     /*
@@ -127,9 +90,7 @@ public class PerfectMatch implements NameableEntity, Serializable {
         }
         PerfectMatch other = (PerfectMatch) obj;
         return id == other.id && 
-        		Objects.equals(rule, other.rule) && 
-        		Objects.equals(sampleMusicThis, other.sampleMusicThis) && 
-        		Objects.equals(sampleMusicThat, other.sampleMusicThat);
+        		Objects.equals(name, other.name);
 
     }
 

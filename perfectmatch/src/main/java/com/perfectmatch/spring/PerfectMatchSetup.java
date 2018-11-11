@@ -13,11 +13,13 @@ import com.perfectmatch.persistence.model.Artist;
 import com.perfectmatch.persistence.model.Match;
 import com.perfectmatch.persistence.model.MatchRule;
 import com.perfectmatch.persistence.model.Music;
+import com.perfectmatch.persistence.model.PerfectMatch;
 import com.perfectmatch.persistence.model.Sample;
 import com.perfectmatch.persistence.model.Style;
 import com.perfectmatch.web.services.ArtistService;
 import com.perfectmatch.web.services.MusicService;
-import com.perfectmatch.web.services.MusicMatchService;
+import com.perfectmatch.web.services.PerfectMatchService;
+import com.perfectmatch.web.services.SampleMatchService;
 import com.perfectmatch.web.services.SampleService;
 
 /**
@@ -43,7 +45,10 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
     private SampleService sampleService;
 
     @Autowired
-    private MusicMatchService musicMatchService;
+    private SampleMatchService sampleMatchService;
+    
+    @Autowired
+    private PerfectMatchService perfectMatchService;
 
     /*
      * (non-Javadoc)
@@ -58,7 +63,7 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
         if (!setupDone) {
         	getMusicServiceBean().deleteAll();
         	getSampleServiceBean().deleteAll();
-        	getMatchServiceBean().deleteAll();
+        	getSampleMatchServiceBean().deleteAll();
             createMusic();
         }
 
@@ -107,9 +112,9 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
 
 //        samplePleaseStop.setMathes(new HashSet<Match>(Arrays.asList(newMatch)));
 
-//        if (!getMatchServiceBean().contains(newMatch)) { //replace with contains
-            getMatchServiceBean().create(newMatch);
-//        }
+        if (!getSampleMatchServiceBean().contains(newMatch)) { 
+        	getSampleMatchServiceBean().create(newMatch);
+        }
 
         if (Objects.isNull(getSampleServiceBean().findByName(samplePleaseStop.getName()))) {
             getSampleServiceBean().create(samplePleaseStop);
@@ -126,6 +131,15 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
         if (Objects.isNull(getMusicServiceBean().findByName(musicDef.getName()))) {
             getMusicServiceBean().create(musicDef);
         }
+        
+        PerfectMatch newPerfectMatch = new PerfectMatch();
+        newPerfectMatch.setName(newMatch.getName());
+      
+        if(Objects.isNull(getPerfectMatchServiceBean().findPerfectMatchByName(newPerfectMatch.getName()))) {
+        	 getPerfectMatchServiceBean().create(newPerfectMatch);
+        }
+        
+       
 
         // Test insert music without samples and Match
 
@@ -141,6 +155,7 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
         music.setName("Please Stop (Original Mix)XPTO");
         music.setStyle(Style.TECH_HOUSE.name());
 
+        
         getMusicServiceBean().create(music);
 
     }
@@ -166,8 +181,12 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
 //	}
 
 
-	private MusicMatchService getMatchServiceBean() {
-		return musicMatchService;
+	private PerfectMatchService getPerfectMatchServiceBean() {
+		return perfectMatchService;
+	}
+	
+	private SampleMatchService getSampleMatchServiceBean() {
+		return sampleMatchService;
 	}
 
 //

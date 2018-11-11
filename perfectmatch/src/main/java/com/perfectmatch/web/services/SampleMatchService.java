@@ -9,10 +9,10 @@ import com.perfectmatch.persistence.model.Match;
  * Controllers
  *
  */
-public interface MusicMatchService extends PersistenceService<Match>, IOperations<Match> {
+public interface SampleMatchService extends PersistenceService<Match>, IOperations<Match> {
 
 	boolean contains(Match newMatch);
 
-    //
+    Match findMatchByName(String name);
 
 }

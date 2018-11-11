@@ -39,4 +39,11 @@ public class MatchController {
     	return match1 != null ? match1 : match2;
     }
 
+    @GetMapping(path = "/{music}")
+	@ApiOperation(value = "Find all Matchs by music name - without pagination")
+    public List<Match> findAllMatchByMusic(@PathVariable("music") String music) throws IOException {
+
+    	return  matchJpaRepository.findAllBymusicName(music);
+    }
+    
 }

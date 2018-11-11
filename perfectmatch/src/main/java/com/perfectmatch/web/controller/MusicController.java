@@ -3,7 +3,6 @@ package com.perfectmatch.web.controller;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
 import javax.validation.Valid;
 
@@ -59,19 +58,13 @@ public class MusicController {
     @GetMapping(path = "/{name}")
 	@ApiOperation(value = "Find Music by name"
 		    /** notes = "Also returns a link to retrieve all students with rel - all-students" **/)
-    public Music getMusicByName(@PathVariable("name")
-    @Valid
-    final String musicName) {
-
+    public Music getMusicByName(@PathVariable("name")  @Valid final String musicName) {
         return musicService.findByName(musicName);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MusicResource createMusic(@RequestBody
-    @Valid
-    final Music resource) {
-
+    public MusicResource createMusic(@RequestBody @Valid final Music resource) {
         if (resource.getArtist() == null) {
             throw new MyBadRequestException("Artist must not be null");
         }
@@ -80,10 +73,7 @@ public class MusicController {
     
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MusicResource updateMusic(@RequestBody
-    @Valid
-    final Music resource) {
-
+    public MusicResource updateMusic(@RequestBody @Valid final Music resource) {
         return new MusicResource(musicService.updateMusic(resource));
     }
 

@@ -26,7 +26,6 @@ public class ArtistControllerRepositorySteps {
    private Response preconditionResponse;
    
    private String artistName = null;
-   private String websites = null;
    
    @Given("^the artist name '(.*)'$")
    public void artistNameAndWebsiteInfo(String artistName){

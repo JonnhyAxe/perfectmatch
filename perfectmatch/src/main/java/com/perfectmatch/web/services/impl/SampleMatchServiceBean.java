@@ -1,5 +1,7 @@
 package com.perfectmatch.web.services.impl;
 
+import java.util.Objects;
+
 //import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +10,7 @@ import org.springframework.stereotype.Service;
 import com.perfectmatch.common.persistence.services.AbstractRawService;
 import com.perfectmatch.persistence.dao.SampleMatchRepository;
 import com.perfectmatch.persistence.model.Match;
-import com.perfectmatch.web.services.MusicMatchService;
-
-import net.thucydides.core.annotations.NotImplementedException;
+import com.perfectmatch.web.services.SampleMatchService;
 
 /**
  *
@@ -18,7 +18,7 @@ import net.thucydides.core.annotations.NotImplementedException;
  *
  */
 @Service
-public class SampleMatchServiceBean extends AbstractRawService<Match> implements MusicMatchService {
+public class SampleMatchServiceBean extends AbstractRawService<Match> implements SampleMatchService {
 
     @Autowired
     private SampleMatchRepository dao;
@@ -37,7 +37,7 @@ public class SampleMatchServiceBean extends AbstractRawService<Match> implements
 
 	@Override
 	public boolean contains(Match newMatch) {
-		throw new NotImplementedException("Match operation not valid");
+		return Objects.nonNull(dao.findAllBymusicName(newMatch.getMusicNameThis())) || Objects.nonNull(dao.findAllBymusicName(newMatch.getMusicNameThat()));
 	}
 
     /*
@@ -47,10 +47,10 @@ public class SampleMatchServiceBean extends AbstractRawService<Match> implements
      * com.perfectmatch.common.interfaces.ByNameSearchable#findByName(java.lang.
      * String)
      */
-//    @Override
-//    public Match findByName(String name) {
-//
-//        return this.getDao().findByName(name);
-//    }
+    @Override
+    public Match findMatchByName(String name) {
+    	String [] musics = name.split(",");
+        return this.dao.findMatchByMusics(musics[0], musics[1]);
+    }
 
 }
