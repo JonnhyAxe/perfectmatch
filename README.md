@@ -1,6 +1,9 @@
 # perfectmatch
 
 
+[![Build Status](https://travis-ci.org/JonnhyAxe/perfectmatch.svg?branch=master)](https://travis-ci.org/dwyl/learn-travis)
+
+
 
 This file requires a Markdown plugin or Visual Studio Code (or any Vue compatible IDE).
 Open the file in the Visual Studio and click on the `Open Preview on the side` button, located in the top right side of the file. 
