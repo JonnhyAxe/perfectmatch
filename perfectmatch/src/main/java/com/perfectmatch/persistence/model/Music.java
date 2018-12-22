@@ -1,5 +1,6 @@
 package com.perfectmatch.persistence.model;
 
+import java.net.URL;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -59,7 +60,8 @@ public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryab
 	@ApiModelProperty(notes="Tempo of the music")
 	private String tempo;
 	
-	
+	@ApiModelProperty(notes="Location of the file in the storage")
+	private URL location;
 
 	public String getStyle() {
 		return style;
@@ -193,7 +195,7 @@ public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryab
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Music other = (Music) obj;
+        MusicTesCase other = (MusicTesCase) obj;
        
         return Objects.equals(id, other.id) && 
         		Objects.equals(artists, other.artists) && 
@@ -202,6 +204,14 @@ public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryab
         		Objects.equals(remixers, other.remixers)
         		;
     }
+
+	public URL getLocation() {
+		return location;
+	}
+
+	public void setLocation(URL location) {
+		this.location = location;
+	}
 
 
 }
