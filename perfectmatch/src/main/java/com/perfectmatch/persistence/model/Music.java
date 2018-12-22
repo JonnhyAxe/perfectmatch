@@ -168,6 +168,14 @@ public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryab
 		this.recordLabel = record;
 	}
 	
+	public URL getLocation() {
+		return location;
+	}
+
+	public void setLocation(URL location) {
+		this.location = location;
+	}
+	
     /*
      * (non-Javadoc)
      *
@@ -195,7 +203,7 @@ public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryab
         if (getClass() != obj.getClass()) {
             return false;
         }
-        MusicTesCase other = (MusicTesCase) obj;
+        Music other = (Music) obj;
        
         return Objects.equals(id, other.id) && 
         		Objects.equals(artists, other.artists) && 
@@ -205,13 +213,7 @@ public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryab
         		;
     }
 
-	public URL getLocation() {
-		return location;
-	}
 
-	public void setLocation(URL location) {
-		this.location = location;
-	}
 
 
 }

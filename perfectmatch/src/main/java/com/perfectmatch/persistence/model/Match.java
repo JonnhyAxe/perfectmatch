@@ -1,6 +1,7 @@
 package com.perfectmatch.persistence.model;
 
 import java.io.Serializable;
+import java.net.URL;
 import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
@@ -48,6 +49,9 @@ public class Match implements NameableEntity, Serializable {
     @ApiModelProperty(notes="Rule used in the match, default is by key and same artist ")
     private String rule;
 
+
+    
+    
 	/*
      * (non-Javadoc)
      *
@@ -88,6 +92,8 @@ public class Match implements NameableEntity, Serializable {
 	public void setRule(String rule) {
 		this.rule = rule;
 	}
+	
+
 
 	/*
      * (non-Javadoc)

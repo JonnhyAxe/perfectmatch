@@ -1,5 +1,7 @@
 package com.perfectmatch.persistence.model;
 
+import java.net.URL;
+
 import org.springframework.data.annotation.Id;
 
 import com.perfectmatch.common.model.NameableEntity;
@@ -30,7 +32,8 @@ public class Sample implements NameableEntity {
     @ApiModelProperty(notes="Specific position of the original music")
     private int timestamp;
 
-   
+	@ApiModelProperty(notes="Location of the file in the storage")
+	private URL location;
 
     /**
      * @return the id
@@ -86,6 +89,13 @@ public class Sample implements NameableEntity {
         this.name = name;
     }
 
+	public URL getLocation() {
+		return location;
+	}
+
+	public void setLocation(URL location) {
+		this.location = location;
+	}
 
     /*
      * (non-Javadoc)
