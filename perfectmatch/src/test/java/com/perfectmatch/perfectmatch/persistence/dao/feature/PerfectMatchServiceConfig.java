@@ -13,17 +13,17 @@ import com.perfectmatch.spring.PerfectMatchWebConfig;
 @Import({PerfectMatchWebConfig.class})
 public class PerfectMatchServiceConfig {
 
-    public PerfectMatchServiceConfig() {
-        super();
-    }
+  public PerfectMatchServiceConfig() {
+    super();
+  }
 
-    @Bean 
-    ServletWebServerFactory servletWebServerFactory(){
-    	return new TomcatServletWebServerFactory();
-    }
-    
-    @Bean PerfectMatchSetup perfectMatchSetup() {
-    	return new PerfectMatchSetup();
-    }
-    
+  @Bean
+  ServletWebServerFactory servletWebServerFactory() {
+    return new TomcatServletWebServerFactory();
+  }
+
+  @Bean
+  PerfectMatchSetup perfectMatchSetup() {
+    return new PerfectMatchSetup();
+  }
 }

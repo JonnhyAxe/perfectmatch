@@ -5,34 +5,31 @@ import java.util.List;
 
 public interface IOperations<T extends Serializable> {
 
-    // find - one
+  // find - one
 
-    T findOne(final String id);
+  T findOne(final String id);
 
-    /**
-     * if nothing is found, an empty list will be returned to the
-     * calling client <br>
-     */
-    List<T> findAll();
+  /**
+   * if nothing is found, an empty list will be returned to the
+   * calling client <br>
+   */
+  List<T> findAll();
 
+  // create
 
-    // create
+  T create(final T resource);
 
-    T create(final T resource);
+  // update
 
-    // update
+  void update(final T resource);
 
-    void update(final T resource);
+  // delete
 
-    // delete
+  void delete(final String id);
 
-    void delete(final String id);
+  void deleteAll();
 
-    void deleteAll();
+  // count
 
-    // count
-
-    long count();
-
-
+  long count();
 }

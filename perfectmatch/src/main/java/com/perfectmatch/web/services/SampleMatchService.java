@@ -11,8 +11,7 @@ import com.perfectmatch.persistence.model.Match;
  */
 public interface SampleMatchService extends PersistenceService<Match>, IOperations<Match> {
 
-	boolean contains(Match newMatch);
+  boolean contains(Match newMatch);
 
-    Match findMatchByName(String name);
-
+  Match findMatchByName(String name);
 }

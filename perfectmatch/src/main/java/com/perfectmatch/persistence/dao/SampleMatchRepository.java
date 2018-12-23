@@ -9,12 +9,12 @@ import com.perfectmatch.common.interfaces.ByNameSearchable;
 import com.perfectmatch.persistence.model.Match;
 import com.perfectmatch.persistence.model.PerfectMatch;
 
-public interface SampleMatchRepository extends MongoRepository<Match, String>, ByNameSearchable<PerfectMatch> {
+public interface SampleMatchRepository
+    extends MongoRepository<Match, String>, ByNameSearchable<PerfectMatch> {
 
-	@Query("{'$or' : [{'musicNameThis' : ?0}, {'musicNameThat' : ?0}]}")
-	List<Match> findAllBymusicName(String musicNameThis);
+  @Query("{'$or' : [{'musicNameThis' : ?0}, {'musicNameThat' : ?0}]}")
+  List<Match> findAllBymusicName(String musicNameThis);
 
-	@Query("{'$and' : [{'musicNameThis' : ?0}, {'musicNameThat' : ?1}]}")
-	Match findMatchByMusics(String musicNameThis, String musicNameThat);
-
+  @Query("{'$and' : [{'musicNameThis' : ?0}, {'musicNameThat' : ?1}]}")
+  Match findMatchByMusics(String musicNameThis, String musicNameThat);
 }

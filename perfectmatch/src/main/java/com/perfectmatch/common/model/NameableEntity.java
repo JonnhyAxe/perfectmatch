@@ -9,6 +9,4 @@ import com.perfectmatch.common.interfaces.ByNameQueryable;
  * <class description>
  *
  */
-public interface NameableEntity extends ByIdQueryable, ByNameQueryable, Serializable {
-
-}
+public interface NameableEntity extends ByIdQueryable, ByNameQueryable, Serializable {}

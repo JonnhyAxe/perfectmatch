@@ -6,14 +6,13 @@ import com.perfectmatch.persistence.model.Artist;
 
 public interface ArtistService {
 
-	Artist createArtist(String name, List<String> websites);
-	
-	Artist createArtist(Artist artist);
+  Artist createArtist(String name, List<String> websites);
 
-	Artist getArtistById(String id);
+  Artist createArtist(Artist artist);
 
-	Artist getArtistByName(String name);
+  Artist getArtistById(String id);
 
-	Artist deleteArtistByName(String name);
+  Artist getArtistByName(String name);
 
+  Artist deleteArtistByName(String name);
 }

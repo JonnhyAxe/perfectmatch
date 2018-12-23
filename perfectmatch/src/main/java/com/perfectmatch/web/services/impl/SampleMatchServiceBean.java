@@ -18,39 +18,39 @@ import com.perfectmatch.web.services.SampleMatchService;
  *
  */
 @Service
-public class SampleMatchServiceBean extends AbstractRawService<Match> implements SampleMatchService {
+public class SampleMatchServiceBean extends AbstractRawService<Match>
+    implements SampleMatchService {
 
-    @Autowired
-    private SampleMatchRepository dao;
+  @Autowired private SampleMatchRepository dao;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * com.perfectmatch.common.persistence.srvices.AbstractRawService#getDao()
-     */
-    @Override
-    protected SampleMatchRepository getDao() {
+  /*
+   * (non-Javadoc)
+   *
+   * @see
+   * com.perfectmatch.common.persistence.srvices.AbstractRawService#getDao()
+   */
+  @Override
+  protected SampleMatchRepository getDao() {
 
-        return this.dao;
-    }
+    return this.dao;
+  }
 
-	@Override
-	public boolean contains(Match newMatch) {
-		return Objects.nonNull(dao.findAllBymusicName(newMatch.getMusicNameThis())) || Objects.nonNull(dao.findAllBymusicName(newMatch.getMusicNameThat()));
-	}
+  @Override
+  public boolean contains(Match newMatch) {
+    return Objects.nonNull(dao.findAllBymusicName(newMatch.getMusicNameThis()))
+        || Objects.nonNull(dao.findAllBymusicName(newMatch.getMusicNameThat()));
+  }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * com.perfectmatch.common.interfaces.ByNameSearchable#findByName(java.lang.
-     * String)
-     */
-    @Override
-    public Match findMatchByName(String name) {
-    	String [] musics = name.split(",");
-        return this.dao.findMatchByMusics(musics[0], musics[1]);
-    }
-
+  /*
+   * (non-Javadoc)
+   *
+   * @see
+   * com.perfectmatch.common.interfaces.ByNameSearchable#findByName(java.lang.
+   * String)
+   */
+  @Override
+  public Match findMatchByName(String name) {
+    String[] musics = name.split(",");
+    return this.dao.findMatchByMusics(musics[0], musics[1]);
+  }
 }

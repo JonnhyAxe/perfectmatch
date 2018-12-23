@@ -21,20 +21,17 @@ import com.perfectmatch.persistence.model.Sample;
  *
  */
 @Ignore //this a web test that require the app running locally
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class SampleRepositoryIntegrationTests {
 
-    @Autowired
-    private SampleRepository repository;
-//
-    @Test
-    public void testAllSamples() throws Exception {
+  @Autowired private SampleRepository repository;
+  //
+  @Test
+  public void testAllSamples() throws Exception {
 
-        List<Sample> musics = repository.findAll();
-        assertFalse(musics.isEmpty());
-        assertEquals(2, musics.size());
-    }
-
+    List<Sample> musics = repository.findAll();
+    assertFalse(musics.isEmpty());
+    assertEquals(2, musics.size());
+  }
 }

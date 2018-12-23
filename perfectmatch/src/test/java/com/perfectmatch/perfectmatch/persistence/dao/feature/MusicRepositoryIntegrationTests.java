@@ -29,62 +29,54 @@ import net.thucydides.core.annotations.Steps;
 //@RunWith(SerenityRunner.class)
 //@RunWith(CucumberWithSerenity.class) //TODO does not autowire
 @EnableAutoConfiguration
-@CucumberOptions(features="src/test/resources/features/persistence/search_musics/music_repository.feature")
-@ContextConfiguration(classes = { PerfectMatchServiceConfig.class })
+@CucumberOptions(
+  features = "src/test/resources/features/persistence/search_musics/music_repository.feature"
+)
+@ContextConfiguration(classes = {PerfectMatchServiceConfig.class})
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @EnableMongoRepositories(basePackages = {"com.perfectmatch.persistence"})
-@ComponentScan({ "com.perfectmatch.perfectmatch.persistence.dao.feature.steps" })
+@ComponentScan({"com.perfectmatch.perfectmatch.persistence.dao.feature.steps"})
 //this loads two contexts (backend service - @SpringBootTest AND SpringIntegrationSerenityRunner)
-//the SpringIntegrationSerenityRunner does not scan application dependencies, 
-//they are only autowired in the current class - try to remove @SpringBootTest and add @DataMongoTest 
+//the SpringIntegrationSerenityRunner does not scan application dependencies,
+//they are only autowired in the current class - try to remove @SpringBootTest and add @DataMongoTest
 
 @Ignore
 public class MusicRepositoryIntegrationTests {
 
-    @Rule public SpringIntegrationClassRule springIntegration = new SpringIntegrationClassRule();
+  @Rule public SpringIntegrationClassRule springIntegration = new SpringIntegrationClassRule();
 
-    @LocalServerPort
-	private int port;
-    
-	@Steps
-	MusicDaoRepositorySteps musicDaoRepositorySteps;
-	
-    @Autowired
-    private MusicService musicService;
-    
-    @Autowired  
-    private PerfectMatchService sampleMatchService;
-    
-    @Autowired  
-    private SampleService sampleService;
-       
+  @LocalServerPort private int port;
 
+  @Steps MusicDaoRepositorySteps musicDaoRepositorySteps;
 
-//    @Test
-//    public void testAllMusics() throws Exception {
-//        List<Music> musics = repository.findAll();
-//        assertFalse(musics.isEmpty());
-//        assertEquals(3, musics.size());
-//    }
+  @Autowired private MusicService musicService;
 
+  @Autowired private PerfectMatchService sampleMatchService;
 
-    
-//    @DirtiesContex
-//    @Test
-//    public void testMusicByName() throws Exception {
-//    	//Given music repository
-//    	musicDaoRepositorySteps.setRepository(musicService);
-//    	musicDaoRepositorySteps.searchMusics();
-//        
-//    	//When I get music with name 'Please Stop (Original Mix)'
-//    	musicDaoRepositorySteps.repository("Please Stop (Original Mix)");
-//   
-//    	//Then music should contain artist name 'Latmun'
-//    	musicDaoRepositorySteps.shouldContainsArtistName("Latmun");
-//    	
-//    	//Then music should contain id
-//    	musicDaoRepositorySteps.shouldContainsId();
-//    }
+  @Autowired private SampleService sampleService;
 
-    
+  //    @Test
+  //    public void testAllMusics() throws Exception {
+  //        List<Music> musics = repository.findAll();
+  //        assertFalse(musics.isEmpty());
+  //        assertEquals(3, musics.size());
+  //    }
+
+  //    @DirtiesContex
+  //    @Test
+  //    public void testMusicByName() throws Exception {
+  //    	//Given music repository
+  //    	musicDaoRepositorySteps.setRepository(musicService);
+  //    	musicDaoRepositorySteps.searchMusics();
+  //
+  //    	//When I get music with name 'Please Stop (Original Mix)'
+  //    	musicDaoRepositorySteps.repository("Please Stop (Original Mix)");
+  //
+  //    	//Then music should contain artist name 'Latmun'
+  //    	musicDaoRepositorySteps.shouldContainsArtistName("Latmun");
+  //
+  //    	//Then music should contain id
+  //    	musicDaoRepositorySteps.shouldContainsId();
+  //    }
+
 }

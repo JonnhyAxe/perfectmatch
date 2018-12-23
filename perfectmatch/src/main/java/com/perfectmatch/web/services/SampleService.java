@@ -9,7 +9,5 @@ import com.perfectmatch.persistence.model.Sample;
  * This class aims to expose Sample related services for Web Controllers
  *
  */
-public interface SampleService extends PersistenceService<Sample>, IOperations<Sample>, ByNameSearchable<Sample> {
-
-
-}
+public interface SampleService
+    extends PersistenceService<Sample>, IOperations<Sample>, ByNameSearchable<Sample> {}

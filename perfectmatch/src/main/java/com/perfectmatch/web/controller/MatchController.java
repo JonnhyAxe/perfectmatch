@@ -19,31 +19,29 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/match")
 public class MatchController {
 
-    @Autowired
-    private SampleMatchRepository matchJpaRepository;
+  @Autowired private SampleMatchRepository matchJpaRepository;
 
-    @GetMapping
-	@ApiOperation(value = "Find all Matchs - without pagination")
-    public List<Match> findAllMatchs() throws IOException {
-        return matchJpaRepository.findAll();
-    }
-    
-    
-    @GetMapping(path = "/{music}/{music2}")
-	@ApiOperation(value = "Find Match by music pair - without pagination")
-    public Match findMatchByMusicPair(@PathVariable("music") String music, 
-    		@PathVariable("music2")String music2) throws IOException {
-    	Match match1  = matchJpaRepository.findMatchByMusics(music, music2);
-    	Match match2 =  matchJpaRepository.findMatchByMusics(music2, music);
-    	
-    	return match1 != null ? match1 : match2;
-    }
+  @GetMapping
+  @ApiOperation(value = "Find all Matchs - without pagination")
+  public List<Match> findAllMatchs() throws IOException {
+    return matchJpaRepository.findAll();
+  }
 
-    @GetMapping(path = "/{music}")
-	@ApiOperation(value = "Find all Matchs by music name - without pagination")
-    public List<Match> findAllMatchByMusic(@PathVariable("music") String music) throws IOException {
+  @GetMapping(path = "/{music}/{music2}")
+  @ApiOperation(value = "Find Match by music pair - without pagination")
+  public Match findMatchByMusicPair(
+      @PathVariable("music") String music, @PathVariable("music2") String music2)
+      throws IOException {
+    Match match1 = matchJpaRepository.findMatchByMusics(music, music2);
+    Match match2 = matchJpaRepository.findMatchByMusics(music2, music);
 
-    	return  matchJpaRepository.findAllBymusicName(music);
-    }
-    
+    return match1 != null ? match1 : match2;
+  }
+
+  @GetMapping(path = "/{music}")
+  @ApiOperation(value = "Find all Matchs by music name - without pagination")
+  public List<Match> findAllMatchByMusic(@PathVariable("music") String music) throws IOException {
+
+    return matchJpaRepository.findAllBymusicName(music);
+  }
 }

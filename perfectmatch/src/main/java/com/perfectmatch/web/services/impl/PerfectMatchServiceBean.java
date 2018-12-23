@@ -16,39 +16,38 @@ import com.perfectmatch.web.services.PerfectMatchService;
  *
  */
 @Service
-public class PerfectMatchServiceBean extends AbstractRawService<PerfectMatch> implements PerfectMatchService{
+public class PerfectMatchServiceBean extends AbstractRawService<PerfectMatch>
+    implements PerfectMatchService {
 
-    @Autowired
-    private PerfectMatchRepository dao;
+  @Autowired private PerfectMatchRepository dao;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * com.perfectmatch.common.persistence.srvices.AbstractRawService#getDao()
-     */
-    @Override
-    protected PerfectMatchRepository getDao() {
+  /*
+   * (non-Javadoc)
+   *
+   * @see
+   * com.perfectmatch.common.persistence.srvices.AbstractRawService#getDao()
+   */
+  @Override
+  protected PerfectMatchRepository getDao() {
 
-        return this.dao;
-    }
+    return this.dao;
+  }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * com.perfectmatch.common.interfaces.ByNameSearchable#findByName(java.lang.
-     * String)
-     */
-    @Override
-    public PerfectMatch findPerfectMatchByName(String name) {
+  /*
+   * (non-Javadoc)
+   *
+   * @see
+   * com.perfectmatch.common.interfaces.ByNameSearchable#findByName(java.lang.
+   * String)
+   */
+  @Override
+  public PerfectMatch findPerfectMatchByName(String name) {
 
-        return this.getDao().findByName(name);
-    }
+    return this.getDao().findByName(name);
+  }
 
-	@Override
-	public PerfectMatch save(PerfectMatch resource) {
-		return this.getDao().save(resource);
-	}
-
+  @Override
+  public PerfectMatch save(PerfectMatch resource) {
+    return this.getDao().save(resource);
+  }
 }

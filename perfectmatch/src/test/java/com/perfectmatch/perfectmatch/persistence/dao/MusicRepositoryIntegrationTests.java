@@ -27,15 +27,13 @@ import com.perfectmatch.persistence.model.Music;
 @Ignore
 public class MusicRepositoryIntegrationTests {
 
-    @Autowired
-    private MusicRepository repository;
+  @Autowired private MusicRepository repository;
 
-    @Test
-    public void testAllMusics() throws Exception {
+  @Test
+  public void testAllMusics() throws Exception {
 
-        List<Music> musics = repository.findAll();
-        assertFalse(musics.isEmpty());
-        assertEquals(3, musics.size());
-    }
-
+    List<Music> musics = repository.findAll();
+    assertFalse(musics.isEmpty());
+    assertEquals(3, musics.size());
+  }
 }

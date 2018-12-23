@@ -2,20 +2,24 @@ package com.perfectmatch.web.exception;
 
 public final class MyConflictException extends RuntimeException {
 
-    public MyConflictException() {
-        super();
-    }
+  /**
+   *
+   */
+  private static final long serialVersionUID = 1L;
 
-    public MyConflictException(final String message, final Throwable cause) {
-        super(message, cause);
-    }
+  public MyConflictException() {
+    super();
+  }
 
-    public MyConflictException(final String message) {
-        super(message);
-    }
+  public MyConflictException(final String message, final Throwable cause) {
+    super(message, cause);
+  }
 
-    public MyConflictException(final Throwable cause) {
-        super(cause);
-    }
+  public MyConflictException(final String message) {
+    super(message);
+  }
 
+  public MyConflictException(final Throwable cause) {
+    super(cause);
+  }
 }

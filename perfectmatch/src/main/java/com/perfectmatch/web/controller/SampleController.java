@@ -25,33 +25,31 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/sample")
 public class SampleController {
 
-    @Autowired
-    private SampleRepository sampleJpaRepository;
-   
-    @Autowired
-    private SampleServiceBean sampleServiceBean;
+  @Autowired private SampleRepository sampleJpaRepository;
 
-    @GetMapping
-	@ApiOperation(value = "Find all Samples - without pagination")
-    public List<Sample> findAllSamples() throws IOException {
+  @Autowired private SampleServiceBean sampleServiceBean;
 
-        return sampleServiceBean.findAll();
-    }
-    
-    @GetMapping(path = "/{name}")
-	@ApiOperation(value = "Find Match by name")
-    public Sample getSampleByName(@PathVariable("name")  @Valid final String sampleName) {
-        return sampleServiceBean.findByName(sampleName);
-    }
-    
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Sample createSample(@RequestBody @Valid final Sample resource) {
-        return sampleServiceBean.save(resource);
-    }
-    
-    // getAllBYNameOrderedByTimeStamp
-    
-    //Post name and timestamp
+  @GetMapping
+  @ApiOperation(value = "Find all Samples - without pagination")
+  public List<Sample> findAllSamples() throws IOException {
+
+    return sampleServiceBean.findAll();
+  }
+
+  @GetMapping(path = "/{name}")
+  @ApiOperation(value = "Find Match by name")
+  public Sample getSampleByName(@PathVariable("name") @Valid final String sampleName) {
+    return sampleServiceBean.findByName(sampleName);
+  }
+
+  @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
+  public Sample createSample(@RequestBody @Valid final Sample resource) {
+    return sampleServiceBean.save(resource);
+  }
+
+  // getAllBYNameOrderedByTimeStamp
+
+  //Post name and timestamp
 
 }

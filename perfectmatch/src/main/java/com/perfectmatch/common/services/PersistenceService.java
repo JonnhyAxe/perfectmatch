@@ -6,6 +6,4 @@ import com.perfectmatch.common.model.NameableEntity;
  * <class description>
  *
  */
-public interface PersistenceService<T extends NameableEntity> {
-
-}
+public interface PersistenceService<T extends NameableEntity> {}

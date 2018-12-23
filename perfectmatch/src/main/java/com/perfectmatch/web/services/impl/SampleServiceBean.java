@@ -20,36 +20,34 @@ import com.perfectmatch.web.services.SampleService;
 @Service
 public class SampleServiceBean extends AbstractRawService<Sample> implements SampleService {
 
-    @Autowired
-    private SampleRepository sampleRepository;
+  @Autowired private SampleRepository sampleRepository;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * com.perfectmatch.common.persistence.srvices.AbstractRawService#getDao()
-     */
-    @Override
-    protected SampleRepository getDao() {
+  /*
+   * (non-Javadoc)
+   *
+   * @see
+   * com.perfectmatch.common.persistence.srvices.AbstractRawService#getDao()
+   */
+  @Override
+  protected SampleRepository getDao() {
 
-        return this.sampleRepository;
-    }
+    return this.sampleRepository;
+  }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * com.perfectmatch.common.interfaces.ByNameSearchable#findByName(java.lang.
-     * String)
-     */
-    @Override
-    public Sample findByName(String name) {
+  /*
+   * (non-Javadoc)
+   *
+   * @see
+   * com.perfectmatch.common.interfaces.ByNameSearchable#findByName(java.lang.
+   * String)
+   */
+  @Override
+  public Sample findByName(String name) {
 
-        return this.sampleRepository.findByName(name);
-    }
+    return this.sampleRepository.findByName(name);
+  }
 
-	public Sample save(@Valid Sample resource) {
-		return this.sampleRepository.save(resource);
-	}
-
+  public Sample save(@Valid Sample resource) {
+    return this.sampleRepository.save(resource);
+  }
 }

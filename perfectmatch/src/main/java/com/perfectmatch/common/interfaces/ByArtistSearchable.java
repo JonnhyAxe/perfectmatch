@@ -8,5 +8,5 @@ import java.util.Set;
  */
 public interface ByArtistSearchable<T extends ByArtistQueryable> {
 
-    Set<T> findByArtist(String name);
+  Set<T> findByArtist(String name);
 }

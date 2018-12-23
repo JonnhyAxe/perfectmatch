@@ -19,49 +19,68 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.perfectmatch.web.exception.ApiError;
 import com.perfectmatch.web.exception.MyBadRequestException;
 
-
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-    private Logger log = LoggerFactory.getLogger(getClass());
+  private Logger log = LoggerFactory.getLogger(getClass());
 
-    public RestResponseEntityExceptionHandler() {
-        super();
+  public RestResponseEntityExceptionHandler() {
+    super();
+  }
+
+  // API
+
+  // 400
+
+  @Override // In the case of the Entity field is incorrect
+  protected final ResponseEntity<Object> handleHttpMessageNotReadable(
+      final HttpMessageNotReadableException ex,
+      final HttpHeaders headers,
+      final HttpStatus status,
+      final WebRequest request) {
+
+    return handleExceptionInternal(
+        ex, message(HttpStatus.BAD_REQUEST, ex), headers, HttpStatus.BAD_REQUEST, request);
+  }
+
+  @Override // In the case of an Identity field without value - TODO: It
+  // required @Validation
+  protected final ResponseEntity<Object> handleMethodArgumentNotValid(
+      final MethodArgumentNotValidException ex,
+      final HttpHeaders headers,
+      final HttpStatus status,
+      final WebRequest request) {
+
+    return handleExceptionInternal(
+        ex, message(HttpStatus.BAD_REQUEST, ex), headers, HttpStatus.BAD_REQUEST, request);
+  }
+
+  @ExceptionHandler(
+    value = {
+      DataIntegrityViolationException.class,
+      MyBadRequestException.class,
+      ConstraintViolationException.class
     }
+  )
+  protected final ResponseEntity<Object> handleBadRequest(
+      final RuntimeException ex, final WebRequest request) {
 
-    // API
+    return handleExceptionInternal(
+        ex,
+        message(HttpStatus.BAD_REQUEST, ex),
+        new HttpHeaders(),
+        HttpStatus.BAD_REQUEST,
+        request);
+  }
 
-    // 400
+  private final ApiError message(final HttpStatus httpStatus, final Exception ex) {
 
-    @Override // In the case of the Entity field is incorrect
-    protected final ResponseEntity<Object> handleHttpMessageNotReadable(final HttpMessageNotReadableException ex, final HttpHeaders headers, final HttpStatus status,
-            final WebRequest request) {
+    final String message =
+        ex.getMessage() == null ? ex.getClass().getSimpleName() : ex.getMessage();
 
-        return handleExceptionInternal(ex, message(HttpStatus.BAD_REQUEST, ex), headers, HttpStatus.BAD_REQUEST, request);
-    }
+    //TODO: change this
+    //final String devMessage = ExceptionUtils.unwrapInvocationTargetException(ex).getMessage();
 
-    @Override // In the case of an Identity field without value - TODO: It
-              // required @Validation
-    protected final ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex, final HttpHeaders headers, final HttpStatus status,
-            final WebRequest request) {
-
-        return handleExceptionInternal(ex, message(HttpStatus.BAD_REQUEST, ex), headers, HttpStatus.BAD_REQUEST, request);
-    }
-
-    @ExceptionHandler(value = { DataIntegrityViolationException.class, MyBadRequestException.class, ConstraintViolationException.class })
-    protected final ResponseEntity<Object> handleBadRequest(final RuntimeException ex, final WebRequest request) {
-
-        return handleExceptionInternal(ex, message(HttpStatus.BAD_REQUEST, ex), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
-    }
-
-    private final ApiError message(final HttpStatus httpStatus, final Exception ex) {
-
-        final String message = ex.getMessage() == null ? ex.getClass().getSimpleName() : ex.getMessage();
-        
-        //TODO: change this
-        //final String devMessage = ExceptionUtils.unwrapInvocationTargetException(ex).getMessage();
-
-        return new ApiError(httpStatus.value(), message, message);
-    }
-
+    return new ApiError(httpStatus.value(), message, message);
+  }
 }

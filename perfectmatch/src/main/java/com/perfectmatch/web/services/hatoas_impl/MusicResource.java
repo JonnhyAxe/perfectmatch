@@ -14,20 +14,21 @@ import com.perfectmatch.web.controller.MusicController;
  */
 public class MusicResource extends ResourceSupport {
 
-    private Music music;
+  private Music music;
 
-    public MusicResource(Music music) {
-        this.music = music;
-        this.add(linkTo(MusicController.class).withRel("music"));
-        this.add(linkTo(methodOn(MusicController.class, music).getMusicByName(music.getName())).withSelfRel());
+  public MusicResource(Music music) {
+    this.music = music;
+    this.add(linkTo(MusicController.class).withRel("music"));
+    this.add(
+        linkTo(methodOn(MusicController.class, music).getMusicByName(music.getName()))
+            .withSelfRel());
+  }
 
-    }
+  /**
+   * @return the music
+   */
+  public Music getMusic() {
 
-    /**
-     * @return the music
-     */
-    public Music getMusic() {
-
-        return music;
-    }
+    return music;
+  }
 }

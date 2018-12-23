@@ -9,10 +9,10 @@ import com.perfectmatch.persistence.model.PerfectMatch;
  * Controllers
  *
  */
-public interface PerfectMatchService extends PersistenceService<PerfectMatch>, IOperations<PerfectMatch>  {
+public interface PerfectMatchService
+    extends PersistenceService<PerfectMatch>, IOperations<PerfectMatch> {
 
-    PerfectMatch findPerfectMatchByName(String name);
-    
-    PerfectMatch save( PerfectMatch resource);
+  PerfectMatch findPerfectMatchByName(String name);
 
+  PerfectMatch save(PerfectMatch resource);
 }

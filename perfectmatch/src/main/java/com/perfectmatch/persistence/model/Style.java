@@ -10,13 +10,12 @@
  */
 package com.perfectmatch.persistence.model;
 
-
 /**
- * Music Style 
+ * Music Style
  *
  */
 public enum Style {
-
-    HOUSE, TECH_HOUSE, TECHNO;
-
+  HOUSE,
+  TECH_HOUSE,
+  TECHNO;
 }

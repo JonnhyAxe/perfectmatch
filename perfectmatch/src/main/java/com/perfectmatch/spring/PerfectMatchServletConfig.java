@@ -8,15 +8,14 @@ import com.perfectmatch.security.SimpleCorsFilter;
 @Configuration
 public class PerfectMatchServletConfig {
 
-    public PerfectMatchServletConfig() {
-        super();
-    }
+  public PerfectMatchServletConfig() {
+    super();
+  }
 
-    // beans
+  // beans
 
-    @Bean
-    public SimpleCorsFilter simpleCorsFilter() {
-        return new SimpleCorsFilter();
-    }
-
+  @Bean
+  public SimpleCorsFilter simpleCorsFilter() {
+    return new SimpleCorsFilter();
+  }
 }

@@ -19,17 +19,15 @@ import com.perfectmatch.persistence.model.Match;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @Ignore //this a web test that require the app running locally
-
 public class MatchRepositoryIntegrationTests {
 
-    @Autowired
-    private SampleMatchRepository repository;
+  @Autowired private SampleMatchRepository repository;
 
-    @Test
-    public void testAllMusics() throws Exception {
+  @Test
+  public void testAllMusics() throws Exception {
 
-        List<Match> matchs = repository.findAll();
-        assertFalse(matchs.isEmpty());
-        assertEquals(1, matchs.size());
-    }
+    List<Match> matchs = repository.findAll();
+    assertFalse(matchs.isEmpty());
+    assertEquals(1, matchs.size());
+  }
 }

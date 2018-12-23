@@ -1,7 +1,6 @@
 package com.perfectmatch.perfectmatch.persistence.dao.feature;
 
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,26 +18,25 @@ import net.thucydides.core.annotations.Steps;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @ContextConfiguration(classes = AdderService.class)
 public class AdderMethodDirtiesContextIntegrationTest {
- 
-    @Steps private AdderServiceSteps adderServiceSteps;
- 
-    @Rule public SpringIntegrationMethodRule springIntegration = new SpringIntegrationMethodRule();
- 
-    @DirtiesContext
-    @Test
-    public void _0_givenNumber_whenAddAndAccumulate_thenSummedUp() {
-        adderServiceSteps.givenBaseAndAdder(2, 6);
-        adderServiceSteps.whenAccumulate();
-        adderServiceSteps.summedUp();
- 
-        adderServiceSteps.whenAdd();
-        adderServiceSteps.sumWrong();
-    }
- 
-    @Test
-    public void _1_givenNumber_whenAdd_thenSumWrong() {
-        adderServiceSteps.whenAdd();
-        adderServiceSteps.sumWrong();
-    }
- 
+
+  @Steps private AdderServiceSteps adderServiceSteps;
+
+  @Rule public SpringIntegrationMethodRule springIntegration = new SpringIntegrationMethodRule();
+
+  @DirtiesContext
+  @Test
+  public void _0_givenNumber_whenAddAndAccumulate_thenSummedUp() {
+    adderServiceSteps.givenBaseAndAdder(2, 6);
+    adderServiceSteps.whenAccumulate();
+    adderServiceSteps.summedUp();
+
+    adderServiceSteps.whenAdd();
+    adderServiceSteps.sumWrong();
+  }
+
+  @Test
+  public void _1_givenNumber_whenAdd_thenSumWrong() {
+    adderServiceSteps.whenAdd();
+    adderServiceSteps.sumWrong();
+  }
 }

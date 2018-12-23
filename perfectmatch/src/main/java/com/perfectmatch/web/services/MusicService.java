@@ -12,11 +12,13 @@ import com.perfectmatch.persistence.model.Music;
  * This class aims to expose Music related services for Web Controllers
  *
  */
-public interface MusicService extends PersistenceService<Music>, IOperations<Music>, ByNameSearchable<Music>, ByArtistSearchable<Music> {
+public interface MusicService
+    extends PersistenceService<Music>, IOperations<Music>, ByNameSearchable<Music>,
+        ByArtistSearchable<Music> {
 
-	List<Music> findAll();
+  List<Music> findAll();
 
-	Music save(Music resource);
-	
-	Music updateMusic(Music resource);
+  Music save(Music resource);
+
+  Music updateMusic(Music resource);
 }

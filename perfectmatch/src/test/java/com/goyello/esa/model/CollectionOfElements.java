@@ -12,19 +12,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.NONE)
 public class CollectionOfElements {
 
-	@XmlElements(@XmlElement(name = "message", type = Message.class))
-	private Collection<?> elements;
+  @XmlElements(@XmlElement(name = "message", type = Message.class))
+  private Collection<?> elements;
 
-	protected CollectionOfElements() {
+  protected CollectionOfElements() {}
 
-	}
+  public CollectionOfElements(Collection<?> elements) {
+    super();
+    this.elements = elements;
+  }
 
-	public CollectionOfElements(Collection<?> elements) {
-		super();
-		this.elements = elements;
-	}
-
-	public Collection<?> getElements() {
-		return elements;
-	}
+  public Collection<?> getElements() {
+    return elements;
+  }
 }

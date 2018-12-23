@@ -31,167 +31,150 @@ import com.perfectmatch.web.services.SampleService;
 @Component
 public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEvent> {
 
-    // Only for setup purposes
-    private boolean setupDone;
+  // Only for setup purposes
+  private boolean setupDone;
 
-    
-    @Autowired
-    private ArtistService artistService;
-    
-    @Autowired
-    private MusicService musicService;
+  @Autowired private ArtistService artistService;
 
-    @Autowired
-    private SampleService sampleService;
+  @Autowired private MusicService musicService;
 
-    @Autowired
-    private SampleMatchService sampleMatchService;
-    
-    @Autowired
-    private PerfectMatchService perfectMatchService;
+  @Autowired private SampleService sampleService;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.springframework.context.ApplicationListener#onApplicationEvent(org.
-     * springframework.context.ApplicationEvent)
-     */
-    @Override
-    public void onApplicationEvent(ContextRefreshedEvent arg0) {
+  @Autowired private SampleMatchService sampleMatchService;
 
-        if (!setupDone) {
-        	getMusicServiceBean().deleteAll();
-        	getSampleServiceBean().deleteAll();
-        	getSampleMatchServiceBean().deleteAll();
-            createMusic();
-        }
+  @Autowired private PerfectMatchService perfectMatchService;
 
+  /*
+   * (non-Javadoc)
+   *
+   * @see
+   * org.springframework.context.ApplicationListener#onApplicationEvent(org.
+   * springframework.context.ApplicationEvent)
+   */
+  @Override
+  public void onApplicationEvent(ContextRefreshedEvent arg0) {
+
+    if (!setupDone) {
+      getMusicServiceBean().deleteAll();
+      getSampleServiceBean().deleteAll();
+      getSampleMatchServiceBean().deleteAll();
+      createMusic();
+    }
+  }
+
+  /**
+   * Create Music data in the DB
+   */
+  private void createMusic() {
+
+    Artist latmun = new Artist();
+    latmun.setName("Latmun");
+
+    if (Objects.isNull(artistService.getArtistByName(latmun.getName()))) {
+      latmun = artistService.createArtist(latmun);
     }
 
+    Music musicPleaseStop = new Music();
+    musicPleaseStop.setArtists(Arrays.asList(latmun.getName()));
+    musicPleaseStop.setName("Please Stop (Original Mix)");
+    musicPleaseStop.setStyle(Style.TECH_HOUSE.name());
 
-    /**
-     * Create Music data in the DB
-     */
-    private void createMusic() {
+    Sample samplePleaseStop = new Sample();
+    samplePleaseStop.setTimestamp(3 * 60); // Start time stamp at 00:03:00m
+    samplePleaseStop.setName(musicPleaseStop.getArtist() + ":" + musicPleaseStop.getName());
 
-    	Artist latmun = new Artist();
-    	latmun.setName("Latmun");
-    	
-        if (Objects.isNull(artistService.getArtistByName(latmun.getName()))) {
-        	latmun = artistService.createArtist(latmun);
-        }
-        
-        Music musicPleaseStop = new Music();
-        musicPleaseStop.setArtists(Arrays.asList(latmun.getName()));
-        musicPleaseStop.setName("Please Stop (Original Mix)");
-        musicPleaseStop.setStyle(Style.TECH_HOUSE.name());
+    musicPleaseStop.setSamples(new HashSet<Sample>(Arrays.asList(samplePleaseStop)));
 
-        Sample samplePleaseStop = new Sample();
-        samplePleaseStop.setTimestamp(3 * 60); // Start time stamp at 00:03:00m
-        samplePleaseStop.setName(musicPleaseStop.getArtist() + ":" + musicPleaseStop.getName());
+    Music musicDef = new Music();
+    musicDef.setArtists(Arrays.asList(latmun.getName()));
+    musicDef.setName("def (Original Mix)");
+    musicDef.setStyle(Style.TECH_HOUSE.name());
 
-        musicPleaseStop.setSamples(new HashSet<Sample>(Arrays.asList(samplePleaseStop)));
+    Sample sampleDef = new Sample();
+    sampleDef.setTimestamp(3 * 60); // timeStamp at 00:03:00m
+    sampleDef.setName(musicDef.getArtist() + ":" + musicDef.getName());
 
-        Music musicDef = new Music();
-        musicDef.setArtists(Arrays.asList(latmun.getName()));
-        musicDef.setName("def (Original Mix)");
-        musicDef.setStyle(Style.TECH_HOUSE.name());
+    musicDef.setSamples(new HashSet<Sample>(Arrays.asList(sampleDef)));
 
-        Sample sampleDef = new Sample();
-        sampleDef.setTimestamp(3 * 60); // timeStamp at 00:03:00m
-        sampleDef.setName(musicDef.getArtist() + ":" + musicDef.getName());
+    Match newMatch = new Match();
+    newMatch.setMusicNameThis(musicPleaseStop.getName());
+    newMatch.setMusicNameThat(musicDef.getName());
+    newMatch.setRule(MatchRule.DEFAULT.name());
 
-        musicDef.setSamples(new HashSet<Sample>(Arrays.asList(sampleDef)));
+    //        samplePleaseStop.setMathes(new HashSet<Match>(Arrays.asList(newMatch)));
 
-
-        Match newMatch = new Match();
-        newMatch.setMusicNameThis(musicPleaseStop.getName());
-        newMatch.setMusicNameThat(musicDef.getName());
-        newMatch.setRule(MatchRule.DEFAULT.name());
-
-//        samplePleaseStop.setMathes(new HashSet<Match>(Arrays.asList(newMatch)));
-
-        if (!getSampleMatchServiceBean().contains(newMatch)) { 
-        	getSampleMatchServiceBean().create(newMatch);
-        }
-
-        if (Objects.isNull(getSampleServiceBean().findByName(samplePleaseStop.getName()))) {
-            getSampleServiceBean().create(samplePleaseStop);
-        }
-
-        if (Objects.isNull(getSampleServiceBean().findByName(sampleDef.getName()))) {
-            getSampleServiceBean().create(sampleDef);
-        }
-
-        if (Objects.isNull(getMusicServiceBean().findByName(musicPleaseStop.getName()))) {
-            getMusicServiceBean().create(musicPleaseStop);
-        }
-
-        if (Objects.isNull(getMusicServiceBean().findByName(musicDef.getName()))) {
-            getMusicServiceBean().create(musicDef);
-        }
-        
-        PerfectMatch newPerfectMatch = new PerfectMatch();
-        newPerfectMatch.setName(newMatch.getName());
-      
-        if(Objects.isNull(getPerfectMatchServiceBean().findPerfectMatchByName(newPerfectMatch.getName()))) {
-        	 getPerfectMatchServiceBean().create(newPerfectMatch);
-        }
-        
-       
-
-        // Test insert music without samples and Match
-
-    	Artist latmunXPTO = new Artist();
-    	latmun.setName("LatmunXPTO");
-    	
-        if (Objects.isNull(artistService.getArtistByName(latmunXPTO.getName()))) {
-        	latmunXPTO = artistService.createArtist(latmunXPTO);
-        }
-        
-        Music music = new Music();
-        music.setArtists(Arrays.asList(latmunXPTO.getName()));
-        music.setName("Please Stop (Original Mix)XPTO");
-        music.setStyle(Style.TECH_HOUSE.name());
-
-        
-        getMusicServiceBean().create(music);
-
+    if (!getSampleMatchServiceBean().contains(newMatch)) {
+      getSampleMatchServiceBean().create(newMatch);
     }
 
+    if (Objects.isNull(getSampleServiceBean().findByName(samplePleaseStop.getName()))) {
+      getSampleServiceBean().create(samplePleaseStop);
+    }
 
-	private MusicService getMusicServiceBean() {
-		return musicService;
-	}
+    if (Objects.isNull(getSampleServiceBean().findByName(sampleDef.getName()))) {
+      getSampleServiceBean().create(sampleDef);
+    }
 
+    if (Objects.isNull(getMusicServiceBean().findByName(musicPleaseStop.getName()))) {
+      getMusicServiceBean().create(musicPleaseStop);
+    }
 
-//	public void setMusicServiceBean(MusicService musicServiceBean) {
-//		this.musicService = musicServiceBean;
-//	}
+    if (Objects.isNull(getMusicServiceBean().findByName(musicDef.getName()))) {
+      getMusicServiceBean().create(musicDef);
+    }
 
+    PerfectMatch newPerfectMatch = new PerfectMatch();
+    newPerfectMatch.setName(newMatch.getName());
 
-	private SampleService getSampleServiceBean() {
-		return sampleService;
-	}
+    if (Objects.isNull(
+        getPerfectMatchServiceBean().findPerfectMatchByName(newPerfectMatch.getName()))) {
+      getPerfectMatchServiceBean().create(newPerfectMatch);
+    }
 
+    // Test insert music without samples and Match
 
-//	public void setSampleServiceBean(SampleService sampleServiceBean) {
-//		this.sampleService = sampleServiceBean;
-//	}
+    Artist latmunXPTO = new Artist();
+    latmun.setName("LatmunXPTO");
 
+    if (Objects.isNull(artistService.getArtistByName(latmunXPTO.getName()))) {
+      latmunXPTO = artistService.createArtist(latmunXPTO);
+    }
 
-	private PerfectMatchService getPerfectMatchServiceBean() {
-		return perfectMatchService;
-	}
-	
-	private SampleMatchService getSampleMatchServiceBean() {
-		return sampleMatchService;
-	}
+    Music music = new Music();
+    music.setArtists(Arrays.asList(latmunXPTO.getName()));
+    music.setName("Please Stop (Original Mix)XPTO");
+    music.setStyle(Style.TECH_HOUSE.name());
 
-//
-//	public void setSampleMatchServiceBean(SampleMatchService sampleMatchServiceBean) {
-//		this.sampleMatchService = sampleMatchServiceBean;
-//	}
+    getMusicServiceBean().create(music);
+  }
+
+  private MusicService getMusicServiceBean() {
+    return musicService;
+  }
+
+  //	public void setMusicServiceBean(MusicService musicServiceBean) {
+  //		this.musicService = musicServiceBean;
+  //	}
+
+  private SampleService getSampleServiceBean() {
+    return sampleService;
+  }
+
+  //	public void setSampleServiceBean(SampleService sampleServiceBean) {
+  //		this.sampleService = sampleServiceBean;
+  //	}
+
+  private PerfectMatchService getPerfectMatchServiceBean() {
+    return perfectMatchService;
+  }
+
+  private SampleMatchService getSampleMatchServiceBean() {
+    return sampleMatchService;
+  }
+
+  //
+  //	public void setSampleMatchServiceBean(SampleMatchService sampleMatchServiceBean) {
+  //		this.sampleMatchService = sampleMatchServiceBean;
+  //	}
 
 }

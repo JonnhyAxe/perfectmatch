@@ -6,11 +6,11 @@ import com.goyello.esa.model.Message;
 
 public interface MessageStorage {
 
-	Message findMessage(long id);
+  Message findMessage(long id);
 
-	Collection<Message> findAllMessages();
+  Collection<Message> findAllMessages();
 
-	void addMessage(Message message);
+  void addMessage(Message message);
 
-	void setDelegate(MessageStorage storageDelegate);
+  void setDelegate(MessageStorage storageDelegate);
 }

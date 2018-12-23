@@ -22,108 +22,104 @@ import com.goyello.esa.web.controllers.MessageController;
 import net.sf.ehcache.CacheManager;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/spring-context-test.xml" })
+@ContextConfiguration(locations = {"/spring-context-test.xml"})
 public class CachingTest {
-	
-	@Autowired
-	ApplicationContext context;
-	
-	@Autowired
-	CacheManager cacheManager;
-	
-	MessageStorage storage;
-	
-	MessageStorage storageDelegate;
-	
-	MessageController controller;
-	
-	
-	@Before
-	public void before() throws Exception {
-		storageDelegate = Mockito.mock(MessageStorage.class);
-		storage = (MessageStorage) context.getBean("messageStorage");
-		storage.setDelegate(storageDelegate);
-		controller = new MessageController(storage);
-		
-		cacheManager.clearAll();
-	}
-	
-	@Test
-	public void testCaching_MessagesCache() {
-		StopWatch sw = new org.springframework.util.StopWatch();
 
-		sw.start("getAllMessages-1"); // Start a named task
-		controller.getAllMessages();
-		sw.stop();
-		
-		sw.start("getAllMessages-2"); // Start a named task
-		controller.getAllMessages();
-		sw.stop();
+  @Autowired ApplicationContext context;
 
-		verify(storageDelegate, times(1)).findAllMessages();
-		print(sw);
-	}
-	
-	private void print(StopWatch sw ) {
+  @Autowired CacheManager cacheManager;
 
-		System.out.println("Total time in milliseconds for all tasks :\n" + sw.getTotalTimeMillis());
-		System.out.println("Table describing all tasks performed :\n" + sw.prettyPrint());
+  MessageStorage storage;
 
-		System.out.println("\n Array of the data for tasks performed � Task Name: Time Taken");
-		TaskInfo[] listofTasks = sw.getTaskInfo();
-		for (TaskInfo task : listofTasks) {
-		    System.out.format("[%s]:[%d]\n", task.getTaskName(), task.getTimeMillis());
-		}
-	}
-	
-	@Test
-	public void testCaching_MessagesCacheRemove() {
-		StopWatch sw = new org.springframework.util.StopWatch();
-		
-		sw.start("getAllMessages-1"); // Start a named task
-		controller.getAllMessages();
-		sw.stop(); 
-		
-		sw.start("getAllMessages-2"); // Start a named task
-		controller.getAllMessages();
-		sw.stop(); 
+  MessageStorage storageDelegate;
 
-		sw.start("addMessage-1"); // Start a named task
-		controller.addMessage(new Message("user:6", "content-6"));
-		sw.stop(); 
-		
-		sw.start("getAllMessages-3"); // Start a named task
-		controller.getAllMessages();
-		sw.stop(); 
-		
-		verify(storageDelegate, times(2)).findAllMessages();
-		verify(storageDelegate, times(1)).addMessage(any(Message.class));
-		print(sw);
-	}
-	
-	@Test
-	public void testCaching_MessageCache() {
-		StopWatch sw = new org.springframework.util.StopWatch();
-		sw.start("getMessageById-1"); // Start a named task
+  MessageController controller;
 
-		controller.getMessageById(1001);
-		sw.stop(); 
-		
-		sw.start("getMessageById-2"); // Start a named task
-		controller.getMessageById(1001);
-		sw.stop(); 
-		
-		sw.start("addMessage-1"); // Start a named task
-		controller.addMessage(new Message("user:7", "content-7"));
-		sw.stop();
-		
-		sw.start("getMessageById-3"); // Start a named task
-		controller.getMessageById(1001);
-		sw.stop(); 
+  @Before
+  public void before() throws Exception {
+    storageDelegate = Mockito.mock(MessageStorage.class);
+    storage = (MessageStorage) context.getBean("messageStorage");
+    storage.setDelegate(storageDelegate);
+    controller = new MessageController(storage);
 
-		verify(storageDelegate, times(1)).findMessage(1001);
-		verify(storageDelegate, times(1)).addMessage(any(Message.class));
-		print(sw);
-	}
-	
+    cacheManager.clearAll();
+  }
+
+  @Test
+  public void testCaching_MessagesCache() {
+    StopWatch sw = new org.springframework.util.StopWatch();
+
+    sw.start("getAllMessages-1"); // Start a named task
+    controller.getAllMessages();
+    sw.stop();
+
+    sw.start("getAllMessages-2"); // Start a named task
+    controller.getAllMessages();
+    sw.stop();
+
+    verify(storageDelegate, times(1)).findAllMessages();
+    print(sw);
+  }
+
+  private void print(StopWatch sw) {
+
+    System.out.println("Total time in milliseconds for all tasks :\n" + sw.getTotalTimeMillis());
+    System.out.println("Table describing all tasks performed :\n" + sw.prettyPrint());
+
+    System.out.println("\n Array of the data for tasks performed � Task Name: Time Taken");
+    TaskInfo[] listofTasks = sw.getTaskInfo();
+    for (TaskInfo task : listofTasks) {
+      System.out.format("[%s]:[%d]\n", task.getTaskName(), task.getTimeMillis());
+    }
+  }
+
+  @Test
+  public void testCaching_MessagesCacheRemove() {
+    StopWatch sw = new org.springframework.util.StopWatch();
+
+    sw.start("getAllMessages-1"); // Start a named task
+    controller.getAllMessages();
+    sw.stop();
+
+    sw.start("getAllMessages-2"); // Start a named task
+    controller.getAllMessages();
+    sw.stop();
+
+    sw.start("addMessage-1"); // Start a named task
+    controller.addMessage(new Message("user:6", "content-6"));
+    sw.stop();
+
+    sw.start("getAllMessages-3"); // Start a named task
+    controller.getAllMessages();
+    sw.stop();
+
+    verify(storageDelegate, times(2)).findAllMessages();
+    verify(storageDelegate, times(1)).addMessage(any(Message.class));
+    print(sw);
+  }
+
+  @Test
+  public void testCaching_MessageCache() {
+    StopWatch sw = new org.springframework.util.StopWatch();
+    sw.start("getMessageById-1"); // Start a named task
+
+    controller.getMessageById(1001);
+    sw.stop();
+
+    sw.start("getMessageById-2"); // Start a named task
+    controller.getMessageById(1001);
+    sw.stop();
+
+    sw.start("addMessage-1"); // Start a named task
+    controller.addMessage(new Message("user:7", "content-7"));
+    sw.stop();
+
+    sw.start("getMessageById-3"); // Start a named task
+    controller.getMessageById(1001);
+    sw.stop();
+
+    verify(storageDelegate, times(1)).findMessage(1001);
+    verify(storageDelegate, times(1)).addMessage(any(Message.class));
+    print(sw);
+  }
 }

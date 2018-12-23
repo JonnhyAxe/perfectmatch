@@ -10,80 +10,76 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-
 /**
  * Database user authentication service.
  */
 @Component
 public final class MyUserDetailsService implements UserDetailsService {
 
-    public MyUserDetailsService() {
-        super();
+  public MyUserDetailsService() {
+    super();
+  }
+
+  // API - public
+
+  /**
+   * Loads the user from the datastore, by it's user name <br>
+   */
+  @Override
+  public final UserDetails loadUserByUsername(final String username) {
+
+    if (!username.equals("JAxe")) {
+      throw new UsernameNotFoundException(username + " not found");
     }
 
-    // API - public
+    // creating dummy user details, should do JDBC operations
+    return new UserDetails() {
 
-    /**
-     * Loads the user from the datastore, by it's user name <br>
-     */
-    @Override
-    public final UserDetails loadUserByUsername(final String username) {
+      private static final long serialVersionUID = 2059202961588104658L;
 
+      @Override
+      public boolean isEnabled() {
 
+        return true;
+      }
 
-        if (!username.equals("JAxe")) {
-            throw new UsernameNotFoundException(username + " not found");
-        }
+      @Override
+      public boolean isCredentialsNonExpired() {
 
-        // creating dummy user details, should do JDBC operations
-        return new UserDetails() {
+        return true;
+      }
 
-            private static final long serialVersionUID = 2059202961588104658L;
+      @Override
+      public boolean isAccountNonLocked() {
 
-            @Override
-            public boolean isEnabled() {
+        return true;
+      }
 
-                return true;
-            }
+      @Override
+      public boolean isAccountNonExpired() {
 
-            @Override
-            public boolean isCredentialsNonExpired() {
+        return true;
+      }
 
-                return true;
-            }
+      @Override
+      public String getUsername() {
 
-            @Override
-            public boolean isAccountNonLocked() {
+        return username;
+      }
 
-                return true;
-            }
+      @Override
+      public String getPassword() {
 
-            @Override
-            public boolean isAccountNonExpired() {
+        return "jaxe123";
+      }
 
-                return true;
-            }
+      @Override
+      public Collection<? extends GrantedAuthority> getAuthorities() {
 
-            @Override
-            public String getUsername() {
-
-                return username;
-            }
-
-            @Override
-            public String getPassword() {
-
-                return "jaxe123";
-            }
-
-            @Override
-            public Collection<? extends GrantedAuthority> getAuthorities() {
-
-                List<SimpleGrantedAuthority> auths = new java.util.ArrayList<>();
-                auths.add(new SimpleGrantedAuthority("ROLE_USER_READ"));
-                return auths;
-            }
-        };
-    }
-
+        List<SimpleGrantedAuthority> auths = new java.util.ArrayList<>();
+        auths.add(new SimpleGrantedAuthority("ROLE_USER_READ"));
+        return auths;
+      }
+    };
+  }
 }

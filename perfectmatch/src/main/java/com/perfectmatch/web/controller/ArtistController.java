@@ -23,33 +23,27 @@ import com.perfectmatch.web.services.ArtistService;
 @RequestMapping("/artist")
 public class ArtistController {
 
-    @Autowired
-    private ArtistService artistService;
+  @Autowired private ArtistService artistService;
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-	public Artist createArtist(@RequestBody
-		    @Valid
-		    final Artist artist) {
-		return artistService.createArtist(artist);
-	}
-    
-    
-    @GetMapping(path = "/{id}")
-	public Artist getArtistById(String id) {
-		return artistService.getArtistById(id);
-	}
-    
-    @GetMapping(path = "/{name}")
-	public Artist getArtistByName(String name) {
-		return artistService.getArtistByName(name);
-	}
-    
-    
-    @DeleteMapping(path = "/{name}")
-	public Artist deleteArtistByName(@PathVariable("name") String name) {
-    	name = UriUtils.decode(name, StandardCharsets.UTF_8.name());
-		return artistService.deleteArtistByName(name);
-	}
-    
+  @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
+  public Artist createArtist(@RequestBody @Valid final Artist artist) {
+    return artistService.createArtist(artist);
+  }
+
+  @GetMapping(path = "/{id}")
+  public Artist getArtistById(String id) {
+    return artistService.getArtistById(id);
+  }
+
+  @GetMapping(path = "/{name}")
+  public Artist getArtistByName(String name) {
+    return artistService.getArtistByName(name);
+  }
+
+  @DeleteMapping(path = "/{name}")
+  public Artist deleteArtistByName(@PathVariable("name") String name) {
+    name = UriUtils.decode(name, StandardCharsets.UTF_8.name());
+    return artistService.deleteArtistByName(name);
+  }
 }

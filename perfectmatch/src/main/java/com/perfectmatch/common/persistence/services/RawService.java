@@ -7,6 +7,4 @@ import com.perfectmatch.common.interfaces.IOperations;
  * <class description>
  *
  */
-public interface RawService<T extends Entity> extends IOperations<T> {
-
-}
+public interface RawService<T extends Entity> extends IOperations<T> {}
