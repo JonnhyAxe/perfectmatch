@@ -7,7 +7,7 @@ import java.net.URL;
 
 import org.junit.Test;
 
-public class SampleTesCase {
+public class SampleTestCase {
 
   @Test
   public void TestMusicFileLocation() throws MalformedURLException {

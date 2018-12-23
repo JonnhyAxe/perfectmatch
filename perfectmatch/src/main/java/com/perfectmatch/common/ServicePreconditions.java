@@ -1,5 +1,7 @@
 package com.perfectmatch.common;
 
+import java.util.Objects;
+
 import com.perfectmatch.web.exception.MyBadRequestException;
 import com.perfectmatch.web.exception.MyEntityNotFoundException;
 
@@ -23,7 +25,7 @@ public final class ServicePreconditions {
    */
   public static <T> T checkEntityExists(final T entity) {
 
-    if (entity == null) {
+    if (Objects.isNull(entity)) {
       throw new MyEntityNotFoundException();
     }
     return entity;
