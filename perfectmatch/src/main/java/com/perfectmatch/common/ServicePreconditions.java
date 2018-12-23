@@ -7,12 +7,6 @@ import com.perfectmatch.web.exception.MyEntityNotFoundException;
 
 public final class ServicePreconditions {
 
-  private ServicePreconditions() {
-    throw new AssertionError();
-  }
-
-  // API
-
   /**
    * Ensures that the entity reference passed as a parameter to the calling
    * method is not null.

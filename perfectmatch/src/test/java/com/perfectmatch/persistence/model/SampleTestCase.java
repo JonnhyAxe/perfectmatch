@@ -13,8 +13,7 @@ public class SampleTestCase {
   public void TestMusicFileLocation() throws MalformedURLException {
     //Given
     String fileName = "Jansons&Senzala-JNZ.mp3";
-    String expectedPath =
-        "/D:/git/perfectmatch/perfectmatch/target/test-classes/Jansons&Senzala-JNZ.mp3";
+    String expectedPath = "/target/test-classes/Jansons&Senzala-JNZ.mp3";
     String expectedFile = expectedPath;
 
     ClassLoader classloader = Thread.currentThread().getContextClassLoader();
@@ -25,8 +24,8 @@ public class SampleTestCase {
 
     //Then
     assertThat(fileLocation).isNotNull();
-    assertThat(fileLocation.getPath()).isNotBlank().isNotEmpty().isEqualTo(expectedPath);
-    assertThat(fileLocation.getFile()).isNotBlank().isNotEmpty().isEqualTo(expectedFile);
+    assertThat(fileLocation.getPath()).isNotBlank().isNotEmpty().endsWith(expectedPath);
+    assertThat(fileLocation.getFile()).isNotBlank().isNotEmpty().endsWith(expectedFile);
 
     assertThat(musicSample.getLocation()).isNotNull();
     assertThat(musicSample.getLocation().getPath())

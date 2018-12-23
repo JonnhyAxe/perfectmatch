@@ -1,3 +1,7 @@
+## 
+
+Jacoco report is generated under the target/site/jacoco/
+
 ## Automated web tests using Serenity, Cucumber and Maven
 
 Run the tests like this:

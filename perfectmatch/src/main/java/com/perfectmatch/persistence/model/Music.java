@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.util.StringUtils;
 
 import com.perfectmatch.common.interfaces.ByArtistQueryable;
 import com.perfectmatch.common.interfaces.MetaDataQueryable;
@@ -96,11 +97,16 @@ public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryab
   }
 
   /**
-   * @return the artist
+   * @return the artists
    */
   @Override
   public String getArtist() {
-    return artists.get(0); //TODO: remove this
+    return Objects.nonNull(getArtists()) && getArtists().size() > 0 ? getArtistNames() : null;
+  }
+
+  private String getArtistNames() {
+
+	  return StringUtils.collectionToDelimitedString(artists, ",");
   }
 
   @Override

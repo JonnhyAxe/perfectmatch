@@ -58,7 +58,7 @@ public class MusicServiceBean extends AbstractRawService<Music> implements Music
   @Override
   public Music save(Music music) {
     //
-    musicPreconditions(music);
+    musicSavePreconditions(music);
     Music musicByName = findByName(music.getName());
     if (Objects.nonNull(musicByName)) {
       return musicByName;
@@ -112,15 +112,19 @@ public class MusicServiceBean extends AbstractRawService<Music> implements Music
   }
 
   //TODO: add this to an helper class
-  private void musicPreconditions(Music music) {
+  private void musicSavePreconditions(Music music) {
     if (Objects.isNull(music.getName())) {
       throw new MyPreconditionFailedException("Music name is mandatory to create musics");
     }
     if (Objects.isNull(music.getStyle())) {
-      throw new MyPreconditionFailedException("Music name is mandatory to create musics");
-    } else if (!Arrays.asList(Style.values()).contains(Style.valueOf(music.getStyle()))) {
-      throw new MyPreconditionFailedException("Music style not found");
+      throw new MyPreconditionFailedException("Music style is mandatory to create musics");
     }
+    try {
+    	Style.valueOf(music.getStyle());
+    } catch (IllegalArgumentException ex) {
+		 throw new MyPreconditionFailedException("Music style not found");
+    }
+   
     if (Objects.isNull(music.getArtist())) {
       throw new MyPreconditionFailedException("Artist id is mandatory to create musics");
     }
