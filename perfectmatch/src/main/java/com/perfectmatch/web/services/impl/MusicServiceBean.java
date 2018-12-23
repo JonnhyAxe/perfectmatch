@@ -106,7 +106,7 @@ public class MusicServiceBean extends AbstractRawService<Music> implements Music
 
   private void musicUpdatePreconditons(Music music) {
 
-    if (Objects.nonNull(music.getArtists()) || Objects.nonNull(music.getStyle())) {
+    if (Objects.nonNull(music.getArtists()) || Objects.nonNull(music.getStyle()) || Objects.nonNull(music.getName())) {
       throw new MyBadRequestException("Some fields connot be updated");
     }
   }

@@ -18,6 +18,7 @@ import com.perfectmatch.persistence.dao.MusicRepository;
 import com.perfectmatch.persistence.model.Artist;
 import com.perfectmatch.persistence.model.Music;
 import com.perfectmatch.persistence.model.Style;
+import com.perfectmatch.web.exception.MyBadRequestException;
 import com.perfectmatch.web.exception.MyPreconditionFailedException;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -159,6 +160,51 @@ public class MusicServiceBeanTest {
 //		Mockito.verify(artistDao.findByName(Mockito.anyString()), Mockito.times(1));
 //		Mockito.verify(dao.findByName(Mockito.anyString()), Mockito.times(1));
 //		Mockito.verify(dao.save(Mockito.any(Music.class)), Mockito.times(1));
+
+	}
+	
+	
+	@Test(expected = MyBadRequestException.class)
+	public void testUpdateMusicArtist() {
+		//Given
+		String artistName = "AwesomeArtistName";
+	
+		Music music = new Music();
+		String musicName = "MyMusicName";
+		music.setArtists(Arrays.asList(artistName));
+		music.setName(musicName);
+		music.setStyle(Style.TECH_HOUSE.name());
+
+		//When
+		 musicService.updateMusic(music);
+		
+		//Then
+
+	}
+	
+	@Test(expected = MyBadRequestException.class)
+	public void testUpdateMusicStyle() {
+		//Given
+		Music music = new Music();
+		music.setStyle(Style.TECH_HOUSE.name());
+
+		//When
+		musicService.updateMusic(music);
+		
+		//Then
+
+	}
+	
+	@Test(expected = MyBadRequestException.class)
+	public void testUpdateMusicName() {
+		//Given
+		Music music = new Music();
+		music.setName("AwesomeMusicName");
+
+		//When
+		musicService.updateMusic(music);
+		
+		//Then
 
 	}
 }
