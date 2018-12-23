@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -195,16 +196,57 @@ public class MusicServiceBeanTest {
 
 	}
 	
-	@Test(expected = MyBadRequestException.class)
-	public void testUpdateMusicName() {
+	
+	@Test(expected = MyPreconditionFailedException.class)
+	public void testUpdateMusicNotSaved() {
 		//Given
-		Music music = new Music();
-		music.setName("AwesomeMusicName");
+		String artistName = "AwesomeArtistName";
+		Artist artist = new Artist();
+		artist.setName(artistName);
+		
+		Music expectedMusic = new Music();
+		String musicName = "MyMusicName";
+		expectedMusic.setName(musicName);
+		expectedMusic.setKey("updatkey");
+		
+		Mockito.when(dao.findByName(musicName)).thenReturn(null);
 
+		
 		//When
-		musicService.updateMusic(music);
+		musicService.updateMusic(expectedMusic);
 		
 		//Then
+	}
+	
+	@Test
+	public void testUpdateMusicSaved() {
+		//Given
+		String artistName = "AwesomeArtistName";
+		Artist artist = new Artist();
+		artist.setName(artistName);
+		
+		String musicId = "AwesomeId";
+		Music expectedMusic = new Music();
+		expectedMusic.setId(musicId);
+		String musicName = "MyMusicName";
+		expectedMusic.setName(musicName);
+		expectedMusic.setKey("updatkey");
+		expectedMusic.setTempo("UpdateTempo");
+		expectedMusic.setRecordLabel("UpdateRecordeLabel");
+		expectedMusic.setEnergy("UpdateEnergy");
+		
+		Mockito.when(dao.findByName(musicName)).thenReturn(expectedMusic);
+		Mockito.when(dao.existsById(musicId)).thenReturn(true);
+		Mockito.when(dao.findById(musicId)).thenReturn(Optional.of(new Music()));
+
+		
+		//When
+		Music actualMusic = musicService.updateMusic(expectedMusic);
+		
+		//Then
+		assertThat(actualMusic).isNotNull().isEqualTo(expectedMusic);
 
 	}
+	
+	
 }
