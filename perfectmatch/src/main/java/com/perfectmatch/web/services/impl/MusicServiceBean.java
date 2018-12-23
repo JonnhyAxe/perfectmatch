@@ -99,9 +99,7 @@ public class MusicServiceBean extends AbstractRawService<Music> implements Music
   private void addRemixers(Music musicToUpdate, Music music) {
     Set<String> remixers = musicToUpdate.getRemixers();
     Set<String> remixersToAdd = music.getRemixers();
-    if (!remixersToAdd.isEmpty()) {
-      remixersToAdd.stream().forEach(newRemixer -> remixers.add(newRemixer));
-    }
+    remixersToAdd.stream().forEach(newRemixer -> remixers.add(newRemixer));
   }
 
   private void musicUpdatePreconditons(Music music) {

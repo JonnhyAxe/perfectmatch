@@ -234,6 +234,7 @@ public class MusicServiceBeanTest {
 		expectedMusic.setTempo("UpdateTempo");
 		expectedMusic.setRecordLabel("UpdateRecordeLabel");
 		expectedMusic.setEnergy("UpdateEnergy");
+		expectedMusic.getRemixers().add("AwesomeArtistName");
 		
 		Mockito.when(dao.findByName(musicName)).thenReturn(expectedMusic);
 		Mockito.when(dao.existsById(musicId)).thenReturn(true);
@@ -247,6 +248,34 @@ public class MusicServiceBeanTest {
 		assertThat(actualMusic).isNotNull().isEqualTo(expectedMusic);
 
 	}
+	
+	@Test
+	public void testUpdateMusicRemixers() {
+		//Given
+		String artistName = "AwesomeArtistName";
+		Artist artist = new Artist();
+		artist.setName(artistName);
+		
+		String musicId = "AwesomeId";
+		Music expectedMusic = new Music();
+		expectedMusic.setId(musicId);
+		String musicName = "MyMusicName";
+		expectedMusic.setName(musicName);
+		expectedMusic.getRemixers().add("AwesomeArtistName");
+		
+		Mockito.when(dao.findByName(musicName)).thenReturn(expectedMusic);
+		Mockito.when(dao.existsById(musicId)).thenReturn(true);
+		Mockito.when(dao.findById(musicId)).thenReturn(Optional.of(new Music()));
+
+		
+		//When
+		Music actualMusic = musicService.updateMusic(expectedMusic);
+		
+		//Then
+		assertThat(actualMusic).isNotNull().isEqualTo(expectedMusic);
+
+	}
+	
 	
 	
 }

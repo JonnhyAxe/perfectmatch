@@ -157,9 +157,6 @@ public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryab
     return remixers;
   }
 
-  public void setRemixers(Set<String> remixers) {
-    this.remixers = remixers;
-  }
 
   public String getRecordLabel() {
     return recordLabel;
