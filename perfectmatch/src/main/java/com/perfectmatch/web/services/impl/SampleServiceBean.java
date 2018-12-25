@@ -43,11 +43,14 @@ public class SampleServiceBean extends AbstractRawService<Sample> implements Sam
    */
   @Override
   public Sample findByName(String name) {
-
+	 
     return this.sampleRepository.findByName(name);
   }
 
   public Sample save(@Valid Sample resource) {
-    return this.sampleRepository.save(resource);
+	  //TODO: add preconditions
+	  // existing artist and music
+	  // different sample (name and timestamp)
+	  return this.sampleRepository.save(resource);
   }
 }

@@ -46,7 +46,7 @@ public class ArtistServiceBean extends AbstractRawService<Artist> implements Art
 
   @Override
   public Artist getArtistById(String id) {
-    return this.getDao().findById(id).orElseGet(null);
+    return this.getDao().findById(id).orElseThrow(() -> new MyPreconditionFailedException("No Artist found with id " + id));
   }
 
   @Override

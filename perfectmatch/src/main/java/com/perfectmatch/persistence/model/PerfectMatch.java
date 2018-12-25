@@ -29,9 +29,10 @@ public class PerfectMatch implements NameableEntity, Serializable {
    */
   private static final long serialVersionUID = -9166396470466850949L;
 
+  @ApiModelProperty(notes = "Id Match")
   @Id private String id;
 
-  @ApiModelProperty(notes = "Sample Match id ")
+  @ApiModelProperty(notes = "Name Match id ")
   private String name;
 
   /*

@@ -1,5 +1,7 @@
 package com.perfectmatch.web.services.impl;
 
+import org.assertj.core.util.Preconditions;
+
 //import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,12 +44,15 @@ public class PerfectMatchServiceBean extends AbstractRawService<PerfectMatch>
    */
   @Override
   public PerfectMatch findPerfectMatchByName(String name) {
-
+	  //TODO: add preconditions to name
+    Preconditions.checkNotNull(name, "Match name cannot be null");
     return this.getDao().findByName(name);
   }
 
   @Override
   public PerfectMatch save(PerfectMatch resource) {
-    return this.getDao().save(resource);
+	  Preconditions.checkNotNull(resource,  "Perfect Match object cannot be null");
+    //TODO: add preconditions : the name is the sample match, why not add object reference?+
+	  return this.getDao().save(resource);
   }
 }
