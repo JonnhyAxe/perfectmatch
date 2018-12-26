@@ -1,6 +1,24 @@
-## 
 
-Jacoco report is generated under the target/site/jacoco/
+
+## Jacoco Unit Tests Coverage Reports
+
+In order to verify the Unit test coverage the Jacoco maven plugin is used and the report is generated under the target/site/jacoco/
+
+## Sonar 
+
+Install sonar : https://www.sonarqube.org/downloads/
+Start Sonar : https://docs.sonarqube.org/latest/setup/get-started-2-minutes/
+```
+
+C:\<<SONAR_INSTALLATION_DIR>>\windows-x86-xx\StartSonar.bat
+```
+Run Sonar with maven plugin :
+
+```
+mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 
+```
+
+
 
 ## Automated web tests using Serenity, Cucumber and Maven
 
