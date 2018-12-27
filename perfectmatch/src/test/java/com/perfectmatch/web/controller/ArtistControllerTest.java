@@ -54,7 +54,9 @@ public class ArtistControllerTest {
       JacksonTester.initFields(this, new ObjectMapper());
       // MockMvc standalone approach
       mvc = MockMvcBuilders.standaloneSetup(artistController)
-              .setControllerAdvice(new RestResponseEntityExceptionHandler())
+              .setControllerAdvice(new RestResponseEntityExceptionHandler(),
+            		  new ArtistControllerExceptionHandler()
+            		  )
 //              .addFilters(new Artist())
               .build();
   }
@@ -142,7 +144,7 @@ public class ArtistControllerTest {
 	  expectedArtist.setId(ID);
 	  expectedArtist.setName(AWESOME_ARTIST_NAME);
 	 
-      ApiError expectedError = new ApiError(HttpStatus.BAD_REQUEST.value(), 
+      ApiError expectedError = new ApiError(HttpStatus.NOT_FOUND.value(), 
     		  "Artist not found for the given id : 0", 
     		  "Artist not found for the given id : 0");
 	  
@@ -156,7 +158,7 @@ public class ArtistControllerTest {
       then(response.getStatus())
       	.as(CHECK_THAT_ARTIST_IS_RETREIVED)
       	.isNotNull()
-     	.isEqualTo(HttpStatus.BAD_REQUEST.value());
+     	.isEqualTo(HttpStatus.NOT_FOUND.value());
       then(response.getContentAsString())
       	.as(CHECK_THAT_ARTIST_NAME_AND_ID_IS_FILLED_IN)
     	.isEqualTo(jsonApiError.write(expectedError).getJson());
@@ -195,7 +197,7 @@ public class ArtistControllerTest {
 	  expectedArtist.setName(AWESOME_ARTIST_NAME);
 
 
-      ApiError expectedError = new ApiError(HttpStatus.BAD_REQUEST.value(), 
+      ApiError expectedError = new ApiError(HttpStatus.NOT_FOUND.value(), 
     		  "Artist not found for the given name : 0", 
     		  "Artist not found for the given name : 0");
 	  
@@ -210,7 +212,7 @@ public class ArtistControllerTest {
       then(response.getStatus())
       	.as(CHECK_THAT_ARTIST_DOES_NOT_EXIST)
       	.isNotNull()
-      	.isEqualTo(HttpStatus.BAD_REQUEST.value());
+      	.isEqualTo(HttpStatus.NOT_FOUND.value());
       then(response.getContentAsString())
       	.as(CHECK_THAT_ERROR_MESSAGE)
       	.isEqualTo(jsonApiError.write(expectedError).getJson());
@@ -248,7 +250,7 @@ public class ArtistControllerTest {
 	  expectedArtist.setId("2");
 	  expectedArtist.setName(AWESOME_ARTIST_NAME);
 	 
-      ApiError expectedError = new ApiError(HttpStatus.BAD_REQUEST.value(), 
+      ApiError expectedError = new ApiError(HttpStatus.NOT_FOUND.value(), 
     		  "Artist not found for the given name : 0", 
     		  "Artist not found for the given name : 0");
 	  
@@ -263,7 +265,7 @@ public class ArtistControllerTest {
       then(response.getStatus())
       	.as(CHECK_THAT_ARTIST_DOES_NOT_EXIST)
       	.isNotNull()
-      	.isEqualTo(HttpStatus.BAD_REQUEST.value());
+      	.isEqualTo(HttpStatus.NOT_FOUND.value());
       then(response.getContentAsString())
       	.as(CHECK_THAT_ERROR_MESSAGE)
       	.isEqualTo(jsonApiError.write(expectedError).getJson());

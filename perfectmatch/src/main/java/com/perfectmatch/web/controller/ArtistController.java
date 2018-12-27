@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriUtils;
 
 import com.perfectmatch.persistence.model.Artist;
-import com.perfectmatch.web.exception.MyEntityNotFoundException;
+import com.perfectmatch.web.exception.ArtistNotFoundException;
 import com.perfectmatch.web.services.ArtistService;
 
 @RestController
@@ -35,19 +35,18 @@ public class ArtistController {
 
   @GetMapping(path = "/id/{id}")
   public Artist getArtistById(@PathVariable("id") String id) {
-    return Optional.ofNullable(artistService.getArtistById(id)).orElseThrow(() -> new MyEntityNotFoundException("Artist not found for the given id : " + id)); 
+    return Optional.ofNullable(artistService.getArtistById(id)).orElseThrow(() -> new ArtistNotFoundException("Artist not found for the given id : " + id)); 
   }
 
   @GetMapping(path = "/{name}")
   public Artist getArtistByName(@PathVariable("name") String name) {
 	  //TODO: Decode special characters
-	  return  Optional.ofNullable(artistService.getArtistByName(name)).orElseThrow(() -> new MyEntityNotFoundException("Artist not found for the given name : " + name));
+	  return  Optional.ofNullable(artistService.getArtistByName(name)).orElseThrow(() -> new ArtistNotFoundException("Artist not found for the given name : " + name));
   }
 
   @DeleteMapping(path = "/{name}")
   public Artist deleteArtistByName(@PathVariable("name") String name) {
     final String encodedName = UriUtils.decode(name, StandardCharsets.UTF_8.name());
-  //TODO: change status code to NotFound
-    return Optional.ofNullable(artistService.deleteArtistByName(name)).orElseThrow(() -> new MyEntityNotFoundException("Artist not found for the given name : " + encodedName));
+    return Optional.ofNullable(artistService.deleteArtistByName(name)).orElseThrow(() -> new ArtistNotFoundException("Artist not found for the given name : " + encodedName));
   }
 }

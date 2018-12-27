@@ -2,6 +2,7 @@ package com.perfectmatch.web;
 
 import javax.validation.ConstraintViolationException;
 
+import org.apache.tomcat.util.ExceptionUtils;
 //import org.apache.tomcat.util.;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +40,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
       final HttpHeaders headers,
       final HttpStatus status,
       final WebRequest request) {
-
+	  log.error(getStringCauseMessage(ex));
     return handleExceptionInternal(
         ex, message(HttpStatus.BAD_REQUEST, ex), headers, HttpStatus.BAD_REQUEST, request);
   }
@@ -51,10 +52,12 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
       final HttpHeaders headers,
       final HttpStatus status,
       final WebRequest request) {
-
+	  log.error(getStringCauseMessage(ex));
     return handleExceptionInternal(
         ex, message(HttpStatus.BAD_REQUEST, ex), headers, HttpStatus.BAD_REQUEST, request);
   }
+
+  private String getStringCauseMessage(final Exception ex){return ex.getCause() != null ? ex.getCause().toString() : ex.getMessage();}
 
   @ExceptionHandler(
     value = {
@@ -66,7 +69,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
   )
   protected final ResponseEntity<Object> handleBadRequest(
       final RuntimeException ex, final WebRequest request) {
-
+	  log.error(getStringCauseMessage(ex));
     return handleExceptionInternal(
         ex,
         message(HttpStatus.BAD_REQUEST, ex),
@@ -77,12 +80,11 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
   private final ApiError message(final HttpStatus httpStatus, final Exception ex) {
 
-    final String message =
-        ex.getMessage() == null ? ex.getClass().getSimpleName() : ex.getMessage();
+    final String message = getStringCauseMessage(ex);
 
     //TODO: change this
-    //final String devMessage = ExceptionUtils.unwrapInvocationTargetException(ex).getMessage();
+    final String devMessage = ExceptionUtils.unwrapInvocationTargetException(ex).getMessage();
 
-    return new ApiError(httpStatus.value(), message, message);
+    return new ApiError(HttpStatus.NOT_FOUND.value(), message, devMessage);
   }
 }
