@@ -52,17 +52,12 @@ public class SampleMatchServiceBeanTest {
 	String musicNameThis = "MusicNameThis";
 	String musicNameThat = "MusicNameThat";	
 	
-	//this.musicNameThis + "," + this.musicNameThat;
-	
 	Match expectedMatch = new Match();
 	expectedMatch.setMusicNameThat(musicNameThat);
 	expectedMatch.setMusicNameThis(musicNameThis);
 	expectedMatch.setMusicNameThat(MatchRule.DEFAULT.name());
 	
-	List<Match> matchs = Arrays.asList(expectedMatch);
-	
-//	Mockito.when(dao.findAllBymusicName(expectedMatch.getMusicNameThat())).thenReturn(matchs);
-	
+
 	//When 
 	Boolean containsMatchWithOneOfTheSamples = sampleMatchService.contains(expectedMatch);
 	
@@ -77,8 +72,7 @@ public class SampleMatchServiceBeanTest {
     //Given 
 	String musicNameThis = "MusicNameThis";
 	String musicNameThat = "MusicNameThat";	
-	
-	//this.musicNameThis + "," + this.musicNameThat;
+
 	
 	Match expectedMatch = new Match();
 	expectedMatch.setMusicNameThat(musicNameThat);

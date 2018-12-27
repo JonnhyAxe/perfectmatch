@@ -31,19 +31,23 @@ public class ArtistController {
     return artistService.createArtist(artist);
   }
 
-  @GetMapping(path = "/{id}")
-  public Artist getArtistById(String id) {
-    return artistService.getArtistById(id);
+  @GetMapping(path = "/id/{id}")
+  public Artist getArtistById(@PathVariable("id") String id) {
+	  //TODO: change status code to NotFound
+    return artistService.getArtistById(id); 
   }
 
   @GetMapping(path = "/{name}")
-  public Artist getArtistByName(String name) {
-    return artistService.getArtistByName(name);
+  public Artist getArtistByName(@PathVariable("name") String name) {
+	  //TODO: Decode specila characters
+	  //TODO: change status code to NotFound
+	  return artistService.getArtistByName(name);
   }
 
   @DeleteMapping(path = "/{name}")
   public Artist deleteArtistByName(@PathVariable("name") String name) {
     name = UriUtils.decode(name, StandardCharsets.UTF_8.name());
+  //TODO: change status code to NotFound
     return artistService.deleteArtistByName(name);
   }
 }
