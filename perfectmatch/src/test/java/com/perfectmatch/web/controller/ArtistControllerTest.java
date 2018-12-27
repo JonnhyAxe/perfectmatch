@@ -199,8 +199,6 @@ public class ArtistControllerTest {
     		  "Artist not found for the given name : 0", 
     		  "Artist not found for the given name : 0");
 	  
-//      given(artistService.getArtistById("2"))
-//        .willReturn(null);
 
       // when
       MockHttpServletResponse response = mvc.perform(
