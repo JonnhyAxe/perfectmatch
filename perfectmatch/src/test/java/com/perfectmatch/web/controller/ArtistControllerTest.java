@@ -77,8 +77,8 @@ public class ArtistControllerTest {
 	  expectedArtist.setId("2");
 	  expectedArtist.setName("AwesomeArtistName");
 	 
-      given(artistService.getArtistById("2"))
-        .willReturn(expectedArtist);
+//      given(artistService.getArtistById("2"))
+//        .willReturn(expectedArtist);
 
       // when
       MockHttpServletResponse response = mvc.perform(
@@ -103,7 +103,7 @@ public class ArtistControllerTest {
 	  expectedArtist.setId("2");
 	  expectedArtist.setName("AwesomeArtistName");
 	 
-      given(artistService.getArtistById("2"))
+      given(artistService.getArtistByName("AwesomeArtistName"))
         .willReturn(expectedArtist);
 
       // when
@@ -128,8 +128,8 @@ public class ArtistControllerTest {
 	  expectedArtist.setId("2");
 	  expectedArtist.setName("AwesomeArtistName");
 	 
-      given(artistService.getArtistById("2"))
-        .willReturn(expectedArtist);
+//      given(artistService.getArtistById("2"))
+//        .willReturn(expectedArtist);
 
       // when
       MockHttpServletResponse response = mvc.perform(
@@ -178,8 +178,8 @@ public class ArtistControllerTest {
 	  expectedArtist.setId("2");
 	  expectedArtist.setName("AwesomeArtistName");
 	 
-      given(artistService.deleteArtistByName("2"))
-      .willReturn(expectedArtist);
+//      given(artistService.deleteArtistByName("2"))
+//      .willReturn(expectedArtist);
 
 
       // when
