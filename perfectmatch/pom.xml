@@ -198,12 +198,12 @@
         </dependency>
 
        <!-- ops -->
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-<!-- 		ECache -->
+        
+		<!-- ECache -->
         <dependency>
             <groupId>com.googlecode.ehcache-spring-annotations</groupId>
             <artifactId>ehcache-spring-annotations</artifactId>
@@ -217,7 +217,12 @@
 		    <groupId>com.google.code.gson</groupId>
 		    <artifactId>gson</artifactId>
 		</dependency>
-        
+        <!-- Makes possible to parse Optional values to JSON using RestController -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jdk8</artifactId>
+			<version>2.9.5</version>
+		</dependency>
         
 	</dependencies>
 	<build>

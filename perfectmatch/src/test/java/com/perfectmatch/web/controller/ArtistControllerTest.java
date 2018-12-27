@@ -4,6 +4,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -44,6 +45,33 @@ public class ArtistControllerTest {
               .setControllerAdvice(new RestResponseEntityExceptionHandler())
 //              .addFilters(new Artist())
               .build();
+  }
+  
+  @Test
+  public void canCreateArtist() throws Exception {
+	  Artist expectedArtist = new Artist();
+	  expectedArtist.setId("2");
+	  expectedArtist.setName("AwesomeArtistName");
+	 
+      given(artistService.createArtist(expectedArtist))
+        .willReturn(expectedArtist);
+
+      // when
+      MockHttpServletResponse response = mvc.perform(
+              post("/artist")
+              	.contentType(MediaType.APPLICATION_JSON)
+              	.content(jsonArtist.write(expectedArtist).getJson()
+                )
+              )
+              .andReturn().getResponse();
+
+      then(response.getStatus())
+      	.as("Check that Artist is retreived.")
+      	.isNotNull()
+      	.isEqualTo(HttpStatus.CREATED.value());
+      then(response.getContentAsString())
+      	.as("Check that Artist Name and ID is filled in.")
+      	.isEqualTo(jsonArtist.write(expectedArtist).getJson());
   }
   
   @Test
