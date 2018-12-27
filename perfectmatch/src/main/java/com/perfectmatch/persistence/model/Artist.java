@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.annotation.Id;
 
 import com.perfectmatch.common.model.NameableEntity;
@@ -21,6 +23,7 @@ public class Artist implements NameableEntity {
 
   @Id private String id;
 
+  @NotNull
   @ApiModelProperty(notes = "Name of the artist - without format contrains")
   private String name;
 

@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.perfectmatch.web.exception.ApiError;
 import com.perfectmatch.web.exception.MyBadRequestException;
+import com.perfectmatch.web.exception.MyEntityNotFoundException;
 
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
@@ -59,7 +60,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     value = {
       DataIntegrityViolationException.class,
       MyBadRequestException.class,
-      ConstraintViolationException.class
+      ConstraintViolationException.class,
+      MyEntityNotFoundException.class
     }
   )
   protected final ResponseEntity<Object> handleBadRequest(

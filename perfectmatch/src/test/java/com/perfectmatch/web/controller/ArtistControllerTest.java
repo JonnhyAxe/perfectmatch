@@ -2,8 +2,8 @@ package com.perfectmatch.web.controller;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import org.junit.Before;
@@ -22,19 +22,31 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.perfectmatch.persistence.model.Artist;
 import com.perfectmatch.web.RestResponseEntityExceptionHandler;
+import com.perfectmatch.web.exception.ApiError;
 import com.perfectmatch.web.services.impl.ArtistServiceBean;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ArtistControllerTest {
   
+  private static final String AWESOME_ARTIST_NAME = "AwesomeArtistName";
+
+  private static final String CHECK_THAT_ARTIST_NAME_AND_ID_IS_FILLED_IN = "Check that Artist Name and ID is filled in.";
+
+  private static final String CHECK_THAT_ARTIST_IS_RETREIVED = "Check that Artist is retreived.";
+
+  private static final String CHECK_THAT_ARTIST_DOES_NOT_EXIST = "Check that Artist does not exist.";
+
+  private static final String CHECK_THAT_ERROR_MESSAGE = "Check that error message";
+
   private MockMvc mvc;
   
   @InjectMocks private ArtistController artistController;
 
   @Mock private ArtistServiceBean artistService;
 
-  // This object will be magically initialized by the initFields method below.
-  private JacksonTester<Artist> jsonArtist;
+  // These object will be magically initialized by the initFields method below.
+  private JacksonTester<Artist> 	jsonArtist;
+  private JacksonTester<ApiError> 	jsonApiError;
 
   @Before
   public void setup() {
@@ -51,7 +63,7 @@ public class ArtistControllerTest {
   public void canCreateArtist() throws Exception {
 	  Artist expectedArtist = new Artist();
 	  expectedArtist.setId("2");
-	  expectedArtist.setName("AwesomeArtistName");
+	  expectedArtist.setName(AWESOME_ARTIST_NAME);
 	 
       given(artistService.createArtist(expectedArtist))
         .willReturn(expectedArtist);
@@ -62,52 +74,78 @@ public class ArtistControllerTest {
               	.contentType(MediaType.APPLICATION_JSON)
               	.content(jsonArtist.write(expectedArtist).getJson()
                 )
-              )
-              .andReturn().getResponse();
+              ).andReturn().getResponse();
 
       then(response.getStatus())
-      	.as("Check that Artist is retreived.")
+      	.as(CHECK_THAT_ARTIST_IS_RETREIVED)
       	.isNotNull()
       	.isEqualTo(HttpStatus.CREATED.value());
       then(response.getContentAsString())
-      	.as("Check that Artist Name and ID is filled in.")
+      	.as(CHECK_THAT_ARTIST_NAME_AND_ID_IS_FILLED_IN)
       	.isEqualTo(jsonArtist.write(expectedArtist).getJson());
+  }
+  
+  
+  @Test
+  public void cannotCreateArtistWihthoutName() throws Exception {
+	  Artist expectedArtist = new Artist();
+	  expectedArtist.setId("2");
+	  expectedArtist.setName(null);
+
+      // when
+      MockHttpServletResponse response = mvc.perform(
+              post("/artist")
+              	.contentType(MediaType.APPLICATION_JSON)
+              	.content(jsonArtist.write(expectedArtist).getJson()
+                )
+              ).andReturn().getResponse();
+
+      then(response.getStatus())
+      	.as(CHECK_THAT_ARTIST_IS_RETREIVED)
+      	.isNotNull()
+      	.isEqualTo(HttpStatus.BAD_REQUEST.value());
+      then(response.getContentAsString())
+      	.as(CHECK_THAT_ARTIST_NAME_AND_ID_IS_FILLED_IN)
+      	.contains("Field error in object 'artist' on field 'name': rejected value [null]");
   }
   
   @Test
   public void canRetrieveByIdWhenExists() throws Exception {
 	  Artist expectedArtist = new Artist();
-	  expectedArtist.setId("2");
-	  expectedArtist.setName("AwesomeArtistName");
+	  String id = "2";
+	  expectedArtist.setId(id);
+	  expectedArtist.setName(AWESOME_ARTIST_NAME);
 	 
-      given(artistService.getArtistById("2"))
+      given(artistService.getArtistById(id))
         .willReturn(expectedArtist);
 
       // when
       MockHttpServletResponse response = mvc.perform(
-              get("/artist/id/2")
+              get("/artist/id/" + id)
               	.accept(MediaType.APPLICATION_JSON)
               )
               .andReturn().getResponse();
 
       then(response.getStatus())
-      	.as("Check that Artist is retreived.")
+      	.as(CHECK_THAT_ARTIST_IS_RETREIVED)
       	.isNotNull()
       	.isEqualTo(HttpStatus.OK.value());
       then(response.getContentAsString())
-      	.as("Check that Artist Name and ID is filled in.")
+      	.as(CHECK_THAT_ARTIST_NAME_AND_ID_IS_FILLED_IN)
       	.isEqualTo(jsonArtist.write(expectedArtist).getJson());
   }
 
   @Test
   public void canRetrieveByIdWhenDoesNotExists() throws Exception {
 	  Artist expectedArtist = new Artist();
-	  expectedArtist.setId("2");
-	  expectedArtist.setName("AwesomeArtistName");
+	  String ID = "2";
+	  expectedArtist.setId(ID);
+	  expectedArtist.setName(AWESOME_ARTIST_NAME);
 	 
-//      given(artistService.getArtistById("2"))
-//        .willReturn(expectedArtist);
-
+      ApiError expectedError = new ApiError(HttpStatus.BAD_REQUEST.value(), 
+    		  "Artist not found for the given id : 0", 
+    		  "Artist not found for the given id : 0");
+	  
       // when
       MockHttpServletResponse response = mvc.perform(
               get("/artist/id/0")
@@ -116,12 +154,12 @@ public class ArtistControllerTest {
               .andReturn().getResponse();
 
       then(response.getStatus())
-      	.as("Check that Artist is retreived.")
+      	.as(CHECK_THAT_ARTIST_IS_RETREIVED)
       	.isNotNull()
-      	.isEqualTo(HttpStatus.OK.value());
+     	.isEqualTo(HttpStatus.BAD_REQUEST.value());
       then(response.getContentAsString())
-      	.as("Check that Artist Name and ID is filled in.")
-      	.isEqualTo("");
+      	.as(CHECK_THAT_ARTIST_NAME_AND_ID_IS_FILLED_IN)
+    	.isEqualTo(jsonApiError.write(expectedError).getJson());
   }
  
   
@@ -129,24 +167,24 @@ public class ArtistControllerTest {
   public void canRetrieveByNameWhenExists() throws Exception {
 	  Artist expectedArtist = new Artist();
 	  expectedArtist.setId("2");
-	  expectedArtist.setName("AwesomeArtistName");
+	  expectedArtist.setName(AWESOME_ARTIST_NAME);
 	 
-      given(artistService.getArtistByName("AwesomeArtistName"))
+      given(artistService.getArtistByName(AWESOME_ARTIST_NAME))
         .willReturn(expectedArtist);
 
       // when
       MockHttpServletResponse response = mvc.perform(
-              get("/artist/AwesomeArtistName")
+              get("/artist/"+ AWESOME_ARTIST_NAME)
               	.accept(MediaType.APPLICATION_JSON)
               )
               .andReturn().getResponse();
 
       then(response.getStatus())
-      	.as("Check that Artist is retreived.")
+      	.as(CHECK_THAT_ARTIST_IS_RETREIVED)
       	.isNotNull()
       	.isEqualTo(HttpStatus.OK.value());
       then(response.getContentAsString())
-      	.as("Check that Artist Name and ID is filled in.")
+      	.as(CHECK_THAT_ARTIST_NAME_AND_ID_IS_FILLED_IN)
       	.isEqualTo(jsonArtist.write(expectedArtist).getJson());
   }
 
@@ -154,10 +192,15 @@ public class ArtistControllerTest {
   public void canRetrieveByNameWhenDoesNotExists() throws Exception {
 	  Artist expectedArtist = new Artist();
 	  expectedArtist.setId("2");
-	  expectedArtist.setName("AwesomeArtistName");
-	 
+	  expectedArtist.setName(AWESOME_ARTIST_NAME);
+
+
+      ApiError expectedError = new ApiError(HttpStatus.BAD_REQUEST.value(), 
+    		  "Artist not found for the given name : 0", 
+    		  "Artist not found for the given name : 0");
+	  
 //      given(artistService.getArtistById("2"))
-//        .willReturn(expectedArtist);
+//        .willReturn(null);
 
       // when
       MockHttpServletResponse response = mvc.perform(
@@ -167,21 +210,22 @@ public class ArtistControllerTest {
               .andReturn().getResponse();
 
       then(response.getStatus())
-      	.as("Check that Artist is retreived.")
+      	.as(CHECK_THAT_ARTIST_DOES_NOT_EXIST)
       	.isNotNull()
-      	.isEqualTo(HttpStatus.OK.value());
+      	.isEqualTo(HttpStatus.BAD_REQUEST.value());
       then(response.getContentAsString())
-      	.as("Check that Artist Name and ID is filled in.")
-      	.isEqualTo("");
+      	.as(CHECK_THAT_ERROR_MESSAGE)
+      	.isEqualTo(jsonApiError.write(expectedError).getJson());
   }
   
   @Test
   public void canDeleteByNameWhenExists() throws Exception {
+	  String artistName = AWESOME_ARTIST_NAME;
 	  Artist expectedArtist = new Artist();
 	  expectedArtist.setId("2");
-	  expectedArtist.setName("AwesomeArtistName");
+	  expectedArtist.setName(artistName);
 	 
-      given(artistService.deleteArtistByName("AwesomeArtistName"))
+      given(artistService.deleteArtistByName(artistName))
         .willReturn(expectedArtist);
 
       // when
@@ -192,11 +236,11 @@ public class ArtistControllerTest {
               .andReturn().getResponse();
 
       then(response.getStatus())
-      	.as("Check that Artist is retreived.")
+      	.as(CHECK_THAT_ARTIST_IS_RETREIVED)
       	.isNotNull()
       	.isEqualTo(HttpStatus.OK.value());
       then(response.getContentAsString())
-      	.as("Check that Artist Name and ID is filled in.")
+      	.as(CHECK_THAT_ARTIST_NAME_AND_ID_IS_FILLED_IN)
       	.isEqualTo(jsonArtist.write(expectedArtist).getJson());
   }
   
@@ -204,11 +248,12 @@ public class ArtistControllerTest {
   public void canDeleteByNameWhenDoesNotExists() throws Exception {
 	  Artist expectedArtist = new Artist();
 	  expectedArtist.setId("2");
-	  expectedArtist.setName("AwesomeArtistName");
+	  expectedArtist.setName(AWESOME_ARTIST_NAME);
 	 
-//      given(artistService.deleteArtistByName("2"))
-//      .willReturn(expectedArtist);
-
+      ApiError expectedError = new ApiError(HttpStatus.BAD_REQUEST.value(), 
+    		  "Artist not found for the given name : 0", 
+    		  "Artist not found for the given name : 0");
+	  
 
       // when
       MockHttpServletResponse response = mvc.perform(
@@ -218,11 +263,11 @@ public class ArtistControllerTest {
               .andReturn().getResponse();
 
       then(response.getStatus())
-      	.as("Check that Artist is retreived.")
+      	.as(CHECK_THAT_ARTIST_DOES_NOT_EXIST)
       	.isNotNull()
-      	.isEqualTo(HttpStatus.OK.value());
+      	.isEqualTo(HttpStatus.BAD_REQUEST.value());
       then(response.getContentAsString())
-      	.as("Check that Artist Name and ID is filled in.")
-      	.isEqualTo("");
+      	.as(CHECK_THAT_ERROR_MESSAGE)
+      	.isEqualTo(jsonApiError.write(expectedError).getJson());
   }
 }
