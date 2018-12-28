@@ -25,7 +25,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.perfectmatch.persistence.model.Music;
 import com.perfectmatch.persistence.model.Sample;
-import com.perfectmatch.persistence.model.Style;
 import com.perfectmatch.web.RestResponseEntityExceptionHandler;
 import com.perfectmatch.web.exception.ApiError;
 import com.perfectmatch.web.services.impl.SampleServiceBean;
