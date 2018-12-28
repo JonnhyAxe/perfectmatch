@@ -38,28 +38,7 @@ public class PerfectMatch implements NameableEntity, Serializable {
   @ApiModelProperty(notes = "Name of Match")
   private String name;
 
-  /*
-   * (non-Javadoc)
-   *
-   * @see com.perfectmatch.common.interfaces.ByNameQueryable#getName()
-   */
-  @Override
-  public String getName() {
-    return this.name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
-   * @return the id
-   */
-  @Override
-  public String getId() {
-    return id;
-  }
-
+  
   /*
    * (non-Javadoc)
    *

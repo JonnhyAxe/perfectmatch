@@ -18,12 +18,18 @@ import com.perfectmatch.common.model.NameableEntity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  *
  * This class represents an Music to sample from
  *
  */
+@Getter 
+@Setter 
+@NoArgsConstructor 
 @ApiModel(description = "All details about the music ")
 public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryable {
 
@@ -42,7 +48,6 @@ public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryab
   @ApiModelProperty(notes = "Name of the music - without format contrains")
   private String name;
 
-  //	@NotNull TODO: add this
   @ApiModelProperty(notes = "Style of the music of type Style")
   @NotNull
   private String style; //grouping
@@ -72,39 +77,7 @@ public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryab
   @NotNull
   private URL location;
 
-  public String getStyle() {
-    return style;
-  }
-
-  public Set<Sample> getSamples() {
-    return samples;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  /**
-   * @return the id
-   */
-  @Override
-  public String getId() {
-
-    return id;
-  }
-
-  public void setArtists(List<String> artists) {
-    this.artists = artists;
-  }
-
-  /**
-   * @return the artist
-   */
-  @Override
-  public List<String> getArtists() {
-    return artists;
-  }
-
+ 
   /**
    * @return the artists
    */

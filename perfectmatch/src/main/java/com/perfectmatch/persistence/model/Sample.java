@@ -10,11 +10,17 @@ import com.perfectmatch.common.model.NameableEntity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * This class represents an Sample of one specific music
  *
  */
+@Getter 
+@Setter 
+@NoArgsConstructor 
 @ApiModel(description = "Details of the Sample")
 public class Sample implements NameableEntity {
 
@@ -36,67 +42,6 @@ public class Sample implements NameableEntity {
   @NotNull
   @ApiModelProperty(notes = "Location of the file in the storage")
   private URL location;
-
-  /**
-   * @return the id
-   */
-  @Override
-  public String getId() {
-
-    return id;
-  }
-
-  /**
-   * @param id
-   *            the id to set
-   */
-  public void setId(String id) {
-
-    this.id = id;
-  }
-
-  /**
-   * @return the timestamp
-   */
-  public int getTimestamp() {
-
-    return timestamp;
-  }
-
-  /**
-   * @param timestamp
-   *            the timestamp to set
-   */
-  public void setTimestamp(int timestamp) {
-
-    this.timestamp = timestamp;
-  }
-
-  /**
-   * @return the name
-   */
-  @Override
-  public String getName() {
-
-    return name;
-  }
-
-  /**
-   * @param name
-   *            the name to set
-   */
-  public void setName(String name) {
-
-    this.name = name;
-  }
-
-  public URL getLocation() {
-    return location;
-  }
-
-  public void setLocation(URL location) {
-    this.location = location;
-  }
 
   /*
    * (non-Javadoc)

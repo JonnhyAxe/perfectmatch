@@ -7,6 +7,4 @@ public enum Style {
   HOUSE,
   TECH_HOUSE,
   TECHNO;
-	
-	
 }

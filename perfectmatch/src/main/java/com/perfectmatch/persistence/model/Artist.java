@@ -12,7 +12,13 @@ import com.perfectmatch.common.model.NameableEntity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter 
+@Setter 
+@NoArgsConstructor 
 @ApiModel(description = "All details about the artist ")
 public class Artist implements NameableEntity {
 
@@ -29,28 +35,6 @@ public class Artist implements NameableEntity {
 
   @ApiModelProperty(notes = "Websites of the artist - without format contrains")
   private List<String> websites = new ArrayList<>();
-
-  @Override
-  public String getId() {
-    return this.id;
-  }
-
-  @Override
-  public String getName() {
-    return this.name;
-  }
-
-  public List<String> getWebsites() {
-    return websites;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
 
   @Override
   public int hashCode() {

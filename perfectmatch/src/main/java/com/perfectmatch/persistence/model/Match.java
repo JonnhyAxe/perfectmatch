@@ -61,37 +61,6 @@ public class Match implements NameableEntity, Serializable {
     return this.musicNameThis + "," + this.musicNameThat;
   }
 
-  /**
-   * @return the id
-   */
-  @Override
-  public String getId() {
-    return id;
-  }
-
-  public String getMusicNameThis() {
-    return musicNameThis;
-  }
-
-  public String getMusicNameThat() {
-    return musicNameThat;
-  }
-
-  public void setMusicNameThis(String musicNameThis) {
-    this.musicNameThis = musicNameThis;
-  }
-
-  public void setMusicNameThat(String musicNameThat) {
-    this.musicNameThat = musicNameThat;
-  }
-
-  public void setRule(String rule) {
-    this.rule = rule;
-  }
-
-  public String getRule() {
-   return this.rule;
-  }
   /*
    * (non-Javadoc)
    *
