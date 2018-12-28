@@ -36,7 +36,7 @@ public class SampleControllerTest {
 	 
 	 private static final String CHECK_THAT_SAMPLE_IS_RETREIVED = "Check that sample is retrieved";
 	 
-	 private static final String CHECK_THAT_SAMPLE_NAME_AND_ID_IS_FILLED_IN = "Check that sample name and id is filled in";
+	 private static final String CHECK_THAT_SAMPLE_NAME_AND_ID_IS_FILLED_IN = "Check that sample fileds are filled in";
 	 
 	 private static final String CHECK_THAT_LIST_CONTENT_IS_CORRECT = "Check that list content is correct";
 

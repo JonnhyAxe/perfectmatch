@@ -3,6 +3,8 @@ package com.perfectmatch.persistence.model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.annotation.Id;
 
 import com.perfectmatch.common.model.NameableEntity;
@@ -32,7 +34,8 @@ public class PerfectMatch implements NameableEntity, Serializable {
   @ApiModelProperty(notes = "Id Match")
   @Id private String id;
 
-  @ApiModelProperty(notes = "Name Match id ")
+  @NotNull
+  @ApiModelProperty(notes = "Name of Match")
   private String name;
 
   /*

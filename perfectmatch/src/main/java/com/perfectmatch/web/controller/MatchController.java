@@ -29,6 +29,7 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/match")
 public class MatchController {
 
+  //TODO: add Service Bean to adhere to SOLID Design
   @Autowired private SampleMatchRepository matchJpaRepository;
 
   @GetMapping
@@ -53,7 +54,7 @@ public class MatchController {
   @ApiOperation(value = "Find all Matchs by music name - without pagination")
   public List<Match> findAllMatchByMusic(@PathVariable("music") @NotNull @NotBlank String music) throws IOException {
 	  List<Match> matchs = matchJpaRepository.findAllBymusicName(music);
-	  return Optional.ofNullable( !matchs.isEmpty() ? matchs : null).orElseThrow(() -> new MatchNotFoundException("Match not found for given music name : " + music));
+	  return Optional.ofNullable(!matchs.isEmpty() ? matchs : null).orElseThrow(() -> new MatchNotFoundException("Match not found for given music name : " + music));
   }
   
   @PostMapping

@@ -5,7 +5,6 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,8 +25,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.perfectmatch.persistence.dao.SampleMatchRepository;
 import com.perfectmatch.persistence.model.Match;
 import com.perfectmatch.persistence.model.MatchRule;
-import com.perfectmatch.persistence.model.Music;
-import com.perfectmatch.persistence.model.Style;
 import com.perfectmatch.web.RestResponseEntityExceptionHandler;
 import com.perfectmatch.web.exception.ApiError;
 
@@ -39,7 +36,7 @@ public class MatchControllerTest {
 	 private static final String AWESOME_MUSIC_NAME_THAT = "AwesomeMusicNameThat";
 	 private static final String AWESOME_MUSIC_NAME_THAT2 = "AwesomeMusicNameThat2";
 	 
-	 private static final String CHECK_THAT_MATCH_IS_RETREIVED = "Check that music is retrieved";
+	 private static final String CHECK_THAT_MATCH_IS_RETREIVED = "Check that match is retrieved";
 	 
 	 private static final String CHECK_THAT_MATCH_FIELDS_ARE_FILLED_IN = "Check that Match fields are filled in";
 	 
@@ -79,7 +76,7 @@ public class MatchControllerTest {
 		  List<Match> expectedMatchs = Arrays.asList(new Match());
 		 
 	      given(sampleMatchRepository.findAll())
-	        .willReturn(Arrays.asList(new Match()));
+	        .willReturn(expectedMatchs);
 
 	      // when
 	      MockHttpServletResponse response = mvc.perform(
