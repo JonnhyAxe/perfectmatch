@@ -1,4 +1,7 @@
+## Install Lambok 
 
+https://howtodoinjava.com/automation/lombok-eclipse-installation-examples/#lombok-eclipse
+s
 ## Jacoco Unit Tests Coverage Reports
 
 In order to verify the Unit test coverage the Jacoco maven plugin is used and the report is generated under the target/site/jacoco/
