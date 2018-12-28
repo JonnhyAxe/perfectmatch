@@ -15,6 +15,11 @@ import com.perfectmatch.web.controller.MusicController;
 public class MusicResource extends ResourceSupport {
 
   private Music music;
+  
+
+  public MusicResource() {
+	  
+  }
 
   public MusicResource(Music music) {
     this.music = music;
@@ -30,5 +35,9 @@ public class MusicResource extends ResourceSupport {
   public Music getMusic() {
 
     return music;
+  }
+  
+  public void setMusic(Music music) {
+	  this.music = music;
   }
 }

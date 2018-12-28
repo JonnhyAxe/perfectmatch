@@ -40,9 +40,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
       final HttpHeaders headers,
       final HttpStatus status,
       final WebRequest request) {
-	  log.error(getStringCauseMessage(ex));
+	  log.error(RestResponseEntityExceptionHandlerData.getStringCauseMessage(ex));
     return handleExceptionInternal(
-        ex, message(HttpStatus.BAD_REQUEST, ex), headers, HttpStatus.BAD_REQUEST, request);
+        ex, RestResponseEntityExceptionHandlerData.message(HttpStatus.BAD_REQUEST, ex), headers, HttpStatus.BAD_REQUEST, request);
   }
 
   @Override // In the case of an Identity field without value - TODO: It
@@ -52,12 +52,10 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
       final HttpHeaders headers,
       final HttpStatus status,
       final WebRequest request) {
-	  log.error(getStringCauseMessage(ex));
+	  log.error(RestResponseEntityExceptionHandlerData.getStringCauseMessage(ex));
     return handleExceptionInternal(
-        ex, message(HttpStatus.BAD_REQUEST, ex), headers, HttpStatus.BAD_REQUEST, request);
+        ex, RestResponseEntityExceptionHandlerData.message(HttpStatus.BAD_REQUEST, ex), headers, HttpStatus.BAD_REQUEST, request);
   }
-
-  private String getStringCauseMessage(final Exception ex){return ex.getCause() != null ? ex.getCause().toString() : ex.getMessage();}
 
   @ExceptionHandler(
     value = {
@@ -69,22 +67,13 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
   )
   protected final ResponseEntity<Object> handleBadRequest(
       final RuntimeException ex, final WebRequest request) {
-	  log.error(getStringCauseMessage(ex));
+	  log.error(RestResponseEntityExceptionHandlerData.getStringCauseMessage(ex));
     return handleExceptionInternal(
         ex,
-        message(HttpStatus.BAD_REQUEST, ex),
+        RestResponseEntityExceptionHandlerData.message(HttpStatus.BAD_REQUEST, ex),
         new HttpHeaders(),
         HttpStatus.BAD_REQUEST,
         request);
   }
 
-  private final ApiError message(final HttpStatus httpStatus, final Exception ex) {
-
-    final String message = getStringCauseMessage(ex);
-
-    //TODO: change this
-    final String devMessage = ExceptionUtils.unwrapInvocationTargetException(ex).getMessage();
-
-    return new ApiError(HttpStatus.NOT_FOUND.value(), message, devMessage);
-  }
 }

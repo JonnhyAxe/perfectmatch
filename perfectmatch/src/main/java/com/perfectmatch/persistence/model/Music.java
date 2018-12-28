@@ -6,9 +6,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.util.StringUtils;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.perfectmatch.common.interfaces.ByArtistQueryable;
 import com.perfectmatch.common.interfaces.MetaDataQueryable;
 import com.perfectmatch.common.model.NameableEntity;
@@ -31,15 +34,17 @@ public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryab
 
   @Id private String id;
 
+  @NotNull
   @ApiModelProperty(notes = "Names of the music artist - without contrains")
   private List<String> artists;
 
-  //	@NotNull TODO: add this
+  @NotNull
   @ApiModelProperty(notes = "Name of the music - without format contrains")
   private String name;
 
   //	@NotNull TODO: add this
   @ApiModelProperty(notes = "Style of the music of type Style")
+  @NotNull
   private String style; //grouping
 
   @ApiModelProperty(notes = "Samples of the music - at least one sample")
@@ -52,15 +57,19 @@ public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryab
   private String recordLabel;
 
   @ApiModelProperty(notes = "key of the music")
+  @NotNull
   private String key;
 
   @ApiModelProperty(notes = "Energy of the music")
+  @NotNull
   private String energy; //grouping
 
   @ApiModelProperty(notes = "Tempo of the music")
+  @NotNull
   private String tempo;
 
   @ApiModelProperty(notes = "Location of the file in the storage")
+  @NotNull
   private URL location;
 
   public String getStyle() {
@@ -100,6 +109,7 @@ public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryab
    * @return the artists
    */
   @Override
+  @JsonIgnore
   public String getArtist() {
     return Objects.nonNull(getArtists()) && getArtists().size() > 0 ? getArtistNames() : null;
   }
@@ -156,7 +166,6 @@ public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryab
   public Set<String> getRemixers() {
     return remixers;
   }
-
 
   public String getRecordLabel() {
     return recordLabel;

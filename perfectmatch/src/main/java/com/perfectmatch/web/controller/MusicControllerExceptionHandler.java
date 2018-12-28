@@ -7,17 +7,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.perfectmatch.web.RestResponseEntityExceptionHandlerData;
 import com.perfectmatch.web.exception.ApiError;
-import com.perfectmatch.web.exception.ArtistNotFoundException;
+import com.perfectmatch.web.exception.MusicNotFoundException;
 
 /**
  * Maps exceptions to HTTP codes
  */
 @RestControllerAdvice
-public class ArtistControllerExceptionHandler {
+public class MusicControllerExceptionHandler {
 	
-  @ExceptionHandler(ArtistNotFoundException.class)
+  @ExceptionHandler(MusicNotFoundException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
-  public ApiError handleArtistNotFoundException(ArtistNotFoundException ex) {
-	return RestResponseEntityExceptionHandlerData.message(HttpStatus.NOT_FOUND, ex);
-  }
+  public ApiError handleArtistNotFoundException(MusicNotFoundException ex) {
+	  return RestResponseEntityExceptionHandlerData.message(HttpStatus.NOT_FOUND, ex); }
 }

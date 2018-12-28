@@ -2,7 +2,12 @@ package com.perfectmatch.web.exception;
 
 public class ArtistNotFoundException  extends RuntimeException {
 	
-	  public ArtistNotFoundException() {
+	  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
+  public ArtistNotFoundException() {
 	    super();
 	  }
 

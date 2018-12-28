@@ -2,6 +2,7 @@ package com.perfectmatch.web.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.perfectmatch.persistence.model.Music;
-import com.perfectmatch.web.exception.MyBadRequestException;
+import com.perfectmatch.web.exception.MusicNotFoundException;import com.perfectmatch.web.exception.MyBadRequestException;
 import com.perfectmatch.web.services.MusicService;
 import com.perfectmatch.web.services.hatoas_impl.MusicResource;
 
@@ -36,9 +37,6 @@ public class MusicController {
 
   public MusicController() {}
 
-  //    public MusicController(MusicRepository musicJpaRepository) {
-  //		this.musicJpaRepository = musicJpaRepository;
-  //	}
 
   @GetMapping
   @Secured({"ROLE_USER_READ"})
@@ -48,7 +46,6 @@ public class MusicController {
     )
   //https://github.com/in28minutes/spring-boot-examples/blob/master/spring-boot-2-rest-service-with-swagger/src/main/java/com/in28minutes/springboot/rest/example/student/StudentResource.java
   public List<Music> getAllMusics() throws IOException {
-
     return musicService.findAll();
   }
 
@@ -58,21 +55,21 @@ public class MusicController {
     /** notes = "Also returns a link to retrieve all students with rel - all-students" **/
     )
   public Music getMusicByName(@PathVariable("name") @Valid final String musicName) {
-    return musicService.findByName(musicName);
+    return Optional.ofNullable(musicService.findByName(musicName)).orElseThrow(() -> new MusicNotFoundException("Music not found for the given name : " + musicName)); 
   }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public MusicResource createMusic(@RequestBody @Valid final Music resource) {
+  public Music createMusic(@RequestBody @Valid final Music resource) {
     if (resource.getArtist() == null) {
       throw new MyBadRequestException("Artist must not be null");
     }
-    return new MusicResource(musicService.save(resource));
+    return musicService.save(resource);
   }
 
   @PutMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public MusicResource updateMusic(@RequestBody @Valid final Music resource) {
-    return new MusicResource(musicService.updateMusic(resource));
+  public Music updateMusic(@RequestBody final Music resource) {
+    return musicService.updateMusic(resource);
   }
 }

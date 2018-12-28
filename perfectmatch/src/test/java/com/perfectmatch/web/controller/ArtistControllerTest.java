@@ -270,4 +270,6 @@ public class ArtistControllerTest {
       	.as(CHECK_THAT_ERROR_MESSAGE)
       	.isEqualTo(jsonApiError.write(expectedError).getJson());
   }
+  
+  
 }
