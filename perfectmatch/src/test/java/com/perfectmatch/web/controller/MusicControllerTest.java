@@ -28,13 +28,10 @@ import com.perfectmatch.persistence.model.Music;
 import com.perfectmatch.persistence.model.Style;
 import com.perfectmatch.web.RestResponseEntityExceptionHandler;
 import com.perfectmatch.web.exception.ApiError;
-import com.perfectmatch.web.services.hatoas_impl.MusicResource;
 import com.perfectmatch.web.services.impl.MusicServiceBean;
-import com.perfectmatch.web.services.hatoas_impl.MusicResource;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MusicControllerTest {
-
 
  private static final String AWESOME_MUSIC_NAME = "AwesomeMusicName";
  
@@ -58,8 +55,7 @@ public class MusicControllerTest {
 
   // These object will be magically initialized by the initFields method below.
   private JacksonTester<Music> 	jsonMusic;
-  private JacksonTester<List<Music>> 	jsonMusics;
-  private JacksonTester<MusicResource> jsonMusicResource;
+  private JacksonTester<List<Music>>  jsonMusics;
   private JacksonTester<ApiError> 	jsonApiError;
   
   @Before

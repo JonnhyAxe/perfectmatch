@@ -2,6 +2,8 @@ package com.perfectmatch.persistence.model;
 
 import java.net.URL;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.annotation.Id;
 
 import com.perfectmatch.common.model.NameableEntity;
@@ -23,12 +25,15 @@ public class Sample implements NameableEntity {
 
   @Id private String id;
 
+  @NotNull
   @ApiModelProperty(notes = "Name of the music")
   private String name;
 
+  @NotNull
   @ApiModelProperty(notes = "Specific position of the original music")
   private int timestamp;
-
+  
+  @NotNull
   @ApiModelProperty(notes = "Location of the file in the storage")
   private URL location;
 
@@ -73,7 +78,7 @@ public class Sample implements NameableEntity {
   @Override
   public String getName() {
 
-    return name + "_" + timestamp + "_" + id;
+    return name;
   }
 
   /**
