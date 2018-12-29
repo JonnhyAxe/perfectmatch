@@ -78,7 +78,7 @@ public class MusicServiceBean extends AbstractRawService<Music> implements Music
     throw new MyPreconditionFailedException("Music name " + music.getName() + " does not exist");
   }
 
-  //TODO: find merge method as Hibernate merge
+  //find merge method as Hibernate merge
   private void merge(Music musicToUpdate, Music music) {
     addRemixers(musicToUpdate, music);
     if (Objects.nonNull(music.getRecordLabel())) {
@@ -98,7 +98,7 @@ public class MusicServiceBean extends AbstractRawService<Music> implements Music
   private void addRemixers(Music musicToUpdate, Music music) {
     Set<String> remixers = musicToUpdate.getRemixers();
     Set<String> remixersToAdd = music.getRemixers();
-    remixersToAdd.stream().forEach(newRemixer -> remixers.add(newRemixer));
+    remixersToAdd.stream().forEach(remixers::add);
   }
 
   private void musicUpdatePreconditons(Music music) {

@@ -2,8 +2,6 @@ package com.perfectmatch.web;
 
 import javax.validation.ConstraintViolationException;
 
-import org.apache.tomcat.util.ExceptionUtils;
-//import org.apache.tomcat.util.;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.perfectmatch.web.exception.ApiError;
 import com.perfectmatch.web.exception.MyBadRequestException;
 import com.perfectmatch.web.exception.MyEntityNotFoundException;
 
@@ -45,8 +42,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         ex, RestResponseEntityExceptionHandlerData.message(HttpStatus.BAD_REQUEST, ex), headers, HttpStatus.BAD_REQUEST, request);
   }
 
-  @Override // In the case of an Identity field without value - TODO: It
-  // required @Validation
+  @Override // In the case of an Identity field without value -  required @Validation
   protected final ResponseEntity<Object> handleMethodArgumentNotValid(
       final MethodArgumentNotValidException ex,
       final HttpHeaders headers,

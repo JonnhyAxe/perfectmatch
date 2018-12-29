@@ -40,8 +40,8 @@ public class ArtistController {
 
   @GetMapping(path = "/{name}")
   public Artist getArtistByName(@PathVariable("name") String name) {
-	  //TODO: Decode special characters
-	  return  Optional.ofNullable(artistService.getArtistByName(name)).orElseThrow(() -> new ArtistNotFoundException("Artist not found for the given name : " + name));
+	  final String encodedName = UriUtils.decode(name, StandardCharsets.UTF_8.name());
+	  return  Optional.ofNullable(artistService.getArtistByName(encodedName)).orElseThrow(() -> new ArtistNotFoundException("Artist not found for the given name : " + encodedName));
   }
 
   @DeleteMapping(path = "/{name}")

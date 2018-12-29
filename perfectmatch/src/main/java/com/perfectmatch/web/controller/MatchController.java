@@ -1,7 +1,6 @@
 
 package com.perfectmatch.web.controller;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,12 +28,11 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/match")
 public class MatchController {
 
-  //TODO: add Service Bean to adhere to SOLID Design
   @Autowired private SampleMatchRepository matchJpaRepository;
 
   @GetMapping
   @ApiOperation(value = "Find all Matchs - without pagination")
-  public List<Match> findAllMatchs() throws IOException {
+  public List<Match> findAllMatchs() {
     return matchJpaRepository.findAll();
   }
 
@@ -52,7 +50,7 @@ public class MatchController {
 
   @GetMapping(path = "/{music}")
   @ApiOperation(value = "Find all Matchs by music name - without pagination")
-  public List<Match> findAllMatchByMusic(@PathVariable("music") @NotNull @NotBlank String music) throws IOException {
+  public List<Match> findAllMatchByMusic(@PathVariable("music") @NotNull @NotBlank String music) {
 	  List<Match> matchs = matchJpaRepository.findAllBymusicName(music);
 	  return Optional.ofNullable(!matchs.isEmpty() ? matchs : null).orElseThrow(() -> new MatchNotFoundException("Match not found for given music name : " + music));
   }

@@ -2,8 +2,7 @@ package com.perfectmatch.web.services.impl;
 
 import java.util.Objects;
 
-//import javax.transaction.Transactional;
-
+import org.assertj.core.util.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,7 +49,7 @@ public class SampleMatchServiceBean extends AbstractRawService<Match>
    */
   @Override
   public Match findMatchByName(String name) {
-	  //TODO add preconditions name
+	Preconditions.checkNotNull(name, "Sample Match name cannot be null");
     String[] musics = name.split(",");
     return this.dao.findMatchByMusics(musics[0], musics[1]);
   }

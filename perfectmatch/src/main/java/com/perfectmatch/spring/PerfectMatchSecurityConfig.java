@@ -25,11 +25,8 @@ public class PerfectMatchSecurityConfig extends WebSecurityConfigurerAdapter {
     // @formatter:off
     httpSecurity
         .authorizeRequests()
-        .
-        // antMatchers("/api/**"). // if you want a more explicit mapping here
-        anyRequest()
+        .anyRequest()
         .permitAll();
-    // .and().httpBasic().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     // @formatter:on
 
     httpSecurity

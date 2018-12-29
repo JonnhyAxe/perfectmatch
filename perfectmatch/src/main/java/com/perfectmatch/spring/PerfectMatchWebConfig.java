@@ -48,24 +48,6 @@ public class PerfectMatchWebConfig extends WebMvcConfigurationSupport {
     super.addDefaultHttpMessageConverters(converters);
   }
 
-  //    @Bean
-  //    ServletRegistrationBean h2servletRegistration() {
-  //
-  //        ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
-  //        registrationBean.addUrlMappings("/console/*");
-  //
-  //        // final Map<String, String> params = new HashMap<String, String>();
-  //        // params.put("contextClass",
-  //        // "org.springframework.web.context.support.AnnotationConfigWebApplicationContext");
-  //        // params.put("contextConfigLocation", "org.spring.sec2.spring");
-  //        // params.put("dispatchOptionsRequest", "true");
-  //        // registrationBean.setInitParameters(params);
-  //        //
-  //        // registrationBean.setLoadOnStartup(1);
-  //
-  //        return registrationBean;
-  //    }
-
   @Bean // Enabling and configuring Swagger
   public Docket mainConfig() { // @formatter:off
 

@@ -3,8 +3,10 @@ package com.perfectmatch.web.services.impl;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,13 +16,16 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.perfectmatch.persistence.dao.ArtistRepository;
+import com.perfectmatch.persistence.dao.MusicRepository;
 import com.perfectmatch.persistence.model.Artist;
+import com.perfectmatch.persistence.model.Music;
 import com.perfectmatch.web.exception.MyPreconditionFailedException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ArtistServiceBeanTest {
 
   @Mock private ArtistRepository dao;
+  @Mock private MusicRepository musicDao;
   
   @InjectMocks ArtistServiceBean artistService;
 
@@ -191,9 +196,10 @@ public class ArtistServiceBeanTest {
 	expectedArtist.getWebsites().addAll(website);
 	
 	Mockito.when(dao.findByName(artistName)).thenReturn(expectedArtist);
-	Mockito.when(dao.existsById(artistId)).thenReturn(Boolean.TRUE);
 	Mockito.when(dao.findById(artistId)).thenReturn(Optional.of(expectedArtist));
-//	Mockito.when(dao.delete(expectedArtist)).thenReturn(void);
+	Set<Music> musics = new HashSet<Music>();
+	musics.add(new Music());
+	Mockito.when(musicDao.findByArtist(artistName)).thenReturn(musics);
 	
 	
 	

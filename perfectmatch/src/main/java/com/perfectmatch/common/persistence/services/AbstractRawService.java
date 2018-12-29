@@ -3,6 +3,7 @@ package com.perfectmatch.common.persistence.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.assertj.core.util.Preconditions;
 import org.slf4j.Logger;
@@ -29,8 +30,8 @@ public abstract class AbstractRawService<T extends NameableEntity> implements IO
   @Override
   @Transactional(readOnly = true)
   public T findOne(final String id) {
-
-    if (Objects.nonNull(id) && getDao().existsById(id)) {
+	Optional<T> entity =  getDao().findById(id);
+    if (Objects.nonNull(id) && entity.isPresent()) {
       return getDao().findById(id).get();
     }
     return null;
@@ -97,7 +98,6 @@ public abstract class AbstractRawService<T extends NameableEntity> implements IO
   // template method
 
   protected abstract PagingAndSortingRepository<T, String> getDao();
-  //protected abstract JpaSpecificationExecutor<T> getSpecificationExecutor();
 
   // template
 

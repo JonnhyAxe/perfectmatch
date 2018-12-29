@@ -1,7 +1,6 @@
 
 package com.perfectmatch.web.controller;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +32,7 @@ public class PerfectMatchController {
 
   @GetMapping
   @ApiOperation(value = "Find all Perfect Matchs - without pagination")
-  public List<PerfectMatch> findAllPerfectMatchs() throws IOException {
+  public List<PerfectMatch> findAllPerfectMatchs() {
     return perfectMatchService.findAll();
   }
 

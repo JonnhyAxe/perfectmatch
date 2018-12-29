@@ -1,6 +1,5 @@
 package com.perfectmatch.web.controller;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +29,7 @@ public class SampleController {
 
   @GetMapping
   @ApiOperation(value = "Find all Samples - without pagination")
-  public List<Sample> findAllSamples() throws IOException {
+  public List<Sample> findAllSamples() {
     return sampleServiceBean.findAll();
   }
 

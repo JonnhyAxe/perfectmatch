@@ -1,11 +1,8 @@
 package com.perfectmatch.web.controller;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
@@ -17,11 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.perfectmatch.persistence.model.Music;
 import com.perfectmatch.web.exception.MusicNotFoundException;
 import com.perfectmatch.web.services.MusicService;
-
 import io.swagger.annotations.ApiOperation;
 
 /*
@@ -34,15 +29,12 @@ public class MusicController {
 
   @Autowired private MusicService musicService;
 
-  public MusicController() {}
-
-
   @GetMapping
   @Secured({"ROLE_USER_READ"})
   @ApiOperation(value = "Find all musics - without pagination"
     /** notes = "Also returns a link to retrieve all students with rel - all-students" **/)
   //https://github.com/in28minutes/spring-boot-examples/blob/master/spring-boot-2-rest-service-with-swagger/src/main/java/com/in28minutes/springboot/rest/example/student/StudentResource.java
-  public List<Music> getAllMusics() throws IOException {
+  public List<Music> getAllMusics() {
     return musicService.findAll();
   }
 

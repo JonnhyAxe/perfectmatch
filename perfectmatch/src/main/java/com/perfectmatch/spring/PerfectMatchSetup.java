@@ -101,8 +101,6 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
     newMatch.setMusicNameThat(musicDef.getName());
     newMatch.setRule(MatchRule.DEFAULT.name());
 
-    //        samplePleaseStop.setMathes(new HashSet<Match>(Arrays.asList(newMatch)));
-
     if (!getSampleMatchServiceBean().contains(newMatch)) {
       getSampleMatchServiceBean().create(newMatch);
     }
@@ -152,17 +150,13 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
     return musicService;
   }
 
-  //	public void setMusicServiceBean(MusicService musicServiceBean) {
-  //		this.musicService = musicServiceBean;
-  //	}
+
 
   private SampleService getSampleServiceBean() {
     return sampleService;
   }
 
-  //	public void setSampleServiceBean(SampleService sampleServiceBean) {
-  //		this.sampleService = sampleServiceBean;
-  //	}
+
 
   private PerfectMatchService getPerfectMatchServiceBean() {
     return perfectMatchService;
@@ -171,10 +165,5 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
   private SampleMatchService getSampleMatchServiceBean() {
     return sampleMatchService;
   }
-
-  //
-  //	public void setSampleMatchServiceBean(SampleMatchService sampleMatchServiceBean) {
-  //		this.sampleMatchService = sampleMatchServiceBean;
-  //	}
 
 }

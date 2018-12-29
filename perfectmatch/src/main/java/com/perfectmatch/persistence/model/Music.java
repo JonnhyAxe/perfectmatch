@@ -84,78 +84,14 @@ public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryab
   @Override
   @JsonIgnore
   public String getArtist() {
-    return Objects.nonNull(getArtists()) && getArtists().size() > 0 ? getArtistNames() : null;
+    return Objects.nonNull(getArtists()) && !getArtists().isEmpty() ? getArtistNames() : null;
   }
 
   private String getArtistNames() {
-
 	  return StringUtils.collectionToDelimitedString(artists, ",");
   }
 
-  @Override
-  public String getKey() {
-    return this.key;
-  }
-
-  @Override
-  public String getEnergy() {
-    return this.energy;
-  }
-
-  @Override
-  public String getTempo() {
-    return this.tempo;
-  }
-
-  public void setKey(String key) {
-    this.key = key;
-  }
-
-  public void setEnergy(String energy) {
-    this.energy = energy;
-  }
-
-  public void setTempo(String tempo) {
-    this.tempo = tempo;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public void setStyle(String style) {
-    this.style = style;
-  }
-
-  public void setSamples(Set<Sample> samples) {
-    this.samples = samples;
-  }
-
-  @Override
-  public String getName() {
-    return name;
-  }
-
-  public Set<String> getRemixers() {
-    return remixers;
-  }
-
-  public String getRecordLabel() {
-    return recordLabel;
-  }
-
-  public void setRecordLabel(String record) {
-    this.recordLabel = record;
-  }
-
-  public URL getLocation() {
-    return location;
-  }
-
-  public void setLocation(URL location) {
-    this.location = location;
-  }
-
+ 
   /*
    * (non-Javadoc)
    *

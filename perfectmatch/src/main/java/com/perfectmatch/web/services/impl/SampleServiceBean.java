@@ -1,8 +1,8 @@
 package com.perfectmatch.web.services.impl;
 
-import javax.validation.Valid;
+import java.util.Objects;
 
-//import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.perfectmatch.common.persistence.services.AbstractRawService;
 import com.perfectmatch.persistence.dao.SampleRepository;
 import com.perfectmatch.persistence.model.Sample;
+import com.perfectmatch.web.exception.ExistingSampleException;
 import com.perfectmatch.web.services.SampleService;
 
 /**
@@ -30,7 +31,7 @@ public class SampleServiceBean extends AbstractRawService<Sample> implements Sam
    */
   @Override
   protected SampleRepository getDao() {
-
+	  
     return this.sampleRepository;
   }
 
@@ -43,14 +44,16 @@ public class SampleServiceBean extends AbstractRawService<Sample> implements Sam
    */
   @Override
   public Sample findByName(String name) {
-	 
+	  
     return this.sampleRepository.findByName(name);
   }
 
   public Sample save(@Valid Sample resource) {
-	  //TODO: add preconditions
-	  // existing artist and music
-	  // different sample (name and timestamp)
-	  return this.sampleRepository.save(resource);
+	  if(Objects.isNull(findByName(resource.getName()))){
+		  return this.sampleRepository.save(resource);
+	  } else {
+		  throw new ExistingSampleException("Already existe sample with name : " + resource.getName());
+	  }
+	 
   }
 }

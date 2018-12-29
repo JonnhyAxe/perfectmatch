@@ -13,7 +13,7 @@ public class RestResponseEntityExceptionHandlerData {
 
     final String devMessage = ExceptionUtils.unwrapInvocationTargetException(ex).getMessage();
 
-    return new ApiError(HttpStatus.NOT_FOUND.value(), message, devMessage);
+    return new ApiError(httpStatus.value(), message, devMessage);
   }
 	
   public static  String getStringCauseMessage(final Exception ex){ 

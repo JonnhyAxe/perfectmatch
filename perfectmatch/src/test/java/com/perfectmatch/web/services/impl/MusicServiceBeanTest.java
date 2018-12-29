@@ -237,7 +237,6 @@ public class MusicServiceBeanTest {
 		expectedMusic.getRemixers().add("AwesomeArtistName");
 		
 		Mockito.when(dao.findByName(musicName)).thenReturn(expectedMusic);
-		Mockito.when(dao.existsById(musicId)).thenReturn(true);
 		Mockito.when(dao.findById(musicId)).thenReturn(Optional.of(new Music()));
 
 		
@@ -264,7 +263,6 @@ public class MusicServiceBeanTest {
 		expectedMusic.getRemixers().add("AwesomeArtistName");
 		
 		Mockito.when(dao.findByName(musicName)).thenReturn(expectedMusic);
-		Mockito.when(dao.existsById(musicId)).thenReturn(true);
 		Mockito.when(dao.findById(musicId)).thenReturn(Optional.of(new Music()));
 
 		
