@@ -1,6 +1,7 @@
 package com.perfectmatch.persistence.model;
 
 import java.io.Serializable;
+import java.net.URL;
 import java.util.Objects;
 
 import javax.validation.constraints.NotBlank;
@@ -10,10 +11,15 @@ import org.springframework.data.annotation.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.perfectmatch.common.model.NameableEntity;
+import com.perfectmatch.persistence.model.Sample.SampleBuilder;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -22,9 +28,11 @@ import lombok.ToString;
  * Represents an match between two samples
  *
  */
-@Getter
-@Setter
-@ToString
+@Data(staticConstructor="of")
+@ToString(includeFieldNames=true)
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @ApiModel(description = "Details of the match - first step process without envolving music samples")
 public class Match implements NameableEntity, Serializable {
 
@@ -61,38 +69,4 @@ public class Match implements NameableEntity, Serializable {
     return this.musicNameThis + "," + this.musicNameThat;
   }
 
-  /*
-   * (non-Javadoc)
-   *
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode() {
-
-    return Objects.hash(id, rule, musicNameThis, musicNameThat);
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(Object obj) {
-
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-    Match other = (Match) obj;
-    return id == other.id
-        && Objects.equals(rule, other.rule)
-        && Objects.equals(musicNameThis, other.musicNameThis)
-        && Objects.equals(musicNameThat, other.musicNameThat);
-  }
 }
