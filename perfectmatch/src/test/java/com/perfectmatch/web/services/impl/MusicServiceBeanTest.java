@@ -4,8 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -234,7 +236,10 @@ public class MusicServiceBeanTest {
 		expectedMusic.setTempo("UpdateTempo");
 		expectedMusic.setRecordLabel("UpdateRecordeLabel");
 		expectedMusic.setEnergy("UpdateEnergy");
-		expectedMusic.getRemixers().add("AwesomeArtistName");
+		
+		Set<String> rmx = new HashSet<String>();
+	    rmx.add("AwesomeArtistName");
+		expectedMusic.setRemixers(rmx);
 		
 		Mockito.when(dao.findByName(musicName)).thenReturn(expectedMusic);
 		Mockito.when(dao.findById(musicId)).thenReturn(Optional.of(new Music()));
@@ -260,7 +265,10 @@ public class MusicServiceBeanTest {
 		expectedMusic.setId(musicId);
 		String musicName = "MyMusicName";
 		expectedMusic.setName(musicName);
-		expectedMusic.getRemixers().add("AwesomeArtistName");
+		  
+		Set<String> rmx = new HashSet<String>();
+		rmx.add("AwesomeArtistName");
+		expectedMusic.setRemixers(rmx);
 		
 		Mockito.when(dao.findByName(musicName)).thenReturn(expectedMusic);
 		Mockito.when(dao.findById(musicId)).thenReturn(Optional.of(new Music()));

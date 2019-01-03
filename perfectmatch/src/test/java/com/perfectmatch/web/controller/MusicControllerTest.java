@@ -223,8 +223,8 @@ public class MusicControllerTest {
 	  Music expectedArtist = new Music();
 	  Set<String> rmx = new HashSet<String>();
 	  rmx.add("AwesomeArtistName");
-	  
 	  expectedArtist.setRemixers(rmx);
+	  
 	  expectedArtist.setRecordLabel("AwesomeRecordLabel");
 	  expectedArtist.setKey("AwesomeMusicKey");
 	  expectedArtist.setStyle(Style.TECH_HOUSE.name());
