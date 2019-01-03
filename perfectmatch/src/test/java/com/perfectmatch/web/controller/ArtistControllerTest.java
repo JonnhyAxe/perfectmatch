@@ -63,10 +63,10 @@ public class ArtistControllerTest {
   
   @Test
   public void canCreateArtist() throws Exception {
-	  Artist expectedArtist = new Artist();
-	  expectedArtist.setId("2");
-	  expectedArtist.setName(AWESOME_ARTIST_NAME);
-	 
+	  Artist expectedArtist = Artist.builder()
+				.id("2").name(AWESOME_ARTIST_NAME)
+				.build();
+			  
       given(artistService.createArtist(expectedArtist))
         .willReturn(expectedArtist);
 
@@ -90,9 +90,9 @@ public class ArtistControllerTest {
   
   @Test
   public void cannotCreateArtistWihthoutName() throws Exception {
-	  Artist expectedArtist = new Artist();
-	  expectedArtist.setId("2");
-	  expectedArtist.setName(null);
+	  Artist expectedArtist = Artist.builder()
+				.id("2").name(null)
+				.build();
 
       // when
       MockHttpServletResponse response = mvc.perform(
@@ -113,10 +113,10 @@ public class ArtistControllerTest {
   
   @Test
   public void canRetrieveByIdWhenExists() throws Exception {
-	  Artist expectedArtist = new Artist();
 	  String id = "2";
-	  expectedArtist.setId(id);
-	  expectedArtist.setName(AWESOME_ARTIST_NAME);
+	  Artist expectedArtist = Artist.builder()
+			  					.id(id).name(AWESOME_ARTIST_NAME)
+			  					.build();
 	 
       given(artistService.getArtistById(id))
         .willReturn(expectedArtist);
@@ -139,10 +139,10 @@ public class ArtistControllerTest {
 
   @Test
   public void canRetrieveByIdWhenDoesNotExists() throws Exception {
-	  Artist expectedArtist = new Artist();
 	  String ID = "2";
-	  expectedArtist.setId(ID);
-	  expectedArtist.setName(AWESOME_ARTIST_NAME);
+	  Artist expectedArtist = Artist.builder()
+				.id(ID).name(AWESOME_ARTIST_NAME)
+				.build();
 	 
       ApiError expectedError = new ApiError(HttpStatus.NOT_FOUND.value(), 
     		  "Artist not found for the given id : 0", 
@@ -167,9 +167,9 @@ public class ArtistControllerTest {
   
   @Test
   public void canRetrieveByNameWhenExists() throws Exception {
-	  Artist expectedArtist = new Artist();
-	  expectedArtist.setId("2");
-	  expectedArtist.setName(AWESOME_ARTIST_NAME);
+	  Artist expectedArtist = Artist.builder()
+				.id("2").name(AWESOME_ARTIST_NAME)
+				.build();
 	 
       given(artistService.getArtistByName(AWESOME_ARTIST_NAME))
         .willReturn(expectedArtist);
@@ -192,9 +192,9 @@ public class ArtistControllerTest {
 
   @Test
   public void canRetrieveByNameWhenDoesNotExists() throws Exception {
-	  Artist expectedArtist = new Artist();
-	  expectedArtist.setId("2");
-	  expectedArtist.setName(AWESOME_ARTIST_NAME);
+	  Artist expectedArtist = Artist.builder()
+				.id("2").name(AWESOME_ARTIST_NAME)
+				.build();
 
 
       ApiError expectedError = new ApiError(HttpStatus.NOT_FOUND.value(), 
@@ -221,9 +221,9 @@ public class ArtistControllerTest {
   @Test
   public void canDeleteByNameWhenExists() throws Exception {
 	  String artistName = AWESOME_ARTIST_NAME;
-	  Artist expectedArtist = new Artist();
-	  expectedArtist.setId("2");
-	  expectedArtist.setName(artistName);
+	  Artist expectedArtist = Artist.builder()
+				.id("2").name(AWESOME_ARTIST_NAME)
+				.build();;
 	 
       given(artistService.deleteArtistByName(artistName))
         .willReturn(expectedArtist);
@@ -246,9 +246,6 @@ public class ArtistControllerTest {
   
   @Test
   public void canDeleteByNameWhenDoesNotExists() throws Exception {
-	  Artist expectedArtist = new Artist();
-	  expectedArtist.setId("2");
-	  expectedArtist.setName(AWESOME_ARTIST_NAME);
 	 
       ApiError expectedError = new ApiError(HttpStatus.NOT_FOUND.value(), 
     		  "Artist not found for the given name : 0", 

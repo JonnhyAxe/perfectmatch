@@ -67,8 +67,9 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
    */
   private void createMusic() {
 
-    Artist latmun = new Artist();
-    latmun.setName("Latmun");
+    Artist latmun = Artist.builder()
+						.name("Latmun")
+						.build();
 
     if (Objects.isNull(artistService.getArtistByName(latmun.getName()))) {
       latmun = artistService.createArtist(latmun);
@@ -131,8 +132,11 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
 
     // Test insert music without samples and Match
 
-    Artist latmunXPTO = new Artist();
-    latmun.setName("LatmunXPTO");
+    Artist latmunXPTO =  Artist.builder()
+							.name("LatmunXPTO")
+							.build();
+						    
+    
 
     if (Objects.isNull(artistService.getArtistByName(latmunXPTO.getName()))) {
       latmunXPTO = artistService.createArtist(latmunXPTO);

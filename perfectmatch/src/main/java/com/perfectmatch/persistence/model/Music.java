@@ -18,18 +18,23 @@ import com.perfectmatch.common.model.NameableEntity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.ToString;
 
 /**
  *
  * This class represents an Music to sample from
  *
  */
-@Getter 
-@Setter 
-@NoArgsConstructor 
+@Data(staticConstructor="of")
+@ToString(includeFieldNames=true)
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor 
 @ApiModel(description = "All details about the music ")
 public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryable {
 
@@ -38,41 +43,54 @@ public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryab
    */
   private static final long serialVersionUID = -6021901171439734300L;
 
+  @EqualsAndHashCode.Include
   @Id private String id;
 
+  @EqualsAndHashCode.Include
   @NotNull
   @ApiModelProperty(notes = "Names of the music artist - without contrains")
   private List<String> artists;
 
+  @EqualsAndHashCode.Include
   @NotNull
   @ApiModelProperty(notes = "Name of the music - without format contrains")
   private String name;
 
+  @EqualsAndHashCode.Include
   @ApiModelProperty(notes = "Style of the music of type Style")
   @NotNull
   private String style; //grouping
 
+  @Builder.Default
+  @EqualsAndHashCode.Exclude
   @ApiModelProperty(notes = "Samples of the music - at least one sample")
   private Set<Sample> samples = new HashSet<>();
 
+  @Builder.Default
+  @EqualsAndHashCode.Include
   @ApiModelProperty(notes = "Names of the remixers artist - without contrains")
   private Set<String> remixers = new HashSet<>();
 
+  @EqualsAndHashCode.Exclude
   @ApiModelProperty(notes = "Record Label name")
   private String recordLabel;
 
+  @EqualsAndHashCode.Exclude
   @ApiModelProperty(notes = "key of the music")
   @NotNull
   private String key;
 
+  @EqualsAndHashCode.Exclude
   @ApiModelProperty(notes = "Energy of the music")
   @NotNull
   private String energy; //grouping
 
+  @EqualsAndHashCode.Exclude
   @ApiModelProperty(notes = "Tempo of the music")
   @NotNull
   private String tempo;
 
+  @EqualsAndHashCode.Exclude
   @ApiModelProperty(notes = "Location of the file in the storage")
   @NotNull
   private URL location;
@@ -89,42 +107,5 @@ public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryab
 
   private String getArtistNames() {
 	  return StringUtils.collectionToDelimitedString(artists, ",");
-  }
-
- 
-  /*
-   * (non-Javadoc)
-   *
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode() {
-    return Objects.hash(this.artists, this.id, this.name, this.remixers);
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(Object obj) {
-
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-    Music other = (Music) obj;
-
-    return Objects.equals(id, other.id)
-        && Objects.equals(artists, other.artists)
-        && Objects.equals(name, other.name)
-        && Objects.equals(style, other.style)
-        && Objects.equals(remixers, other.remixers);
   }
 }

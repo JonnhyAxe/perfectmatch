@@ -38,7 +38,7 @@ public class ArtistServiceBeanTest {
 	
 	Artist expectedArtist = new Artist();
 	expectedArtist.setName(artistName);
-	expectedArtist.getWebsites().addAll(website);
+	expectedArtist.setWebsites(website);
 		
 	Mockito.when(dao.save(expectedArtist)).thenReturn(expectedArtist);
 
@@ -61,8 +61,8 @@ public class ArtistServiceBeanTest {
 	
 	Artist expectedArtist = new Artist();
 	expectedArtist.setName(artistName);
-	expectedArtist.getWebsites().addAll(website);
-	
+	expectedArtist.setWebsites(website);
+
 	Mockito.when(dao.findByName(artistName)).thenReturn(expectedArtist);
 	
 	//When
@@ -81,7 +81,7 @@ public class ArtistServiceBeanTest {
 	
 	Artist expectedArtist = new Artist();
 	expectedArtist.setName(artistName);
-	expectedArtist.getWebsites().addAll(website);
+	expectedArtist.setWebsites(website);
 	
 	Mockito.when(dao.save(expectedArtist)).thenReturn(expectedArtist);
 	
@@ -104,7 +104,7 @@ public class ArtistServiceBeanTest {
 	
 	Artist expectedArtist = new Artist();
 	expectedArtist.setName(artistName);
-	expectedArtist.getWebsites().addAll(website);
+	expectedArtist.setWebsites(website);
 	
 	Mockito.when(dao.findByName(artistName)).thenReturn(expectedArtist);
 	
@@ -127,7 +127,8 @@ public class ArtistServiceBeanTest {
 	
 	Artist expectedArtist = new Artist();
 	expectedArtist.setName(artistName);
-	expectedArtist.getWebsites().addAll(website);
+	expectedArtist.setWebsites(website);
+
 	
 	Mockito.when(dao.findByName(artistName)).thenReturn(expectedArtist);
 	
@@ -151,7 +152,7 @@ public class ArtistServiceBeanTest {
 	
 	Artist expectedArtist = new Artist();
 	expectedArtist.setName(artistName);
-	expectedArtist.getWebsites().addAll(website);
+	expectedArtist.setWebsites(website);
 	
 	Mockito.when(dao.findById(artistId)).thenReturn(Optional.of(expectedArtist));
 	
@@ -174,7 +175,7 @@ public class ArtistServiceBeanTest {
 	
 	Artist expectedArtist = new Artist();
 	expectedArtist.setName(artistName);
-	expectedArtist.getWebsites().addAll(website);
+	expectedArtist.setWebsites(website);
 
 	//When
 	artistService.getArtistById(artistName); 
@@ -193,7 +194,7 @@ public class ArtistServiceBeanTest {
 	Artist expectedArtist = new Artist();
 	expectedArtist.setId(artistId);
 	expectedArtist.setName(artistName);
-	expectedArtist.getWebsites().addAll(website);
+	expectedArtist.setWebsites(website);
 	
 	Mockito.when(dao.findByName(artistName)).thenReturn(expectedArtist);
 	Mockito.when(dao.findById(artistId)).thenReturn(Optional.of(expectedArtist));

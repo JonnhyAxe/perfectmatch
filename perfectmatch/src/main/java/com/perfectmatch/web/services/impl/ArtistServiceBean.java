@@ -24,9 +24,10 @@ public class ArtistServiceBean extends AbstractRawService<Artist> implements Art
   @Override
   public Artist createArtist(String name, List<String> websites) {
 
-    Artist newArtist = new Artist();
-    newArtist.setName(name);
-    newArtist.getWebsites().addAll(websites);
+    Artist newArtist = Artist.builder()
+			    		.name(name)
+			    		.build();
+    newArtist.setWebsites(websites);
 
     return this.createArtist(newArtist);
   }

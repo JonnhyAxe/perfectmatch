@@ -8,7 +8,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import java.net.URL;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -219,7 +221,10 @@ public class MusicControllerTest {
   public void updateArtist() throws Exception {
 	  
 	  Music expectedArtist = new Music();
-	  expectedArtist.getRemixers().addAll(Arrays.asList("AwesomeArtistName"));
+	  Set<String> rmx = new HashSet<String>();
+	  rmx.add("AwesomeArtistName");
+	  
+	  expectedArtist.setRemixers(rmx);
 	  expectedArtist.setRecordLabel("AwesomeRecordLabel");
 	  expectedArtist.setKey("AwesomeMusicKey");
 	  expectedArtist.setStyle(Style.TECH_HOUSE.name());
