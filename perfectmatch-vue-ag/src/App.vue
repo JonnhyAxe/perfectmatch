@@ -1,38 +1,26 @@
 <template>
-    <ag-grid-vue style="width: 100%; height: 500px;"
-                 class="ag-theme-balham-dark"
-                 :columnDefs="columnDefs"
-                 :rowData="rowData">
-    </ag-grid-vue>
+    <div>
+        <ul v-if="!forDocs" class="nav nav-pills" style="margin-bottom: 20px">
+            <template v-for="route in routes">
+                <li role="presentation" v-bind:key="route.path" :class="{active : $route.path === route.path}">
+                    <router-link :to="route.path">{{route.name}}</router-link>
+                </li>
+            </template>
+        </ul>
+        <router-view></router-view>
+    </div>
 </template>
-
 <script>
-    import {AgGridVue} from "ag-grid-vue";
+    import routes from './routes';
 
     export default {
-        name: 'App',
-        data() {
-            return {
-                columnDefs: null,
-                rowData: null
+        computed: {
+            forDocs() {
+                return this.$route.query.forDocs || false;
+            },
+            routes() {
+                return routes
             }
         },
-        components: {
-            AgGridVue
-        },
-        beforeMount() {
-            this.columnDefs = [
-                {headerName: 'Make', field: 'make'},
-                {headerName: 'Model', field: 'model'},
-                {headerName: 'Price', field: 'price'}
-            ];
-
-            this.rowData = [
-                {make: 'Toyota', model: 'Celica', price: 35000},
-                {make: 'Ford', model: 'Mondeo', price: 32000},
-                {make: 'Porsche', model: 'Boxter', price: 72000}
-            ];
-        }
     }
 </script>
-

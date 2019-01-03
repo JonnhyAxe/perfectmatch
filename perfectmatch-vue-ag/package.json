@@ -1,45 +1,24 @@
 {
-  "name": "perfectmatch-vue-ag",
-  "version": "0.1.0",
+  "name": "ag-grid-vue-example",
+  "version": "19.1.2",
   "private": true,
   "scripts": {
+    "start": "npm run serve",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "build": "vue-cli-service build"
   },
   "dependencies": {
-    "ag-grid-community": "^19.1.4",
-    "ag-grid-enterprise": "^19.1.4",
-    "ag-grid-vue": "^19.1.2",
-    "vue": "^2.5.17"
+    "ag-grid-community": "^19.1.0",
+    "ag-grid-enterprise": "^19.1.0",
+    "ag-grid-vue": "^19.1.0",
+    "bootstrap": "3.3.7",
+    "vue": "2.5.16",
+    "vue-router": "3.0.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.2.0",
-    "@vue/cli-plugin-eslint": "^3.2.0",
-    "@vue/cli-service": "^3.2.0",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.8.0",
-    "eslint-plugin-vue": "^5.0.0-0",
-    "vue-template-compiler": "^2.5.17"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "rules": {},
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
+    "@vue/cli-plugin-babel": "3.0.1",
+    "@vue/cli-service": "3.0.1",
+    "vue-template-compiler": "2.5.16"
   },
   "browserslist": [
     "> 1%",
