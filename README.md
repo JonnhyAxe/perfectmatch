@@ -207,12 +207,6 @@ As the workaround execute the following command line, with the proper user and p
 [ERROR] npm ERR! A complete log of this run can be found in:
 [ERROR] npm ERR!     C:\Users\machadojo\AppData\Roaming\npm-cache\_logs\2018-09-11T14_49_28_475Z-debug.log
 [INFO] ------------------------------------------------------------------------
-[INFO] Reactor Summary:
-[INFO]
-[INFO] fxhub.mhubweb.nextgen .............................. SUCCESS [  0.936 s]
-[INFO] fxhub.mhubweb.nextgen.vue .......................... FAILURE [01:31 min]
-[INFO] fxhub.mhubweb.nextgen.java ......................... SKIPPED
-[INFO] ------------------------------------------------------------------------
 [INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
 [INFO] Total time: 01:32 min

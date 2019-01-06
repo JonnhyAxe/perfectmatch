@@ -10,6 +10,23 @@ In order to keep our tests running fast :
 https://martinfowler.com/articles/practical-test-pyramid.html
 https://content.pivotal.io/blog/what-is-a-unit-test-the-answer-might-surprise-you
 
+## Unit Testing
+
+In order to test exceptions and associated messages the following code can be used
+```
+import static org.assertj.core.api.Assertions.*;
+
+assertThatThrownBy(() -> Address.ofCountry(null)).hasMessage("Country can not be null.");
+```
+
+```
+import static org.assertj.core.api.Assertions.*;
+
+
+assertThatThrownBy(() -> { <<Code under testing>>}).hasMessage("Expected Message");
+
+```
+
 ## Spring Testing Strategy
 
 https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html
