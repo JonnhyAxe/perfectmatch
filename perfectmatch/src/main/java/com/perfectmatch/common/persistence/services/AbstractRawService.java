@@ -51,10 +51,11 @@ public abstract class AbstractRawService<T extends NameableEntity> implements IO
   @Override
   public T create(final T entity) {
     Preconditions.checkNotNull(entity);
-
-    final T entityExists = findOne(entity.getId());
-    if (Objects.nonNull(entityExists)) {
-      return entityExists;
+    if(Objects.nonNull(entity.getId())) {
+    	 final T entityExists = findOne(entity.getId());
+    	    if (Objects.nonNull(entityExists)) {
+    	      return entityExists;
+    	    }
     }
     return getDao().save(entity);
   }

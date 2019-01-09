@@ -28,10 +28,12 @@ Sample-Match access is made in the context. An Suggestion Engine might require t
 
 An important consideration is the following data is only CRUD for Music Entity
 
-Updating a Artist with a new sample does not invalidate the previous matchs. The new sample should be processed with the existing matchs.
+Updating a Artist with a new sample does not invalidate the previous matchs. 
+The new sample should be processed with the existing matchs.
 Replacing (Updating) the Artist samples invalidates all the match processing. 
 
-If there is an 'Suggestion Engine' the suggested matchs should be based on an deep search criteria, using the same or different rules, OR from another users matchs (if it is an multi user system).
+If there is an 'Suggestion Engine' the suggested matchs should be based on an deep search criteria, 
+using the same or different rules, OR from another users matchs (if it is an multi user system).
 
  
 
