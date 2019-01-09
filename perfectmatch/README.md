@@ -12,6 +12,14 @@ java -jar <path_to_lombok.jar> delombok src -d src-generator
 
 In order to verify the Unit test coverage the Jacoco maven plugin is used and the report is generated under the target/site/jacoco/
 
+## Docker
+
+Open "Docker QuickStart Terminal"
+
+/D/git/perfectmatch/perfectmatch (master)´
+mvn clean install dockerfile:build
+
+
 ## Sonar 
 
 Install sonar : https://www.sonarqube.org/downloads/
