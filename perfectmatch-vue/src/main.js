@@ -6,7 +6,9 @@ import router from './router'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-
+import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
+import "../node_modules/ag-grid-community/dist/styles/ag-theme-balham-dark.css";
+import "../node_modules/bootstrap/dist/css/bootstrap.css";
 
 import bTable from 'bootstrap-vue/es/components/table/table';
 import bButton from 'bootstrap-vue/es/components/button/button';
