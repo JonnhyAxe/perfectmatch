@@ -23,6 +23,7 @@
                          rowSelection="multiple"
 
                          :modelUpdated="onModelUpdated"
+                         :rowDataChanged="onRowDataChanged"
                          :cellClicked="onCellClicked"
                          :cellDoubleClicked="onCellDoubleClicked"
                          :cellContextMenu="onCellContextMenu"
@@ -53,7 +54,7 @@
 </template>
 
 <script>
-    /* eslint-disable */
+    import Vue from "vue";
     import {AgGridVue} from "ag-grid-vue";
     import {ProficiencyFilter} from './proficiencyFilter';
     import HeaderGroupComponent from './HeaderGroupComponent.vue';
@@ -100,20 +101,20 @@
                     // JSON responses are automatically parsed.
                     if(response.data !== undefined) {
                         response.data.forEach(function(item) {
-                            console.log(item)
                             rowDataTmp.push({
                                 name: item.name,
                                 id: item.id,
-                                artits: item.name,
+                                artits:  item.artists.toString(),
                                 style: item.style,
-                                remixers: item.remixers,
-                                energy: '4',
-                                websites:  item.name,
-                                continent: item.name,
-                                language: item.name
+                                remixers: item.remixers != undefined ? item.remixers.toString() : '',
+                                energy: item.energy != undefined ? item.energy: '',
+                                websites:  item.websites != undefined ? item.websites.toString() : '',
+                                remixers:  item.remixers != undefined ? item.remixers.toString() : '',
+                                recordLabel: item.recordLabel != undefined ? item.recordLabel : '',
+                                key: item.key != undefined ? item.key : '',
+                                tempo: item.tempo != undefined ? item.tempo : ''                             
                                 
                             });  
-                            console.log('after push')
                         });
                     }
                     console.log(response.status)
@@ -121,7 +122,7 @@
                     this.rowData = rowDataTmp;
                 }).catch(e => {
                     //this.errors.push(e)
-                     console.log('Error reading data')
+                     console.log('Error reading data ' + e)
                     this.rowData = [];
                 })
             },
@@ -137,7 +138,7 @@
                             {
                                 headerName: "ID",
                                 field: "id",
-                                width: 60,
+                                width: 160,
                                 suppressSorting: true                            
                             },
                             {
@@ -149,7 +150,7 @@
                             {
                                 headerName: "Name",
                                 field: "name",
-                                width: 100,
+                                width: 200,
                                 suppressSorting: true
                             }, 
                             {
@@ -213,7 +214,12 @@
                     this.rowCount = processedRows.toLocaleString() + ' / ' + totalRows.toLocaleString();
                 }
             },
-
+            onRowDataChanged() {
+                Vue.nextTick(() => {
+                        this.gridOptions.api.sizeColumnsToFit();
+                    }
+                );
+            },
             onModelUpdated() {
                 console.log('onModelUpdated');
                 this.calculateRowCount();

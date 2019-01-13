@@ -333,7 +333,7 @@
 		<profile>
 			<id>default</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<dependencies>
 				<!-- Embedded MongoDB -->

@@ -79,7 +79,10 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
     musicPleaseStop.setArtists(Arrays.asList(latmun.getName()));
     musicPleaseStop.setName("Please Stop (Original Mix)");
     musicPleaseStop.setStyle(Style.TECH_HOUSE.name());
-
+    musicPleaseStop.setTempo("145");
+    musicPleaseStop.setEnergy("9");
+    musicPleaseStop.setKey("8B");
+    
     Sample samplePleaseStop = new Sample();
     samplePleaseStop.setTimestamp(3 * 60); // Start time stamp at 00:03:00m
     samplePleaseStop.setName(musicPleaseStop.getArtist() + ":" + musicPleaseStop.getName());
@@ -90,7 +93,10 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
     musicDef.setArtists(Arrays.asList(latmun.getName()));
     musicDef.setName("def (Original Mix)");
     musicDef.setStyle(Style.TECH_HOUSE.name());
-
+    musicDef.setTempo("145");
+    musicDef.setEnergy("6");
+    musicDef.setKey("4B");
+    
     Sample sampleDef = new Sample();
     sampleDef.setTimestamp(3 * 60); // timeStamp at 00:03:00m
     sampleDef.setName(musicDef.getArtist() + ":" + musicDef.getName());
@@ -103,31 +109,31 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
     newMatch.setRule(MatchRule.DEFAULT.name());
 
     if (!getSampleMatchServiceBean().contains(newMatch)) {
-      getSampleMatchServiceBean().create(newMatch);
+    	getSampleMatchServiceBean().create(newMatch);
     }
 
     if (Objects.isNull(getSampleServiceBean().findByName(samplePleaseStop.getName()))) {
-      getSampleServiceBean().create(samplePleaseStop);
+    	getSampleServiceBean().create(samplePleaseStop);
     }
 
     if (Objects.isNull(getSampleServiceBean().findByName(sampleDef.getName()))) {
-      getSampleServiceBean().create(sampleDef);
+    	getSampleServiceBean().create(sampleDef);
     }
 
     if (Objects.isNull(getMusicServiceBean().findByName(musicPleaseStop.getName()))) {
-      getMusicServiceBean().create(musicPleaseStop);
+    	getMusicServiceBean().create(musicPleaseStop);
     }
 
     if (Objects.isNull(getMusicServiceBean().findByName(musicDef.getName()))) {
-      getMusicServiceBean().create(musicDef);
+    	getMusicServiceBean().create(musicDef);
     }
 
     PerfectMatch newPerfectMatch = new PerfectMatch();
     newPerfectMatch.setName(newMatch.getName());
 
-    if (Objects.isNull(
-        getPerfectMatchServiceBean().findPerfectMatchByName(newPerfectMatch.getName()))) {
-      getPerfectMatchServiceBean().create(newPerfectMatch);
+    if (Objects.isNull(getPerfectMatchServiceBean()
+    		.findPerfectMatchByName(newPerfectMatch.getName()))) {
+    	getPerfectMatchServiceBean().create(newPerfectMatch);
     }
 
     // Test insert music without samples and Match
@@ -139,14 +145,17 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
     
 
     if (Objects.isNull(artistService.getArtistByName(latmunXPTO.getName()))) {
-      latmunXPTO = artistService.createArtist(latmunXPTO);
+    	latmunXPTO = artistService.createArtist(latmunXPTO);
     }
 
     Music music = new Music();
     music.setArtists(Arrays.asList(latmunXPTO.getName()));
     music.setName("Please Stop (Original Mix)XPTO");
     music.setStyle(Style.TECH_HOUSE.name());
-
+    music.setTempo("145");
+    music.setEnergy("10");
+    music.setKey("2B");
+    
     getMusicServiceBean().create(music);
   }
 
