@@ -16,8 +16,22 @@ In order to verify the Unit test coverage the Jacoco maven plugin is used and th
 
 Open "Docker QuickStart Terminal"
 
-/D/git/perfectmatch/perfectmatch (master)´
-mvn clean install dockerfile:build
+```
+cd /d/git/perfectmatch/perfectmatch/docker
+./start_container.sh
+```
+Open the browser and access swagger ui with the docker IP
+
+http://192.168.99.100:8082/swagger-ui.html#/
+
+All docker related files are located in the *docker* directory
+
+- *Dockerfile*: this file describes the docker image of the service
+- *docker-compose.yml*: this file manages 2 containers, a container based on the image created with *Dockerfile* file and a container based on the official MongoDB image.
+- *docker-compose up --build -d*: build, start and link the 2 containers, this command is called from *start.sh*
+- *./start-container.sh*: builds a jar file without the Embedded MondoDB dependency and calls *docker-compose up --build -d*
+- *docker-compose down*: stop the containers and remove them
+- *./stop-container.sh*: is identical to *docker-compose down*
 
 
 ## Sonar 
