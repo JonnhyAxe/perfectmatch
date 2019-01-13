@@ -58,7 +58,8 @@
     import {ProficiencyFilter} from './proficiencyFilter';
     import HeaderGroupComponent from './HeaderGroupComponent.vue';
     import RefData from './refData'
-
+    import axios from 'axios'
+    
     export default {
         data() {
             return {
@@ -75,11 +76,11 @@
         },
         methods: {
             createRowData() {
-                const rowData = [];
+                const rowDataTmp = [];
 
                 for (let i = 0; i < 200; i++) {
                     const websiteData = RefData.WEBSITES[i % RefData.WEBSITES.length];
-                    rowData.push({
+                    rowDataTmp.push({
                         name: RefData.FIRST_NAMES[i % RefData.FIRST_NAMES.length] + ' ' + RefData.LAST_NAMES[i % RefData.LAST_NAMES.length],
                         id: RefData.IDS[i % RefData.IDS.length],
                         energy: Math.round(Math.random() * 10),
@@ -89,7 +90,40 @@
                     });
                 }
 
-                this.rowData = rowData;
+                this.rowData = rowDataTmp;
+            },
+            getMusics () {
+                const rowDataTmp = [];
+                axios
+                .get('http://localhost:8082/music')
+                .then(response => {
+                    // JSON responses are automatically parsed.
+                    if(response.data !== undefined) {
+                        response.data.forEach(function(item) {
+                            console.log(item)
+                            rowDataTmp.push({
+                                name: item.name,
+                                id: item.id,
+                                artits: item.name,
+                                style: item.style,
+                                remixers: item.remixers,
+                                energy: '4',
+                                websites:  item.name,
+                                continent: item.name,
+                                language: item.name
+                                
+                            });  
+                            console.log('after push')
+                        });
+                    }
+                    console.log(response.status)
+                    console.log(response.data)
+                    this.rowData = rowDataTmp;
+                }).catch(e => {
+                    //this.errors.push(e)
+                     console.log('Error reading data')
+                    this.rowData = [];
+                })
             },
             createColumnDefs() {
                 this.columnDefs = [
@@ -263,7 +297,7 @@
         },
         beforeMount() {
             this.gridOptions = {};
-            this.createRowData();
+            this.getMusics();
             this.createColumnDefs();
             this.showGrid = true;
         }
