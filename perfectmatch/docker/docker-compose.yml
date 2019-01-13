@@ -12,8 +12,7 @@ services:
     build: .
     image: perfect_match/0.0.1
     ports:
-      - "8081:8081"
-      - "8443:8443"
+      - "8082:8082"
     depends_on:
       - mongodb
 
