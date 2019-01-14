@@ -1,7 +1,9 @@
 ## Install Lambok 
+---
+
+In order to not to have IDE issues with project lambok install it with the following.
 
 https://howtodoinjava.com/automation/lombok-eclipse-installation-examples/#lombok-eclipse
-
 
 ```
 java -jar <path_to_lombok.jar> delombok src -d src-generator
@@ -9,10 +11,12 @@ java -jar <path_to_lombok.jar> delombok src -d src-generator
 
 
 ## Jacoco Unit Tests Coverage Reports
+---
 
 In order to verify the Unit test coverage the Jacoco maven plugin is used and the report is generated under the target/site/jacoco/
 
 ## Docker
+---
 
 Open "Docker QuickStart Terminal"
 
@@ -22,6 +26,7 @@ cd /d/git/perfectmatch/perfectmatch/docker
 ```
 Open the browser and access swagger ui with the docker IP
 
+http://192.168.99.100:8082/index.html#/
 http://192.168.99.100:8082/swagger-ui.html#/
 
 All docker related files are located in the *docker* directory
@@ -36,6 +41,7 @@ All docker related files are located in the *docker* directory
 https://spring.io/guides/gs/spring-boot-docker/
 
 ## Sonar 
+---
 
 Install sonar : https://www.sonarqube.org/downloads/
 Start Sonar : https://docs.sonarqube.org/latest/setup/get-started-2-minutes/
@@ -51,6 +57,7 @@ mvn sonar:sonar -Dsonar.host.url=http://localhost:9000
 ```
 
 ## EhCache 
+---
 
 * https://blog.goyello.com/2010/07/29/quick-start-with-ehcache-annotations-for-spring/
 * https://docs.spring.io/spring/docs/3.1.0.RC1/spring-framework-reference/html/cache.html
@@ -60,4 +67,6 @@ mvn sonar:sonar -Dsonar.host.url=http://localhost:9000
 * https://dzone.com/articles/spring-cache-annotation-tips-and-tricks
 
 ## Couchbase
+---
+
 * https://blog.couchbase.com/couchbase-spring-cache/

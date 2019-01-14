@@ -4,14 +4,10 @@
 [![Build Status](https://travis-ci.org/JonnhyAxe/perfectmatch.svg?branch=master)](https://travis-ci.org/dwyl/learn-travis)
 
 
-
-This file requires a Markdown plugin or Visual Studio Code (or any Vue compatible IDE).
-Open the file in the Visual Studio and click on the `Open Preview on the side` button, located in the top right side of the file. 
-
 ## Project setup
 ---
 
-Import the project in the in eclipse (for development java purposes) and Visual studio (for Vue development).
+Import the project in the in eclipse (for development java purposes) and Visual studio Code (for Vue development).
 
 ```
 ├─┬ backend     				  		→ backend module with Java/Spring Boot code
@@ -19,7 +15,8 @@ Import the project in the in eclipse (for development java purposes) and Visual 
 │ └── pom.xml     
 │ └── target/site/jacoco/index.html 	→ java unit tests coverage report
 │ └── target/site/serenity/index.html 	→ java module acceptance tests coverage report
-├─┬ vue    					 			 → frontend module with Vue.js code
+│ └── docker				→ Docker and docker compose files
+├─┬ frontend    			→ frontend module with Vue.js code
 │ ├── src
 │ └── pom.xml 
 │ └── README.md
@@ -31,81 +28,23 @@ Import the project in the in eclipse (for development java purposes) and Visual 
 ├─┬ junit-webtests  				  → Automated web tests using Serenity, Cucumber and Maven
 │ └── README.md
 └── pom.xml     → Maven parent pom managing both modules
-
+```
 
 ## First App run
-
-Please keep in mind that this app uses an MongoDb running as an System service. It does not not create or start any mongo instance. Therefore, all the tests and aplication context MUST be successfully executed.
-
 ---
-Copy NodeJs from `"\\\...\NodeJs`` to "C:\dev\tools\"`, as defined in the `<installDirectory>` xml element in the `"...\vue\pom.xml"`.
-
-Add node path (`C:\dev\tools\node`) to the PATH env variable.
-
- * Open an command line and test the Node with `"node --version"`. The version v9.11.1 should be displayed.
-
- * Open an command line and test the NPM (Node Package Manager) installation with `"npm --version"`. The version 5.6.0 should be displayed
-
-Ensure the proxy is configured and your user and password is defined for authentication purposes. 
-* Either by adding the proxy in the maven (https://www.mkyong.com/maven/how-to-enable-proxy-setting-in-maven/). This can cause some maven dependencies issues if the nonProxyHosts are not properly defined.
-
-```
-<proxies>
-  <proxy>
-      <id>id</id>
-      <active>true</active>
-      <protocol>http</protocol>
-      <username>proxyuser</username>
-      <password>proxypwd</password>
-      <host>domain</host>
-      <port>8080</port>
-      <nonProxyHosts></nonProxyHosts>
-    </proxy>
-	<proxy>
-      <id>domain</id>
-      <active>true</active>
-      <protocol>https</protocol>
-      <username>proxyuser</username>
-      <password>proxypwd</password>
-      <host>domain</host>
-      <port>8080</port>
-      <nonProxyHosts>s</nonProxyHosts>
-    </proxy>
-  </proxies>
-```
-
-* (optional) Alternatively go to `".....\vue\pom.xml"` and add the the following line with a proper user and password to the configuration xml element of the execution phase with the `npm install` as the id:  
-```
-
-<arguments>
-install -l --proxy=http://<USER>:<PASS>@purl:8080  --https-proxy=http://<USER>:<PASS>@url:8080
-</arguments>
-```
-
-* (optional) All javascript dependencies can be resolved manually with the following commands
-```
-cd C:\<PATH_TO_GIT>\a....\vue
-npm install -l --proxy=http://<USER>:<PASS>@purl:8080  --https-proxy=http://<USER>:<PASS>@url:8080
-```
-
-
+Please keep in mind that this app uses an MongoDb running as an System service or as embedded (by default). 
 
 Execute the following commands in order to build all projects:
+
 ```
-> npm config set strict-ssl false
-> npm install -l ---proxy=http://<USER>:<PASS>@purl:8080  --https-proxy=http://<USER>:<PASS>@url:8080
-```
-```
-> cd  `"C:\<PATH_TO_GIT>\<parent project>"`
-> mvn clean install
-> mvn --projects backend spring-boot:run 
+> mvn --projects perfectmatch spring-boot:run 
 ```
 Alternatively execute the java class `<path_to_app>.Application` in the backend project.
 
-Now go to http://localhost:8081/ and the app should load.
+Now go to http://localhost:8082/index.html#/ and the app should load.
 
-All javascrip (under the folder node_mdules) and java dependencies are resolved and no additional steps is required. 
-You can refer to the file [README.md](./perfectmatch-vue/README.md), to just resolve Javascript dependencies.
+All javascrip files (under the folder node_mdules) and java dependencies are resolved and no additional steps is required. 
+You can refer to the file [README.md](./perfectmatch-vue/README.md), to just resolve Javascript dependencies independently.
 
 Additional info can be found in specific project folder:
 
@@ -114,22 +53,24 @@ Additional info can be found in specific project folder:
 * [Acceptance Testing with Nightwatch.js, Cucumber.js and BrowserStack](./perfectmatch-acceptance-testing-with-cucumber/README.md)
 * [Automated web tests using Serenity, Cucumbwer and Maven](./junit-webtests/README.md)
 * [Backend module](./perfectmatch/README.md)
+
 ## Fast feedback with webpack-dev-server
 ---
+
 The webpack-dev-server, which will update and build every change through all the parts of the JavaScript build-chain, is pre-configured in Vue.js out-of-the-box! So the only thing needed to get fast feedback development-cycle is to cd into `"C:\<PATH_TO_GIT>\.....\vue"` and run:
 
 ```
 npm run dev
 ```
 
-That's it, the root page should be automatically open! Every change in the Vue.js files are automatically updated, if not just refresh the page. You should confirm the change in the Chrome dev tools: 
+That's it, the root page should be automatically opened! Every change in the Vue.js files are automatically updated, if not just refresh the page. You should confirm the change in the Chrome dev tools: 
 
 * Ctrl + Shift + l
 * Click on the Sources tab
 * On the left list, navigate to webpack and choose the changed file 
 
 Notice that the port is not the same when the app is started from the backend module. The main purpose is to have independent process in order to change Js and Java files independently. 
-After the required change is made, just commit it and it should be correctly updated in the next build, as the backend pom is configured to copy the content of the `${project.parent.basedir}/frontend/target/dist` directoy.
+After the required change is made, just commit the changes and they should be correctly updated in the next build. The perfectmatch project pom is configured to copy the content of the `${project.parent.basedir}/frontend/target/dist` directoy, which has the most recent changes in the Vue.js files.
 
 ## Browser developer tools extension
 ---
@@ -146,7 +87,7 @@ e.g. in Chrome:
 
 
 
-## IDEs (Optionall with Visual Studio Code)
+## IDEs (Optional with Visual Studio Code)
 ---
 
 
@@ -168,7 +109,6 @@ Window -> Preferences -> Javascript -> Tern -> Server -> Node.js -> "Node.js ins
  
 
 ## Maven NPM install with proxy maven settings (TODO)
-
 ---
 
 There is an issue installing Chrome driver from maven. 
