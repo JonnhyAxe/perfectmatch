@@ -33,6 +33,7 @@ All docker related files are located in the *docker* directory
 - *docker-compose down*: stop the containers and remove them
 - *./stop-container.sh*: is identical to *docker-compose down*
 
+https://spring.io/guides/gs/spring-boot-docker/
 
 ## Sonar 
 
