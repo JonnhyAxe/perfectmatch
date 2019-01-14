@@ -19,6 +19,13 @@ function exit_script {
 }
 
 # Build the maven project with docker profile
+cd ..
+if ! (mvn clean package)
+then
+    # Exit with error code from previous command
+    exit_script $?
+fi
+
 cd $SCRIPT_DIRECTORY/..
 if ! (mvn -Pdocker clean package)
 then

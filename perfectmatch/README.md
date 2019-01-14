@@ -24,10 +24,10 @@ Open "Docker QuickStart Terminal"
 cd /d/git/perfectmatch/perfectmatch/docker
 ./start_container.sh
 ```
-Open the browser and access swagger ui with the docker IP
+Open the browser and access swagger ui with the docker IP, such as:
 
-http://192.168.99.100:8082/index.html#/
-http://192.168.99.100:8082/swagger-ui.html#/
+* http://192.168.99.100:8082/index.html#/ (first page load)
+* http://192.168.99.100:8082/swagger-ui.html#/ (rest swagger ui)
 
 All docker related files are located in the *docker* directory
 
