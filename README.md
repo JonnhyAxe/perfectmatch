@@ -37,11 +37,13 @@ Please keep in mind that this app uses an MongoDb running as an System service o
 Execute the following commands in order to build all projects:
 
 ```
-> mvn --projects perfectmatch spring-boot:run 
+> mvn --projects perfectmatch spring-boot:run -Dspring.profiles.active=dev
 ```
 Alternatively execute the java class `<path_to_app>.Application` in the backend project.
 
-Now go to http://localhost:8082/index.html#/ and the app should load.
+Notice the dev profile activation in order to run an module that inserts data at load time for testing purposes. 
+
+Now go to [http://localhost:8082/index.html#/](http://localhost:8082/index.html#/ ) and the app should load.
 
 All javascrip files (under the folder node_mdules) and java dependencies are resolved and no additional steps is required. 
 You can refer to the file [README.md](./perfectmatch-vue/README.md), to just resolve Javascript dependencies independently.
@@ -51,7 +53,7 @@ Additional info can be found in specific project folder:
 * [Vue js module](./perfectmatch-vue/README.md)
 * [Swagger Vuejs Api code generator](./swagger-vue-master/README.md)
 * [Acceptance Testing with Nightwatch.js, Cucumber.js and BrowserStack](./perfectmatch-acceptance-testing-with-cucumber/README.md)
-* [Automated web tests using Serenity, Cucumbwer and Maven](./junit-webtests/README.md)
+* [Automated web tests using Serenity, Cucumber and Maven](./junit-webtests/README.md)
 * [Backend module](./perfectmatch/README.md)
 
 ## Fast feedback with webpack-dev-server

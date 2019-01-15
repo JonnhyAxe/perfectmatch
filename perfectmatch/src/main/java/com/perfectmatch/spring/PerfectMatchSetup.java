@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +30,7 @@ import com.perfectmatch.web.services.SampleService;
  * matches
  */
 @Component
+@Profile("dev")
 public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEvent> {
 
   // Only for setup purposes
