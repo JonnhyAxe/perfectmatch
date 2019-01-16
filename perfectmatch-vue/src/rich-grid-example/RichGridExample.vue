@@ -90,13 +90,13 @@
                         language: websiteData.language
                     });
                 }
-
                 this.rowData = rowDataTmp;
             },
             getMusics () {
                 const rowDataTmp = [];
+                let path = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
                 axios
-                .get('http://localhost:8082/music')
+                .get(path + '/music')
                 .then(response => {
                     // JSON responses are automatically parsed.
                     if(response.data !== undefined) {
