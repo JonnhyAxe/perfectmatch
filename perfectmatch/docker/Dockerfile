@@ -1,5 +1,5 @@
 FROM openjdk:8-jdk-alpine
-EXPOSE 8082 
+EXPOSE 8080 
 RUN mkdir -p /opt
 COPY backend.jar /opt
 RUN sh -c 'touch backend.jar'  

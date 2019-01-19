@@ -6,14 +6,14 @@ In order to deploy the app  on a local Kubernetes environment, also known as Min
 
 ## Installing Minikube
 
-The installation of Minikube basically consists of three steps: installing a Hypervisor (like VirtualBox), the CLI kubectl, as well as Minikube itself.
+The installation of Minikube basically consists of three steps: installing a Hypervisor (like VirtualBox), the CLI kubectl (an command line tool that allows us to manage and deploy applications on Kubernetes), as well as Minikube itself.
 
 Please use the  [official documentation](https://kubernetes.io/docs/tasks/tools/install-minikube/)  or an [alternative resources](https://www.assistanz.com/installing-minikube-on-windows-10-home-edition-using-virtualbox/) with all steps required  
 
 Open an command line and start it
 
 ```
-minkube start
+minikube start
 
 Starting local Kubernetes v1.10.0 cluster...
 Starting VM...
@@ -31,7 +31,7 @@ Loading cached images from config file.
 Check the status 
 
 ```
-minkube status
+minikube status
 minikube: Running
 cluster: Running
 kubectl: Correctly Configured: pointing to minikube-vm at 192.168.99.101
@@ -52,9 +52,50 @@ Open dashboard
 minikube dashboard 
 ```
 
+Next create deployment of our application in the cluster.
 
+```
+cd projectpath\backend\minikube
+kubectl create -f deployment.yml 
+```
+
+We can see description of the service with
+
+
+```
+kubectl describe service spring-boot-mongo-docker
+```
+
+
+
+Now get the exact address of the service with
+
+```
+minikube service spring-boot-mongo-docker 
+```
+
+
+## Deploy the app on Kubernetes
+
+we need to implement a Deployment configuration. 
+
+
+1 - docker images
+2 - sudo kubectl run {DEPLOYMENT_NAME} --image= {YOUR_IMAGE} --port=8080
 
 References: 
-
+* https://itnext.io/migrating-a-spring-boot-service-to-kubernetes-in-5-steps-7c1702da81b6
+* https://spring.io/guides/gs/spring-boot-docker/
+* https://kubernetes.io/docs/concepts/
+* https://kubernetes.io/docs/tutorials/
+* https://geeks18.wordpress.com/2018/07/26/deploying-spring-boot-and-mongodb-as-containers-using-kubernetes-and-docker/
+* https://www.baeldung.com/spring-boot-minikube
+* https://medium.com/nstech/spring-boot-movendo-para-o-kubernetes-b6a6dd25e9f9
 * https://www.assistanz.com/installing-minikube-on-windows-10-home-edition-using-virtualbox/
 * https://www.baeldung.com/spring-boot-minikube 
+* https://medium.com/skillshare-team/from-docker-compose-to-minikube-d94cbe97acda
+* https://github.com/nhatthai/spring-mongodb-minikube
+* https://piotrminkowski.wordpress.com/2018/08/02/quick-guide-to-microservices-with-kubernetes-spring-boot-2-0-and-docker/
+* https://github.com/sivaprasadreddy/spring-boot-k8s-demo
+*https://blog.couchbase.com/elastic-microservices-with-kubernetes-and-spring-boot/
+

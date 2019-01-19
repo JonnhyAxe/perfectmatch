@@ -38,8 +38,13 @@ All docker related files are located in the *docker* directory
 - *docker-compose down*: stop the containers and remove them
 - *./stop-containers.sh*: is identical to *docker-compose down*
 
+Spring Boot apps run on port 8082 inside the container by default and we mapped that to the same port on the host using "-p" on the command line (HOST:CONTAINER)
+
+Docker Registry???
+
 References
 * https://spring.io/guides/gs/spring-boot-docker/
+* https://medium.freecodecamp.org/expose-vs-publish-docker-port-commands-explained-simply-434593dbc9a3
 
 ## Sonar 
 ---
