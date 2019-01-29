@@ -17,6 +17,7 @@ import cucumber.api.java.en.When;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import lombok.NonNull;
 
 public class MusicControllerRepositorySteps {
 
@@ -95,7 +96,7 @@ public class MusicControllerRepositorySteps {
   public void createMusicWithArtists(List<String> artists) {
 
     JsonArray jsonArr = new JsonArray();
-    artists.stream().forEach(artist -> jsonArr.add(artist));
+    artists.stream().forEach((@NonNull var artist) -> jsonArr.add(artist));
 
     JsonObject music = new JsonObject();
     music.add("artists", jsonArr);
@@ -128,7 +129,7 @@ public class MusicControllerRepositorySteps {
   @When("^I update music$")
   public void i_update_music() {
     JsonArray jsonArr = new JsonArray();
-    remixers.stream().forEach(remixers -> jsonArr.add(remixers));
+    remixers.stream().forEach((@NonNull var remixers) -> jsonArr.add(remixers));
 
     JsonObject music = new JsonObject();
     music.addProperty("name", musicName);
@@ -191,10 +192,8 @@ public class MusicControllerRepositorySteps {
     List<String> allRemixers = jsonPathEvaluator.getList("music.remixers", String.class);
     remixers
         .stream()
-        .forEach(
-            remixer -> {
-              assertTrue(
-                  "Remixer name " + remixer + " does not exist", allRemixers.contains(remixer));
+        .forEach( (@NonNull var remixer)  -> {
+              assertTrue("Remixer name " + remixer + " does not exist", allRemixers.contains(remixer));
             });
   }
 

@@ -64,7 +64,10 @@ mvn sonar:sonar -Dsonar.host.url=http://localhost:9000
 
 ## Java 11
 
-Download Java 11 from Oracle, install and define PATH and Java home with new installed version
+* Download Java 11 from Oracle
+* install and define PATH and Java home with new installed version
+* Downlaod the latest mvn version (optional)
+
 
 https://medium.com/criciumadev/its-time-migrating-to-java-11-5eb3868354f9
 https://winterbe.com/posts/2018/08/29/migrate-maven-projects-to-java-11-jigsaw/
