@@ -66,6 +66,7 @@ mvn sonar:sonar -Dsonar.host.url=http://localhost:9000
 
 * Download Java 11 from Oracle
 * install and define PATH and Java home with new installed version
+* Install Eclispse plugin - https://marketplace.eclipse.org/content/java-11-support-eclipse-2018-09-49
 * Downlaod the latest mvn version (optional)
 
 
