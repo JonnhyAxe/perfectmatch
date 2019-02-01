@@ -218,14 +218,33 @@
         </dependency>
         
 		<!-- ECache -->
+<!--         <dependency> -->
+<!--             <groupId>com.googlecode.ehcache-spring-annotations</groupId> -->
+<!--             <artifactId>ehcache-spring-annotations</artifactId> -->
+<!--             <version>1.1.2</version> -->
+<!--             <type>jar</type> -->
+<!--             <scope>compile</scope> -->
+<!--         </dependency> -->
         <dependency>
-            <groupId>com.googlecode.ehcache-spring-annotations</groupId>
-            <artifactId>ehcache-spring-annotations</artifactId>
-            <version>1.1.2</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
-        
+             <groupId>org.ehcache</groupId>
+             <artifactId>ehcache</artifactId>
+         </dependency>
+         <dependency>
+             <groupId>org.ehcache</groupId>
+             <artifactId>ehcache-transactions</artifactId>
+         </dependency>
+		<dependency>
+		    <groupId>org.codehaus.btm</groupId>
+		    <artifactId>btm</artifactId>
+		    <scope>test</scope>
+		</dependency>
+        <!-- https://mvnrepository.com/artifact/javax.transaction/jta -->
+<!-- 		<dependency> -->
+<!-- 		    <groupId>javax.transaction</groupId> -->
+<!-- 		    <artifactId>jta</artifactId> -->
+<!-- 		    <version>1.1</version> -->
+<!-- 		</dependency> -->
+		        
         
         <dependency>
 		    <groupId>com.google.code.gson</groupId>
@@ -292,6 +311,7 @@
                         </configuration>
                     </execution>
                 </executions>
+                
             </plugin>
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
