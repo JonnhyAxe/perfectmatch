@@ -4,6 +4,8 @@
 [![Build Status](https://travis-ci.org/JonnhyAxe/perfectmatch.svg?branch=master)](https://travis-ci.org/dwyl/learn-travis)
 
 
+[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=JonnhyAxe_perfectmatch&metric=alert_status)](https://sonarcloud.io/dashboard?id=JonnhyAxe_perfectmatch)
+
 ## Project setup
 ---
 
