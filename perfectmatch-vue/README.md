@@ -24,7 +24,12 @@ npm run unit
 npm test
 
 npm t -- -u
+
+sonar-scanner
+sonar-scanner -Dsonar.host.url=http://localhost:9000  
+
 ```
+http://localhost:9000/dashboard?id=perfectmatch-vue
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
@@ -61,3 +66,6 @@ Web Editor - https://vuejs.org/v2/examples/
 ## Ag Grid
 * https://www.ag-grid.com/vue-getting-started/
 
+
+## Sonar 
+* *ttps://github.com/bellingard/sonar-scanner-npm
