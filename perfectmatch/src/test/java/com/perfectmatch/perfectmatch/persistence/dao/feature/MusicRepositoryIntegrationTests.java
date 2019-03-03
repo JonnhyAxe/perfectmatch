@@ -30,7 +30,7 @@ import net.serenitybdd.cucumber.CucumberWithSerenity;
 //the SpringIntegrationSerenityRunner does not scan application dependencies,
 //they are only autowired in the current class  try to remove @SpringBootTest and add @DataMongoTest
 //Refactor this to use pure web test. Note: use Controller tests 
-@Ignore
+
 public class MusicRepositoryIntegrationTests {
 
 
