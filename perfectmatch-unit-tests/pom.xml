@@ -3,19 +3,24 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.serenitybdd.showcase</groupId>
-    <artifactId>serenity-junit-webtests</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+	<parent>
+		<groupId>com.perfectmatch</groupId>
+		<artifactId>perfectmatch</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<!--<relativePath/> < lookup parent from repository -->
+	</parent>
+
+    <artifactId>perfectmatch-serenity-tests</artifactId>
     <packaging>jar</packaging>
 
-    <name>serenity-junit-webtest</name>
+    <name>perfectmatch-serenity-tests</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>1.9.31</serenity.version> <!-- https://bintray.com/serenity/maven/serenity-core/ -->
-        <serenity.cucumber.version>1.9.12</serenity.cucumber.version>
-        
-        <serenity.maven.version>1.1.34</serenity.maven.version>
+        <serenity.version>2.0.40</serenity.version>
+        <serenity.cucumber.version>1.9.31</serenity.cucumber.version>
+        <serenity.maven.version>2.0.40</serenity.maven.version>
+       
         <tags></tags>
     </properties>
 
