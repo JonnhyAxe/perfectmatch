@@ -73,6 +73,11 @@ mvn sonar:sonar -Dsonar.host.url=http://localhost:9000
 https://medium.com/criciumadev/its-time-migrating-to-java-11-5eb3868354f9
 https://winterbe.com/posts/2018/08/29/migrate-maven-projects-to-java-11-jigsaw/
 
+## swagger 
+
+java -jar swagger-codegen-cli.jar generate  -i ttp://localhost:8080/v2/api-docs  --api-package com.perfectmatch.web.client.api  --model-package com.perfectmatch.web.client.model  --invoker-package com.perfectmatch.web.client.invoker   --group-id com.baeldung  --artifact-id spring-swagger-codegen-api-client  --artifact-version 0.0.1-SNAPSHOT  -l java  --library resttemplate  -o spring-swagger-codegen-api-client
+
+
 ## EhCache 
 ---
 

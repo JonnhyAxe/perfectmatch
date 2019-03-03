@@ -1,9 +1,6 @@
 package com.perfectmatch.spring;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.perfectmatch.security.SimpleCorsFilter;
 
 @Configuration
 public class PerfectMatchServletConfig {
@@ -14,8 +11,8 @@ public class PerfectMatchServletConfig {
 
   // beans
 
-  @Bean
-  public SimpleCorsFilter simpleCorsFilter() {
-    return new SimpleCorsFilter();
-  }
+//  @Bean
+//  public SimpleCorsFilter simpleCorsFilter() {
+//    return new SimpleCorsFilter();
+//  }
 }
