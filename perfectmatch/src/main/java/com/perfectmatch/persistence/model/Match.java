@@ -11,7 +11,6 @@ import org.springframework.data.annotation.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.perfectmatch.common.model.NameableEntity;
-import com.perfectmatch.persistence.model.Sample.SampleBuilder;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

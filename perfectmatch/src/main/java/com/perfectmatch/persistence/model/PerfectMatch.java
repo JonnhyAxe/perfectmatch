@@ -1,24 +1,19 @@
 package com.perfectmatch.persistence.model;
 
 import java.io.Serializable;
-import java.net.URL;
-import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
 
 import com.perfectmatch.common.model.NameableEntity;
-import com.perfectmatch.persistence.model.Sample.SampleBuilder;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 /**
