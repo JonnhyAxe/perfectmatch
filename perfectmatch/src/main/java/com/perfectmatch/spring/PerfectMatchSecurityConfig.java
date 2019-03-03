@@ -26,21 +26,21 @@ public class PerfectMatchSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(final HttpSecurity httpSecurity) throws Exception {
       super.configure(httpSecurity);
 
-//    // @formatter:off
-//    httpSecurity
-//        .authorizeRequests()
-//        .anyRequest()
-//        .permitAll();
-//    // @formatter:on
-//
-//    httpSecurity
-//        .authorizeRequests()
-//        .antMatchers("/")
-//        .permitAll()
-//        .and()
-//        .authorizeRequests()
-//        .antMatchers("/console/**")
-//        .permitAll();
+    // @formatter:off
+    httpSecurity
+        .authorizeRequests()
+        .anyRequest()
+        .permitAll();
+    // @formatter:on
+
+    httpSecurity
+        .authorizeRequests()
+        .antMatchers("/")
+        .permitAll()
+        .and()
+        .authorizeRequests()
+        .antMatchers("/console/**")
+        .permitAll();
 
     httpSecurity.csrf().disable();
     httpSecurity.headers().frameOptions().disable();
