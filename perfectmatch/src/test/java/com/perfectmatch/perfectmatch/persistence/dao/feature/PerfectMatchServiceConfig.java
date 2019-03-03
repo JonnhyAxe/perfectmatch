@@ -1,29 +1,35 @@
 package com.perfectmatch.perfectmatch.persistence.dao.feature;
 
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
-import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import com.perfectmatch.spring.ApiDocumentationConfig;
+import com.perfectmatch.spring.PerfectMatchSecurityConfig;
+import com.perfectmatch.spring.PerfectMatchServletConfig;
 import com.perfectmatch.spring.PerfectMatchSetup;
 import com.perfectmatch.spring.PerfectMatchWebConfig;
+import com.perfectmatch.web.services.AdderService;
 
 @Configuration
-@Import({PerfectMatchWebConfig.class})
+@Import({PerfectMatchWebConfig.class, 
+	AdderService.class, 
+	PerfectMatchSecurityConfig.class, 
+	PerfectMatchServletConfig.class,
+	PerfectMatchSetup.class })
 public class PerfectMatchServiceConfig {
 
   public PerfectMatchServiceConfig() {
     super();
   }
 
-  @Bean
-  ServletWebServerFactory servletWebServerFactory() {
-    return new TomcatServletWebServerFactory();
-  }
-
-  @Bean
-  PerfectMatchSetup perfectMatchSetup() {
-    return new PerfectMatchSetup();
-  }
+//  @Bean
+//  ServletWebServerFactory servletWebServerFactory() {
+//    return new TomcatServletWebServerFactory();
+//  }
+//
+//  @Bean
+//  PerfectMatchSetup perfectMatchSetup() {
+//    return new PerfectMatchSetup();
+//  }
+  
 }

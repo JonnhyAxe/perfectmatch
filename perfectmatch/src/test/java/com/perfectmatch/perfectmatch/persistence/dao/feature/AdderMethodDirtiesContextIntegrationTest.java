@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import com.perfectmatch.web.services.AdderService;
 
+import net.serenitybdd.cucumber.CucumberWithSerenity;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.junit.spring.integration.SpringIntegrationMethodRule;
 import net.thucydides.core.annotations.Steps;
@@ -23,8 +24,8 @@ public class AdderMethodDirtiesContextIntegrationTest {
 
   @Rule public SpringIntegrationMethodRule springIntegration = new SpringIntegrationMethodRule();
 
-  @DirtiesContext
   @Test
+  @DirtiesContext
   public void _0_givenNumber_whenAddAndAccumulate_thenSummedUp() {
     adderServiceSteps.givenBaseAndAdder(2, 6);
     adderServiceSteps.whenAccumulate();
