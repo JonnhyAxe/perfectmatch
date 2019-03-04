@@ -187,6 +187,11 @@
 <!-- 		    <version>2.0.40</version> -->
 <!-- 		</dependency> -->
 
+		<dependency>
+		    <groupId>javax.validation</groupId>
+		    <artifactId>validation-api</artifactId>
+		</dependency>
+
   <!-- JSON processing: jackson -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -426,18 +431,18 @@
 				<groupId>net.serenity-bdd.maven.plugins</groupId>
 				<artifactId>serenity-maven-plugin</artifactId>
 				<version>${serenity.maven.version}</version>
-				<dependencies>
-					<dependency>
-						<groupId>net.serenity-bdd</groupId>
-						<artifactId>serenity-core</artifactId>
-						<version>${serenity.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>io.rest-assured</groupId>
-						<artifactId>rest-assured</artifactId>
-						<version>3.0.5</version>
-					</dependency>
-				</dependencies>
+<!-- 				<dependencies> -->
+<!-- 					<dependency> -->
+<!-- 						<groupId>net.serenity-bdd</groupId> -->
+<!-- 						<artifactId>serenity-core</artifactId> -->
+<!-- 						<version>${serenity.version}</version> -->
+<!-- 					</dependency> -->
+<!-- 					<dependency> -->
+<!-- 						<groupId>io.rest-assured</groupId> -->
+<!-- 						<artifactId>rest-assured</artifactId> -->
+<!-- 						<version>3.0.5</version> -->
+<!-- 					</dependency> -->
+<!-- 				</dependencies> -->
 				<executions>
 					<execution>
 						<id>serenity-reports</id>

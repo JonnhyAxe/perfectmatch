@@ -49,4 +49,8 @@ public class ArtistController {
     final String encodedName = UriUtils.decode(name, StandardCharsets.UTF_8.name());
     return Optional.ofNullable(artistService.deleteArtistByName(name)).orElseThrow(() -> new ArtistNotFoundException("Artist not found for the given name : " + encodedName));
   }
+  
+  public void setArtistService(ArtistService artistService) {
+	this.artistService = artistService;
+  }	
 }
