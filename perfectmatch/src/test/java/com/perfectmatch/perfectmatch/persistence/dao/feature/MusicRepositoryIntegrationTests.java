@@ -31,7 +31,7 @@ import net.thucydides.core.annotations.Steps;
   features = "src/test/resources/features/persistence/search_musics/music_repository.feature"
 )
 @ContextConfiguration(classes = {PerfectMatchServiceConfig.class, IntegrationSwaggerAPI.class, CustomizationWebServer.class })
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest
 @EnableMongoRepositories(basePackages = {"com.perfectmatch.persistence"})
 @ComponentScan({"com.perfectmatch.perfectmatch.persistence.dao.feature.steps"})
 
@@ -43,10 +43,10 @@ import net.thucydides.core.annotations.Steps;
 public class MusicRepositoryIntegrationTests {
 
 	@Rule public SpringIntegrationClassRule springIntegration = new SpringIntegrationClassRule();
-	  
-	@LocalServerPort
-	private int port;
-	
+//	  
+//	@LocalServerPort
+//	private int port;
+//	
 	@Steps
 	MusicDaoRepositorySteps musicDaoRepositorySteps;
 
