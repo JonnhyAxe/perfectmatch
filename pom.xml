@@ -25,10 +25,11 @@
 		<build-plugin.coveralls.version>4.3.0</build-plugin.coveralls.version>
     </properties>
 	
-	<modules>        
+	<modules>   
+		<module>perfectmatch-swagger-codegen-api-client</module>     
 		<module>perfectmatch-vue</module>
         <module>perfectmatch</module>
-		<module>perfectmatch-unit-tests</module>
+		<module>perfectmatch-unit-tests</module>	
     </modules>
 
 	<build>
