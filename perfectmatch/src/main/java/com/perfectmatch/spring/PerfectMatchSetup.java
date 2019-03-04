@@ -30,7 +30,7 @@ import com.perfectmatch.web.services.SampleService;
  * matches
  */
 @Component
-@Profile("dev")
+//@Profile("dev")
 public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEvent> {
 
   // Only for setup purposes

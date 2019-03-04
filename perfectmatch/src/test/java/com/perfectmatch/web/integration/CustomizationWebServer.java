@@ -1,4 +1,4 @@
-package com.perfectmatch.perfectmatch.persistence.dao.feature;
+package com.perfectmatch.web.integration;
 
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
@@ -10,7 +10,7 @@ public class CustomizationWebServer implements
   
     @Override
     public void customize(ConfigurableServletWebServerFactory container) {
-//        container.setPort(8083);
+        container.setPort(8080);
         container.setSsl(null);
     }
 }

@@ -1,4 +1,4 @@
-package com.perfectmatch.perfectmatch.persistence.dao.feature;
+package com.perfectmatch.web.integration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
