@@ -29,7 +29,7 @@
 		<module>perfectmatch-swagger-codegen-api-client</module>     
 		<module>perfectmatch-vue</module>
         <module>perfectmatch</module>
-		<module>perfectmatch-unit-tests</module>	
+<!-- 		<module>perfectmatch-unit-tests</module>	 -->
     </modules>
 
 	<build>
