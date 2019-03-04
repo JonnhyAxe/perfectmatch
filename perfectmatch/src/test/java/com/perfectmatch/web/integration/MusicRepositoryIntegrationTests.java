@@ -15,13 +15,13 @@ import org.springframework.test.context.ContextConfiguration;
 import net.serenitybdd.junit.spring.integration.SpringIntegrationClassRule;
 import net.serenitybdd.junit.spring.integration.SpringIntegrationSerenityRunner;
 import net.thucydides.core.annotations.Steps;
+import net.thucydides.core.annotations.WithTag;
 
 @RunWith(SpringIntegrationSerenityRunner.class)
 @EnableAutoConfiguration(exclude = {SecurityAutoConfiguration.class})
 @ContextConfiguration(classes = {PerfectMatchServiceConfig.class, IntegrationSwaggerAPI.class, CustomizationWebServer.class })
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @EnableMongoRepositories(basePackages = {"com.perfectmatch.persistence"})
-@ComponentScan({"com.perfectmatch.perfectmatch.persistence.dao.feature.steps"})
 public class MusicRepositoryIntegrationTests {
 
 	@Rule public SpringIntegrationClassRule springIntegration = new SpringIntegrationClassRule();
@@ -32,8 +32,7 @@ public class MusicRepositoryIntegrationTests {
 
 
 	 @Test
-//	 @Ignore
-	  public void getLatmunMusicPleaseStop() {
+	 public void getLatmunMusicPleaseStop() {
 		 String musicName = "Please Stop (Original Mix)";
 		 String artistName = "Latmun";
 		 

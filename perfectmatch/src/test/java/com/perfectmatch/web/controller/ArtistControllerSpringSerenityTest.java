@@ -62,11 +62,6 @@ private static final String AWESOME_ARTIST_NAME = "AwesomeArtistName";
   
   @Rule public SpringIntegrationClassRule springIntegration = new SpringIntegrationClassRule();
 
-
-//  @Before
-//  public void init() {
-//      RestAssuredMockMvc.standaloneSetup(new PlainAdderController());
-//  }
   
   @Before
   public void setup() {

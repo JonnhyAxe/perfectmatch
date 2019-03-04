@@ -139,10 +139,6 @@ public class ArtistControllerTest {
 
   @Test
   public void canRetrieveByIdWhenDoesNotExists() throws Exception {
-	  String ID = "2";
-	  Artist expectedArtist = Artist.builder()
-				.id(ID).name(AWESOME_ARTIST_NAME)
-				.build();
 	 
       ApiError expectedError = new ApiError(HttpStatus.NOT_FOUND.value(), 
     		  "Artist not found for the given id : 0", 
@@ -192,10 +188,6 @@ public class ArtistControllerTest {
 
   @Test
   public void canRetrieveByNameWhenDoesNotExists() throws Exception {
-	  Artist expectedArtist = Artist.builder()
-				.id("2").name(AWESOME_ARTIST_NAME)
-				.build();
-
 
       ApiError expectedError = new ApiError(HttpStatus.NOT_FOUND.value(), 
     		  "Artist not found for the given name : 0", 

@@ -1,11 +1,13 @@
 package com.perfectmatch.web.services.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -16,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.perfectmatch.common.ServicePreconditions;
 import com.perfectmatch.persistence.dao.ArtistRepository;
 import com.perfectmatch.persistence.dao.MusicRepository;
 import com.perfectmatch.persistence.model.Artist;
@@ -46,41 +49,51 @@ public class MusicServiceBeanTest {
 		assertThat(actualMusics).isNotNull().isNotEmpty().isEqualTo(expectedMusics);
 	}
 	
-	@Test(expected = MyPreconditionFailedException.class)
+	@Test
 	public void testSaveMusicWithoutName() {
 		//Given 
 		Music expectedMusic = new Music();
 		
 		//When
-		musicService.save(expectedMusic);
 		
+		
+	  assertThrows(MyBadRequestException.class, () -> {
+		  musicService.save(expectedMusic);
+	    });
+		  
 		//Then
 	}	
 	
-	@Test(expected = MyPreconditionFailedException.class)
+	@Test
 	public void testSaveMusicWithoutStyle() {
 		//Given 
 		Music expectedMusic = new Music();
 		expectedMusic.setName("MyMusicName");
 		//When
-		musicService.save(expectedMusic);
 		
+		
+		 assertThrows(MyPreconditionFailedException.class, () -> {
+			 musicService.save(expectedMusic);
+		    });
+		 
 		//Then
 	}
 	
-	@Test(expected = MyPreconditionFailedException.class)
+	@Test
 	public void testSaveMusicWithoutValidStyle() {
 		//Given 
 		Music expectedMusic = new Music();
 		expectedMusic.setName("MyMusicName");
 		expectedMusic.setStyle("MyMusicName");
 		//When
-		musicService.save(expectedMusic);
 		
+		 assertThrows(MyPreconditionFailedException.class, () -> {
+			 musicService.save(expectedMusic);
+		    });
 		//Then
 	}
 	
-	@Test(expected = MyPreconditionFailedException.class)
+	@Test
 	public void testSaveMusicWithoutArtistName() {
 		//Given 
 		Music expectedMusic = new Music();
@@ -88,12 +101,15 @@ public class MusicServiceBeanTest {
 		expectedMusic.setStyle(Style.TECH_HOUSE.name());
 		
 		//When
-		musicService.save(expectedMusic);
+		  assertThrows(MyPreconditionFailedException.class, () -> {
+			  musicService.save(expectedMusic);
+		    });
+			  
 		
 		//Then
 	}
 	
-	@Test(expected = MyPreconditionFailedException.class)
+	@Test
 	public void testSaveMusicWithoutArtistCreated() {
 		//Given
 		String artistName = "AwesomeArtistName";
@@ -108,7 +124,10 @@ public class MusicServiceBeanTest {
 		Mockito.when(artistDao.findByName(artistName)).thenReturn(null);
 
 		//When
-		musicService.save(expectedMusic);
+		  assertThrows(MyPreconditionFailedException.class, () -> {
+			  musicService.save(expectedMusic);
+		    });
+			  
 		
 		//Then
 	}
@@ -167,7 +186,7 @@ public class MusicServiceBeanTest {
 	}
 	
 	
-	@Test(expected = MyBadRequestException.class)
+	@Test
 	public void testUpdateMusicArtist() {
 		//Given
 		String artistName = "AwesomeArtistName";
@@ -179,8 +198,10 @@ public class MusicServiceBeanTest {
 		music.setStyle(Style.TECH_HOUSE.name());
 
 		//When
-		 musicService.updateMusic(music);
 		
+		 assertThrows(MyBadRequestException.class, () -> {
+			 musicService.updateMusic(music);
+		    });
 		//Then
 
 	}
@@ -192,14 +213,16 @@ public class MusicServiceBeanTest {
 		music.setStyle(Style.TECH_HOUSE.name());
 
 		//When
-		musicService.updateMusic(music);
 		
+		 assertThrows(MyBadRequestException.class, () -> {
+			 musicService.updateMusic(music);
+		    });
 		//Then
 
 	}
 	
 	
-	@Test(expected = MyPreconditionFailedException.class)
+	@Test
 	public void testUpdateMusicNotSaved() {
 		//Given
 		String artistName = "AwesomeArtistName";
@@ -215,8 +238,10 @@ public class MusicServiceBeanTest {
 
 		
 		//When
-		musicService.updateMusic(expectedMusic);
 		
+		 assertThrows(MyPreconditionFailedException.class, () -> {
+			 musicService.updateMusic(expectedMusic);
+		    });
 		//Then
 	}
 	

@@ -1,6 +1,7 @@
 package com.perfectmatch.web.services.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -52,7 +53,7 @@ public class ArtistServiceBeanTest {
 	assertThat(actualArtist).isEqualTo(expectedArtist);
   }
   
-  @Test(expected = MyPreconditionFailedException.class)
+  @Test
   public void createArtistByNameAlreadyCreated() {
     //Given
 	String artistName = "AwesomeArtistName";
@@ -66,7 +67,11 @@ public class ArtistServiceBeanTest {
 	Mockito.when(dao.findByName(artistName)).thenReturn(expectedArtist);
 	
 	//When
-	artistService.createArtist(artistName, website); 
+	
+	assertThrows(MyPreconditionFailedException.class, () -> {
+		artistService.createArtist(artistName, website); 
+	 });
+	
 	
 	//Then
   }
@@ -95,7 +100,8 @@ public class ArtistServiceBeanTest {
 	assertThat(actualArtist).isEqualTo(expectedArtist);
   }
   
-  @Test(expected = MyPreconditionFailedException.class)
+//  @Test(expected = MyPreconditionFailedException.class)
+  @Test
   public void createArtistAlreadyExisted() {
     //Given
 	String artistName = "AwesomeArtistName";
@@ -166,7 +172,7 @@ public class ArtistServiceBeanTest {
 	assertThat(actualArtist).isEqualTo(expectedArtist);
   }
   
-  @Test(expected = MyPreconditionFailedException.class)
+  @Test
   public void getUnexistingArtistById() {
     //Given
 	String artistName = "AwesomeArtistName";
@@ -178,7 +184,10 @@ public class ArtistServiceBeanTest {
 	expectedArtist.setWebsites(website);
 
 	//When
-	artistService.getArtistById(artistName); 
+	
+	assertThrows(MyPreconditionFailedException.class, () -> {
+		artistService.getArtistById(artistName); 
+	 });
 	
 	//Then
  }

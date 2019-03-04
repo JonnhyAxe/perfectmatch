@@ -1,6 +1,7 @@
 package com.perfectmatch.common;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Objects;
 
@@ -24,13 +25,15 @@ public class ServicePreconditionsTest {
 	  assertThat(musicExpected).isNotNull().isEqualTo(music);
   }
   
-  @Test(expected = MyEntityNotFoundException.class)
+  @Test
   public void testCheckEntityObjectNotExists() {
 	  //Given
 	  Music music = null;
 	  
 	  //When
-	  ServicePreconditions.checkEntityExists(music);
+	  assertThrows(MyEntityNotFoundException.class, () -> {
+		  ServicePreconditions.checkEntityExists(music);
+	    });
 	  
 	  //Then - MyEntityNotFoundException
   }
@@ -49,15 +52,17 @@ public class ServicePreconditionsTest {
   }
   
   
-  @Test(expected = MyEntityNotFoundException.class)
+  @Test
   public void testCheckEntityNotExists() {
 	  //Given
 	  Music music = null;
 	  
 	  //When
-	  ServicePreconditions.checkEntityExists(Objects.nonNull(music));
 	  
-	  //Then - MyEntityNotFoundException
+	  assertThrows(MyEntityNotFoundException.class, () -> {
+		  ServicePreconditions.checkEntityExists(Objects.nonNull(music));
+	    });
+
   }
   
   @Test
@@ -73,14 +78,15 @@ public class ServicePreconditionsTest {
   }
   
   
-  @Test(expected = MyBadRequestException.class)
+  @Test
   public void checkEntityArgumentNotExists() {
 	  //Given
 	  Music music = null;
 	  
-	  //When
-	  ServicePreconditions.checkOKArgument(Objects.nonNull(music));
-	  
 	  //Then - MyEntityNotFoundException
+	  
+	  assertThrows(MyBadRequestException.class, () -> {
+		  ServicePreconditions.checkOKArgument(Objects.nonNull(music));
+	    });
   }
 }
