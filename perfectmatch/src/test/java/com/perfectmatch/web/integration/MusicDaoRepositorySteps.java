@@ -33,12 +33,12 @@ public class MusicDaoRepositorySteps {
 	  log.info("Music: '{}'", music);
 	}
 	
-	@Step("^music should contain id")
+	@Step("Music should contain id")
 	public void shouldContainId() {
 	    assertTrue(!music.getId().equals(0));
 	}
 	
-	@Step("^music should contains artist name '(.*)'")
+	@Step("Music should contains artist name '{0}'")
 	public void shouldContainsArtistName(String name) {
 		assertTrue(music.getArtists().contains(name));
 	}
