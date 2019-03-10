@@ -20,12 +20,15 @@ function exit_script {
 
 # Build the maven project with docker profile
 cd ..
+echo "Building App...."
 if ! (mvn clean package -DskipTests)
 then
     # Exit with error code from previous command
     exit_script $?
 fi
 
+
+echo "Building Docker Image...."
 cd $SCRIPT_DIRECTORY/..
 if ! (mvn -Pdocker clean package -DskipTests)
 then
@@ -33,7 +36,8 @@ then
     exit_script $?
 fi
 
-# Build the docker image and start containers
+# Start containers
+echo "Start containers...."
 cd $SCRIPT_DIRECTORY
 if ! (docker-compose up --build -d)
 then
