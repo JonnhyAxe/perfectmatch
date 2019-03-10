@@ -9,11 +9,12 @@ https://howtodoinjava.com/automation/lombok-eclipse-installation-examples/#lombo
 java -jar <path_to_lombok.jar> delombok src -d src-generator
 ```
 
+Be aware that the version installed with the lombok installer could (and probably) not the same version as spring boot.
 
 ## Jacoco Unit Tests Coverage Reports
 ---
 
-In order to verify the Unit test coverage the Jacoco maven plugin is used and the report is generated under the target/site/jacoco/
+In order to verify the Unit test coverage the Jacoco maven plugin is used and the report is generated under the perfectmatch/target/site/jacoco/index.html
 
 ## Docker
 ---
@@ -26,8 +27,10 @@ cd /d/git/perfectmatch/perfectmatch/docker
 ```
 Open the browser and access swagger ui with the docker IP, such as:
 
-* http://192.168.99.100:8082/index.html#/ (first page load)
-* http://192.168.99.100:8082/swagger-ui.html#/ (REST swagger ui)
+* http://localhost:8080/index.html#/
+* http://192.168.99.100:8080/index.html#/ (first page load)
+* http://localhost:8080/swagger-ui.html#/
+* http://192.168.99.100:8080/swagger-ui.html#/ (REST swagger ui)
 
 All docker related files are located in the *docker* directory
 
@@ -40,7 +43,8 @@ All docker related files are located in the *docker* directory
 
 Spring Boot apps run on port 8082 inside the container by default and we mapped that to the same port on the host using "-p" on the command line (HOST:CONTAINER)
 
-Docker Registry???
+Make sure the compiler and java version of the image have the same versioning 
+
 
 References
 * https://spring.io/guides/gs/spring-boot-docker/
