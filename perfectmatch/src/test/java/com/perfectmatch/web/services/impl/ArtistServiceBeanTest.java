@@ -115,13 +115,11 @@ public class ArtistServiceBeanTest {
 	Mockito.when(dao.findByName(artistName)).thenReturn(expectedArtist);
 	
 	//When
-	Artist actualArtist = artistService.createArtist(expectedArtist); 
 	
-	//Then
-	assertThat(actualArtist).isNotNull();
-	assertThat(actualArtist.getName()).isNotNull().isEqualTo(artistName);
-	assertThat(actualArtist.getWebsites()).isNotNull().isNotEmpty().isEqualTo(website);
-	assertThat(actualArtist).isEqualTo(expectedArtist);
+	assertThrows(MyPreconditionFailedException.class, () -> {
+		Artist actualArtist = artistService.createArtist(expectedArtist); 
+	 });
+
   }
   
   @Test

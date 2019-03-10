@@ -57,7 +57,7 @@ public class MusicServiceBeanTest {
 		//When
 		
 		
-	  assertThrows(MyBadRequestException.class, () -> {
+	  assertThrows(MyPreconditionFailedException.class, () -> {
 		  musicService.save(expectedMusic);
 	    });
 		  
@@ -206,7 +206,7 @@ public class MusicServiceBeanTest {
 
 	}
 	
-	@Test(expected = MyBadRequestException.class)
+	@Test
 	public void testUpdateMusicStyle() {
 		//Given
 		Music music = new Music();
