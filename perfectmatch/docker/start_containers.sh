@@ -10,7 +10,7 @@ function exit_script {
        
     local EXIT_CODE=0
        
-    if [ ! -z $1];then
+    if [ ! -z $1 ];then
     	EXIT_CODE=$1
     fi
        
@@ -20,14 +20,14 @@ function exit_script {
 
 # Build the maven project with docker profile
 cd ..
-if ! (mvn clean package)
+if ! (mvn clean package -DskipTests)
 then
     # Exit with error code from previous command
     exit_script $?
 fi
 
 cd $SCRIPT_DIRECTORY/..
-if ! (mvn -Pdocker clean package)
+if ! (mvn -Pdocker clean package -DskipTests)
 then
     # Exit with error code from previous command
     exit_script $?
