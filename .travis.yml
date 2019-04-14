@@ -18,7 +18,7 @@ script:
 #  - docker run stephengrider/react-test npm test -- --coverage
 
 after_success:  
-  - docker build -t machadojo/perfectmatch-webapp ./perfectmatch/docker
+  - docker build -t machadojo/perfectmatch-webapp ./perfectmatch
   # Log in to the docker CLI
   - echo "$DOCKER_PWD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
