@@ -12,10 +12,7 @@ notifications:
   on_success: always
   on_failure: always
 
-before_install:
-  - docker build -t machadojo/perfectmatch-webapp -f ./perfectmatch/docker/Dockerfile.dev ./perfectmatch/docker
-  
-      
+   
 script:
   mvn clean install
 #  - docker run stephengrider/react-test npm test -- --coverage
