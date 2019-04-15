@@ -31,7 +31,8 @@
         <jackson-threetenbp-version>2.6.4</jackson-threetenbp-version>
        
         <tags></tags>
-        <docker.image.prefix>perfect_match</docker.image.prefix>
+        <docker.image.repo>machadojo</docker.image.repo>
+        <docker.image.name>perfectmatch-webapp</docker.image.name>
 	</properties>
 
 	<dependencies>
@@ -436,9 +437,9 @@
 			<plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>1.3.6</version>
+                <version>1.4.10</version>
                 <configuration>
-                    <repository>${docker.image.prefix}/${project.artifactId}</repository>
+                    <repository>${docker.image.repo}/${docker.image.name}</repository>
 					<buildArgs>
 						<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
 					</buildArgs>
