@@ -1,4 +1,4 @@
-# Perfect Match Web app with Vue.js
+npm run dev# Perfect Match Web app with Vue.js
 
 > Perfect Match Web app with Vue.js
 
@@ -25,8 +25,16 @@ npm test
 
 npm t -- -u
 
+# run sonar 
 sonar-scanner
 sonar-scanner -Dsonar.host.url=http://localhost:9000  
+
+# update 
+
+> npm outdated
+> npm update
+
+https://flaviocopes.com/update-npm-dependencies/
 
 ```
 http://localhost:9000/dashboard?id=perfectmatch-vue

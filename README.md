@@ -45,7 +45,7 @@ Alternatively execute the java class `<path_to_app>.Application` in the backend 
 
 Notice the dev profile activation in order to run an module that inserts data at load time for testing purposes. 
 
-Now go to [http://localhost:8080/index.html#/](http://localhost:8080/index.html#/ ) and the app should load.
+Now go to [http://localhost:8082/index.html#/](http://localhost:8080/index.html#/ ) and the app should load.
 
 All javascrip files (under the folder node_mdules) and java dependencies are resolved and no additional steps is required. 
 You can refer to the file [README.md](./perfectmatch-vue/README.md), to just resolve Javascript dependencies independently.
