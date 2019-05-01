@@ -11,6 +11,10 @@ java -jar <path_to_lombok.jar> delombok src -d src-generator
 
 Be aware that the version installed with the lombok installer could (and probably) not the same version as spring boot.
 
+## Java Google Formatter
+
+http://www.practicesofmastery.com/post/eclipse-google-java-style-guide/
+
 ## Jacoco Unit Tests Coverage Reports
 ---
 
