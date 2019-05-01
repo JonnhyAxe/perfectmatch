@@ -11,14 +11,17 @@ java -jar <path_to_lombok.jar> delombok src -d src-generator
 
 Be aware that the version installed with the lombok installer could (and probably) not the same version as spring boot.
 
-## Java Google Formatter
+## Java Google Formatter and maven Checkstyle 
 
 The following two alternatives can be used to format the code:
 
 1. http://www.practicesofmastery.com/post/eclipse-google-java-style-guide/
 2. https://github.com/google/google-java-format#eclipse
 
+> mvn checkstyle:checkstyle
 
+https://maven.apache.org/plugins/maven-checkstyle-plugin/usage.html
+https://www.baeldung.com/checkstyle-java
 https://google.github.io/styleguide/javaguide.html
 
 
