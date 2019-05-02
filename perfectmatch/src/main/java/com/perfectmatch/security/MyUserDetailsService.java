@@ -2,18 +2,16 @@ package com.perfectmatch.security;
 
 import java.util.Collection;
 import java.util.List;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
 
 /**
  * Database user authentication service.
  */
-@Component
+// @Component
 public final class MyUserDetailsService implements UserDetailsService {
 
   public MyUserDetailsService() {

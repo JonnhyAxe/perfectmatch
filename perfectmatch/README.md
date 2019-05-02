@@ -11,7 +11,7 @@ java -jar <path_to_lombok.jar> delombok src -d src-generator
 
 Be aware that the version installed with the lombok installer could (and probably) not the same version as spring boot.
 
-## Java Google Formatter and maven Checkstyle 
+## Java Google Formatter and maven Checkstyle reporting
 
 The following two alternatives can be used to format the code:
 
@@ -21,6 +21,7 @@ The following two alternatives can be used to format the code:
 > mvn checkstyle:checkstyle
 
 https://maven.apache.org/plugins/maven-checkstyle-plugin/usage.html
+http://checkstyle.sourceforge.net/google_style.html
 https://www.baeldung.com/checkstyle-java
 https://google.github.io/styleguide/javaguide.html
 
@@ -31,6 +32,15 @@ https://google.github.io/styleguide/javaguide.html
 ---
 
 In order to verify the Unit test coverage the Jacoco maven plugin is used and the report is generated under the perfectmatch/target/site/jacoco/index.html
+
+
+## Gatling 
+
+
+`mvn spring-boot:run` to start the webapp at http://localhost:8082/index.html#/
+
+`mvn gatling:test` while the webapp is running to run the performance test
+
 
 ## Docker
 ---
