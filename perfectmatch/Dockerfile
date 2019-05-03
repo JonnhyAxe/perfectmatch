@@ -7,4 +7,4 @@ EXPOSE 8080 8787
 RUN mkdir -p /opt
 COPY ./target/*.jar /opt/
 RUN sh -c 'touch backend-0.0.1-SNAPSHOT.jar'  
-ENTRYPOINT ["java", "-Dspring.data.mongodb.uri=mongodb://mongodb/music","-Djava.security.egd=file:/dev/./urandom","-Dspring.profiles.active=dev","-jar","/opt/backend-0.0.1-SNAPSHOT.jar"]  
+ENTRYPOINT ["java", "-Dspring.data.mongodb.uri=mongodb://mongodb/music","-Djava.security.egd=file:/dev/./urandom","-jar","/opt/backend-0.0.1-SNAPSHOT.jar"]  

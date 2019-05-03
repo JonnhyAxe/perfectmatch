@@ -1,0 +1,18 @@
+{
+  "simulation": "perfectmatch.LoadTest",
+  "simulationId": "loadtest",
+  "start": 1556913846787,
+  "description": "",
+  "scenarios": ["RampUpUsers"],
+  "assertions": [
+{
+  "path": "Global",
+  "target": "percentage of successful requests",
+  "condition": "is",
+  "expectedValues": [100.0],
+  "result": true,
+  "message": "Global: percentage of successful requests is 100.0",
+  "actualValue": [100.0]
+}
+  ]
+}

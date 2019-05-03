@@ -1,4 +1,4 @@
-package hello
+package perfectmatch
 
 import scala.concurrent.duration._
 
@@ -13,7 +13,7 @@ class LoadTest extends Simulation {
     .baseUrl("http://localhost:8082")
 
   object HelloWorldResource {
-    val get: ChainBuilder = exec(http("HelloWorld")
+    val get: ChainBuilder = exec(http("perfectmatch")
       .get("/index.html")
       .basicAuth("JAxe", "jaxe123"))
   }
@@ -22,7 +22,7 @@ class LoadTest extends Simulation {
     .exec(HelloWorldResource.get)
 
   setUp(myScenario.inject(
-    incrementUsersPerSec(20)
+    incrementUsersPerSec(100)
       .times(5)
       .eachLevelLasting(5 seconds)
       .separatedByRampsLasting(5 seconds)
