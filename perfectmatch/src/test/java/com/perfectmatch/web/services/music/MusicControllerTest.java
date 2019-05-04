@@ -1,7 +1,5 @@
 package com.perfectmatch.web.services.music;
 
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -12,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import com.perfectmatch.persistence.dao.MusicRepository;
 import com.perfectmatch.persistence.model.Music;
+import reactor.core.publisher.Flux;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -20,9 +19,10 @@ public class MusicControllerTest {
 
   private final static String URI = "/music/Please%20Stop%20(Original%20Mix)";
 
-  @Autowired private MusicRepository musicJpaRepository;
+  @Autowired
+  private MusicRepository musicJpaRepository;
 
-  private List<Music> expectedMusic;
+  private Flux<Music> expectedMusic;
 
   private WebTestClient webTestClient;
 
@@ -36,9 +36,9 @@ public class MusicControllerTest {
   @Test
   public void whenAllRolesAreRetrieved_then200OK() {
 
-    this.webTestClient.get().uri(URI).exchange().expectStatus().isOk(); //TODO: why NO CONTENT???
-    //		.expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8);
-    //.expectBodyList(Music.class).isEqualTo(expectedMusic);
+    this.webTestClient.get().uri(URI).exchange().expectStatus().isOk(); // TODO: why NO CONTENT???
+    // .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8);
+    // .expectBodyList(Music.class).isEqualTo(expectedMusic);
 
   }
   //

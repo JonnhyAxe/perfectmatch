@@ -1,21 +1,18 @@
 package com.perfectmatch.common.persistence.services;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
-
 import org.assertj.core.util.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.perfectmatch.common.ServicePreconditions;
 import com.perfectmatch.common.interfaces.IOperations;
 import com.perfectmatch.common.model.NameableEntity;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Transactional
 public abstract class AbstractRawService<T extends NameableEntity> implements IOperations<T> {
@@ -29,33 +26,31 @@ public abstract class AbstractRawService<T extends NameableEntity> implements IO
   // API
   @Override
   @Transactional(readOnly = true)
-  public T findOne(final String id) {
-	Optional<T> entity =  getDao().findById(id);
-    if (Objects.nonNull(id) && entity.isPresent()) {
-      return getDao().findById(id).get();
+  public Mono<T> findOne(final String id) {
+    // Mono<T> entity = getDao().findById(id);
+    // if (Objects.nonNull(id) && entity.isPresent()) {
+    if (Objects.nonNull(id)) {
+      return getDao().findById(id);
     }
-    return null;
+    return Mono.empty(); // throw unchecked exception
   }
 
   @Override
   @Transactional(readOnly = true)
-  public List<T> findAll() {
-
-    List<T> list = new ArrayList<>();
-    getDao().findAll().forEach(list::add);
-    return list;
+  public Flux<T> findAll() {
+    return getDao().findAll();
   }
 
   // save/create/persist
 
   @Override
-  public T create(final T entity) {
+  public Mono<T> create(final T entity) {
     Preconditions.checkNotNull(entity);
-    if(Objects.nonNull(entity.getId())) {
-    	 final T entityExists = findOne(entity.getId());
-    	    if (Objects.nonNull(entityExists)) {
-    	      return entityExists;
-    	    }
+    if (Objects.nonNull(entity.getId())) {
+      final Mono<T> entityExists = findOne(entity.getId());
+      if (Objects.nonNull(entityExists)) {
+        return entityExists;
+      }
     }
     return getDao().save(entity);
   }
@@ -65,10 +60,13 @@ public abstract class AbstractRawService<T extends NameableEntity> implements IO
   @Override
   public void update(final T entity) {
     Preconditions.checkNotNull(entity);
+    // final Mono<T> entityExists = findOne(entity.getId());
+    //
+    // getDao().save(entity);
 
-    final T entityExists = findOne(entity.getId());
-    ServicePreconditions.checkEntityExists(entityExists);
-    getDao().save(entity);
+    findOne(entity.getId()).filter(entry -> ServicePreconditions.checkEntityExists(entry))
+        .flatMap(entry -> getDao().save(entry));
+
   }
 
   // delete
@@ -83,22 +81,26 @@ public abstract class AbstractRawService<T extends NameableEntity> implements IO
   public void delete(final String id) {
     Preconditions.checkNotNull(id);
 
-    final T entity = findOne(id);
-    ServicePreconditions.checkEntityExists(entity);
-    getDao().delete(entity);
+    findOne(id).filter(entry -> ServicePreconditions.checkEntityExists(entry))
+        .flatMap(entry -> getDao().delete(entry));
+
+    // entity.subscribe(value -> { ServicePreconditions.checkEntityExists(entity);
+    // getDao().delete(entity);
+    // }, error -> error.printStackTrace(),
+    // () -> Console.out.println("completed without a value"));
+
   }
 
   // count
 
   @Override
-  public long count() {
-
+  public Mono<Long> count() {
     return getDao().count();
   }
 
   // template method
 
-  protected abstract PagingAndSortingRepository<T, String> getDao();
+  protected abstract ReactiveCrudRepository<T, String> getDao();
 
   // template
 

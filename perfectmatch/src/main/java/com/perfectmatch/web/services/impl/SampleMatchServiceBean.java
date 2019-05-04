@@ -1,15 +1,14 @@
 package com.perfectmatch.web.services.impl;
 
 import java.util.Objects;
-
 import org.assertj.core.util.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.perfectmatch.common.persistence.services.AbstractRawService;
 import com.perfectmatch.persistence.dao.SampleMatchRepository;
 import com.perfectmatch.persistence.model.Match;
 import com.perfectmatch.web.services.SampleMatchService;
+import reactor.core.publisher.Mono;
 
 /**
  *
@@ -20,13 +19,13 @@ import com.perfectmatch.web.services.SampleMatchService;
 public class SampleMatchServiceBean extends AbstractRawService<Match>
     implements SampleMatchService {
 
-  @Autowired private SampleMatchRepository dao;
+  @Autowired
+  private SampleMatchRepository dao;
 
   /*
    * (non-Javadoc)
    *
-   * @see
-   * com.perfectmatch.common.persistence.srvices.AbstractRawService#getDao()
+   * @see com.perfectmatch.common.persistence.srvices.AbstractRawService#getDao()
    */
   @Override
   protected SampleMatchRepository getDao() {
@@ -43,16 +42,14 @@ public class SampleMatchServiceBean extends AbstractRawService<Match>
   /*
    * (non-Javadoc)
    *
-   * @see
-   * com.perfectmatch.common.interfaces.ByNameSearchable#findByName(java.lang.
-   * String)
+   * @see com.perfectmatch.common.interfaces.ByNameSearchable#findByName(java.lang. String)
    */
   @Override
-  public Match findMatchByName(String name) {
-	Preconditions.checkNotNull(name, "Sample Match name cannot be null");
+  public Mono<Match> findMatchByName(String name) {
+    Preconditions.checkNotNull(name, "Sample Match name cannot be null");
     String[] musics = name.split(",");
     return this.dao.findMatchByMusics(musics[0], musics[1]);
   }
-  
-  //implement save method
+
+  // implement save method
 }

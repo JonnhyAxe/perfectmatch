@@ -1,6 +1,5 @@
 package com.perfectmatch.web.controller;
 
-import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,8 @@ import com.perfectmatch.persistence.model.Music;
 import com.perfectmatch.web.exception.MusicNotFoundException;
 import com.perfectmatch.web.services.MusicService;
 import io.swagger.annotations.ApiOperation;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /*
  * Controller of the Music Entity
@@ -27,33 +28,37 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/music")
 public class MusicController {
 
-  @Autowired private MusicService musicService;
+  @Autowired
+  private MusicService musicService;
 
   @GetMapping
   @Secured({"ROLE_USER_READ"})
   @ApiOperation(value = "Find all musics - without pagination"
-    /** notes = "Also returns a link to retrieve all students with rel - all-students" **/)
-  //https://github.com/in28minutes/spring-boot-examples/blob/master/spring-boot-2-rest-service-with-swagger/src/main/java/com/in28minutes/springboot/rest/example/student/StudentResource.java
-  public List<Music> getAllMusics() {
+  /** notes = "Also returns a link to retrieve all students with rel - all-students" **/
+  )
+  // https://github.com/in28minutes/spring-boot-examples/blob/master/spring-boot-2-rest-service-with-swagger/src/main/java/com/in28minutes/springboot/rest/example/student/StudentResource.java
+  public Flux<Music> getAllMusics() {
     return musicService.findAll();
   }
 
   @GetMapping(path = "/{name}")
   @ApiOperation(value = "Find Music by name"
-    /** notes = "Also returns a link to retrieve all students with rel - all-students" **/)
-  public Music getMusicByName(@PathVariable("name") @Valid final String musicName) {
-    return Optional.ofNullable(musicService.findByName(musicName)).orElseThrow(() -> new MusicNotFoundException("Music not found for the given name : " + musicName)); 
+  /** notes = "Also returns a link to retrieve all students with rel - all-students" **/
+  )
+  public Mono<Music> getMusicByName(@PathVariable("name") @Valid final String musicName) {
+    return Optional.ofNullable(musicService.findByName(musicName)).orElseThrow(
+        () -> new MusicNotFoundException("Music not found for the given name : " + musicName));
   }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public Music createMusic(@RequestBody @Valid final Music resource) {
+  public Mono<Music> createMusic(@RequestBody @Valid final Music resource) {
     return musicService.save(resource);
   }
 
   @PutMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public Music updateMusic(@RequestBody final Music resource) {
+  public Mono<Music> updateMusic(@RequestBody final Music resource) {
     return musicService.updateMusic(resource);
   }
 }

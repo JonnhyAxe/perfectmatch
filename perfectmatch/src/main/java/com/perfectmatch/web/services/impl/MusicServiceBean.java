@@ -1,12 +1,9 @@
 package com.perfectmatch.web.services.impl;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.perfectmatch.common.persistence.services.AbstractRawService;
 import com.perfectmatch.persistence.dao.ArtistRepository;
 import com.perfectmatch.persistence.dao.MusicRepository;
@@ -15,6 +12,8 @@ import com.perfectmatch.persistence.model.Style;
 import com.perfectmatch.web.exception.MyBadRequestException;
 import com.perfectmatch.web.exception.MyPreconditionFailedException;
 import com.perfectmatch.web.services.MusicService;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * Expose web services for Music Entity
@@ -23,9 +22,11 @@ import com.perfectmatch.web.services.MusicService;
 @Service
 public class MusicServiceBean extends AbstractRawService<Music> implements MusicService {
 
-  @Autowired private MusicRepository dao;
+  @Autowired
+  private MusicRepository dao;
 
-  @Autowired private ArtistRepository artistDao;
+  @Autowired
+  private ArtistRepository artistDao;
 
   /**
    * @return the MusicRepository
@@ -37,13 +38,13 @@ public class MusicServiceBean extends AbstractRawService<Music> implements Music
   }
 
   @Override
-  public List<Music> findAll() {
+  public Flux<Music> findAll() {
 
     return getDao().findAll();
   }
 
   @Override
-  public Music findByName(final String name) {
+  public Mono<Music> findByName(final String name) {
 
     return getDao().findByName(name);
   }
@@ -55,30 +56,30 @@ public class MusicServiceBean extends AbstractRawService<Music> implements Music
   }
 
   @Override
-  public Music save(Music music) {
+  public Mono<Music> save(Music music) {
     //
     musicSavePreconditions(music);
-    Music musicByName = findByName(music.getName());
-    if (Objects.nonNull(musicByName)) {
+    Mono<Music> musicByName = findByName(music.getName());
+    if (Objects.nonNull(musicByName.block())) {
       return musicByName;
     }
     return create(music);
   }
 
   @Override
-  public Music updateMusic(Music music) {
+  public Mono<Music> updateMusic(Music music) {
     //
     musicUpdatePreconditons(music);
-    Music musicToUpdate = findByName(music.getName());
-    if (Objects.nonNull(musicToUpdate)) {
-      merge(musicToUpdate, music);
-      update(musicToUpdate);
+    Mono<Music> musicToUpdate = findByName(music.getName());
+    if (Objects.nonNull(musicToUpdate.block())) {
+      merge(musicToUpdate.block(), music);
+      update(musicToUpdate.block());
       return musicToUpdate;
     }
     throw new MyPreconditionFailedException("Music name " + music.getName() + " does not exist");
   }
 
-  //find merge method as Hibernate merge
+  // find merge method as Hibernate merge
   private void merge(Music musicToUpdate, Music music) {
     addRemixers(musicToUpdate, music);
     if (Objects.nonNull(music.getRecordLabel())) {
@@ -108,7 +109,7 @@ public class MusicServiceBean extends AbstractRawService<Music> implements Music
     }
   }
 
-  //TODO: add this to an helper class
+  // TODO: add this to an helper class
   private void musicSavePreconditions(Music music) {
     if (Objects.isNull(music.getName())) {
       throw new MyPreconditionFailedException("Music name is mandatory to create musics");
@@ -117,11 +118,11 @@ public class MusicServiceBean extends AbstractRawService<Music> implements Music
       throw new MyPreconditionFailedException("Music style is mandatory to create musics");
     }
     try {
-    	Style.valueOf(music.getStyle());
+      Style.valueOf(music.getStyle());
     } catch (IllegalArgumentException ex) {
-		 throw new MyPreconditionFailedException("Music style not found");
+      throw new MyPreconditionFailedException("Music style not found");
     }
-   
+
     if (Objects.isNull(music.getArtist())) {
       throw new MyPreconditionFailedException("Artist id is mandatory to create musics");
     }

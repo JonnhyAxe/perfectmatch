@@ -3,13 +3,10 @@ package com.perfectmatch.spring;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-
 import com.perfectmatch.persistence.model.Artist;
 import com.perfectmatch.persistence.model.Match;
 import com.perfectmatch.persistence.model.MatchRule;
@@ -24,33 +21,36 @@ import com.perfectmatch.web.services.SampleMatchService;
 import com.perfectmatch.web.services.SampleService;
 
 /**
- * This simple setup class will run during the bootstrap process of Spring and
- * will create some setup data <br>
- * The main focus here is creating some Music artist, Samples and Samples'
- * matches
+ * This simple setup class will run during the bootstrap process of Spring and will create some
+ * setup data <br>
+ * The main focus here is creating some Music artist, Samples and Samples' matches
  */
 @Component
-//@Profile("dev")
+// @Profile("dev")
 public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEvent> {
 
   // Only for setup purposes
   private boolean setupDone;
 
-  @Autowired private ArtistService artistService;
+  @Autowired
+  private ArtistService artistService;
 
-  @Autowired private MusicService musicService;
+  @Autowired
+  private MusicService musicService;
 
-  @Autowired private SampleService sampleService;
+  @Autowired
+  private SampleService sampleService;
 
-  @Autowired private SampleMatchService sampleMatchService;
+  @Autowired
+  private SampleMatchService sampleMatchService;
 
-  @Autowired private PerfectMatchService perfectMatchService;
+  @Autowired
+  private PerfectMatchService perfectMatchService;
 
   /*
    * (non-Javadoc)
    *
-   * @see
-   * org.springframework.context.ApplicationListener#onApplicationEvent(org.
+   * @see org.springframework.context.ApplicationListener#onApplicationEvent(org.
    * springframework.context.ApplicationEvent)
    */
   @Override
@@ -69,12 +69,10 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
    */
   private void createMusic() {
 
-    Artist latmun = Artist.builder()
-						.name("Latmun")
-						.build();
+    Artist latmun = Artist.builder().name("Latmun").build();
 
     if (Objects.isNull(artistService.getArtistByName(latmun.getName()))) {
-      latmun = artistService.createArtist(latmun);
+      latmun = artistService.createArtist(latmun).block();
     }
 
     Music musicPleaseStop = new Music();
@@ -84,7 +82,7 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
     musicPleaseStop.setTempo("145");
     musicPleaseStop.setEnergy("9");
     musicPleaseStop.setKey("8B");
-    
+
     Sample samplePleaseStop = new Sample();
     samplePleaseStop.setTimestamp(3 * 60); // Start time stamp at 00:03:00m
     samplePleaseStop.setName(musicPleaseStop.getArtist() + ":" + musicPleaseStop.getName());
@@ -98,7 +96,7 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
     musicDef.setTempo("145");
     musicDef.setEnergy("6");
     musicDef.setKey("4B");
-    
+
     Sample sampleDef = new Sample();
     sampleDef.setTimestamp(3 * 60); // timeStamp at 00:03:00m
     sampleDef.setName(musicDef.getArtist() + ":" + musicDef.getName());
@@ -111,43 +109,41 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
     newMatch.setRule(MatchRule.DEFAULT.name());
 
     if (!getSampleMatchServiceBean().contains(newMatch)) {
-    	getSampleMatchServiceBean().create(newMatch);
+      getSampleMatchServiceBean().create(newMatch);
     }
 
     if (Objects.isNull(getSampleServiceBean().findByName(samplePleaseStop.getName()))) {
-    	getSampleServiceBean().create(samplePleaseStop);
+      getSampleServiceBean().create(samplePleaseStop);
     }
 
     if (Objects.isNull(getSampleServiceBean().findByName(sampleDef.getName()))) {
-    	getSampleServiceBean().create(sampleDef);
+      getSampleServiceBean().create(sampleDef);
     }
 
     if (Objects.isNull(getMusicServiceBean().findByName(musicPleaseStop.getName()))) {
-    	getMusicServiceBean().create(musicPleaseStop);
+      getMusicServiceBean().create(musicPleaseStop);
     }
 
     if (Objects.isNull(getMusicServiceBean().findByName(musicDef.getName()))) {
-    	getMusicServiceBean().create(musicDef);
+      getMusicServiceBean().create(musicDef);
     }
 
     PerfectMatch newPerfectMatch = new PerfectMatch();
     newPerfectMatch.setName(newMatch.getName());
 
-    if (Objects.isNull(getPerfectMatchServiceBean()
-    		.findPerfectMatchByName(newPerfectMatch.getName()))) {
-    	getPerfectMatchServiceBean().create(newPerfectMatch);
+    if (Objects
+        .isNull(getPerfectMatchServiceBean().findPerfectMatchByName(newPerfectMatch.getName()))) {
+      getPerfectMatchServiceBean().create(newPerfectMatch);
     }
 
     // Test insert music without samples and Match
 
-    Artist latmunXPTO =  Artist.builder()
-							.name("LatmunXPTO")
-							.build();
-						    
-    
+    Artist latmunXPTO = Artist.builder().name("LatmunXPTO").build();
+
+
 
     if (Objects.isNull(artistService.getArtistByName(latmunXPTO.getName()))) {
-    	latmunXPTO = artistService.createArtist(latmunXPTO);
+      latmunXPTO = artistService.createArtist(latmunXPTO).block();
     }
 
     Music music = new Music();
@@ -157,7 +153,7 @@ public class PerfectMatchSetup implements ApplicationListener<ContextRefreshedEv
     music.setTempo("145");
     music.setEnergy("10");
     music.setKey("2B");
-    
+
     getMusicServiceBean().create(music);
   }
 

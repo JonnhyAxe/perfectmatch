@@ -1,23 +1,23 @@
 package com.perfectmatch.common.interfaces;
 
 import java.io.Serializable;
-import java.util.List;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public interface IOperations<T extends Serializable> {
 
   // find - one
 
-  T findOne(final String id);
+  Mono<T> findOne(final String id);
 
   /**
-   * if nothing is found, an empty list will be returned to the
-   * calling client <br>
+   * if nothing is found, an empty list will be returned to the calling client <br>
    */
-  List<T> findAll();
+  Flux<T> findAll();
 
   // create
 
-  T create(final T resource);
+  Mono<T> create(final T resource);
 
   // update
 
@@ -31,5 +31,5 @@ public interface IOperations<T extends Serializable> {
 
   // count
 
-  long count();
+  Mono<Long> count();
 }

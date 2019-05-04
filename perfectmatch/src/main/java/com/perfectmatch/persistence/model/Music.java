@@ -5,17 +5,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
 import javax.validation.constraints.NotNull;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.util.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.perfectmatch.common.interfaces.ByArtistQueryable;
 import com.perfectmatch.common.interfaces.MetaDataQueryable;
 import com.perfectmatch.common.model.NameableEntity;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -30,11 +26,11 @@ import lombok.ToString;
  * This class represents an Music to sample from
  *
  */
-@Data(staticConstructor="of")
-@ToString(includeFieldNames=true)
+@Data(staticConstructor = "of")
+@ToString(includeFieldNames = true)
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor 
+@AllArgsConstructor
 @ApiModel(description = "All details about the music ")
 public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryable {
 
@@ -44,7 +40,8 @@ public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryab
   private static final long serialVersionUID = -6021901171439734300L;
 
   @EqualsAndHashCode.Include
-  @Id private String id;
+  @Id
+  private String id;
 
   @EqualsAndHashCode.Include
   @NotNull
@@ -59,7 +56,7 @@ public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryab
   @EqualsAndHashCode.Include
   @ApiModelProperty(notes = "Style of the music of type Style")
   @NotNull
-  private String style; //grouping
+  private String style; // grouping
 
   @Builder.Default
   @EqualsAndHashCode.Exclude
@@ -83,7 +80,7 @@ public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryab
   @EqualsAndHashCode.Exclude
   @ApiModelProperty(notes = "Energy of the music")
   @NotNull
-  private String energy; //grouping
+  private String energy; // grouping
 
   @EqualsAndHashCode.Exclude
   @ApiModelProperty(notes = "Tempo of the music")
@@ -95,17 +92,17 @@ public class Music implements NameableEntity, ByArtistQueryable, MetaDataQueryab
   @NotNull
   private URL location;
 
- 
+
   /**
    * @return the artists
    */
   @Override
   @JsonIgnore
   public String getArtist() {
-    return Objects.nonNull(getArtists()) && !getArtists().isEmpty() ? getArtistNames() : null;
+    return Objects.nonNull(getArtists()) && !getArtists().isEmpty() ? getArtistsNames() : null;
   }
 
-  private String getArtistNames() {
-	  return StringUtils.collectionToDelimitedString(artists, ",");
+  private String getArtistsNames() {
+    return StringUtils.collectionToDelimitedString(artists, ",");
   }
 }

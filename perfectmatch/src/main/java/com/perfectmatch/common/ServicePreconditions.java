@@ -1,28 +1,24 @@
 package com.perfectmatch.common;
 
 import java.util.Objects;
-
 import com.perfectmatch.web.exception.MyBadRequestException;
 import com.perfectmatch.web.exception.MyEntityNotFoundException;
 
 public final class ServicePreconditions {
 
   /**
-   * Ensures that the entity reference passed as a parameter to the calling
-   * method is not null.
+   * Ensures that the entity reference passed as a parameter to the calling method is not null.
    *
-   * @param entity
-   *            an object reference
+   * @param entity an object reference
    * @return the non-null reference that was validated
-   * @throws MyEntityNotFoundException
-   *             if {@code entity} is null
+   * @throws MyEntityNotFoundException if {@code entity} is null
    */
-  public static <T> T checkEntityExists(final T entity) {
+  public static <T> Boolean checkEntityExists(final T entity) {
 
     if (Objects.isNull(entity)) {
       throw new MyEntityNotFoundException();
     }
-    return entity;
+    return Boolean.TRUE;
   }
 
   public static void checkEntityExists(final boolean entityExists) {

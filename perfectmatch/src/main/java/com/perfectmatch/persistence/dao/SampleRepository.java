@@ -1,9 +1,9 @@
 package com.perfectmatch.persistence.dao;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import com.perfectmatch.common.interfaces.ByNameSearchable;
 import com.perfectmatch.persistence.model.Sample;
 
 public interface SampleRepository
-    extends MongoRepository<Sample, String>, ByNameSearchable<Sample> {}
+    extends ReactiveCrudRepository<Sample, String>, ByNameSearchable<Sample> {
+}

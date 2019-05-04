@@ -1,17 +1,15 @@
 package com.perfectmatch.web.services.impl;
 
 import java.util.Objects;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.perfectmatch.common.persistence.services.AbstractRawService;
 import com.perfectmatch.persistence.dao.SampleRepository;
 import com.perfectmatch.persistence.model.Sample;
 import com.perfectmatch.web.exception.ExistingSampleException;
 import com.perfectmatch.web.services.SampleService;
+import reactor.core.publisher.Mono;
 
 /**
  *
@@ -21,39 +19,36 @@ import com.perfectmatch.web.services.SampleService;
 @Service
 public class SampleServiceBean extends AbstractRawService<Sample> implements SampleService {
 
-  @Autowired private SampleRepository sampleRepository;
+  @Autowired
+  private SampleRepository sampleRepository;
 
   /*
    * (non-Javadoc)
    *
-   * @see
-   * com.perfectmatch.common.persistence.srvices.AbstractRawService#getDao()
+   * @see com.perfectmatch.common.persistence.srvices.AbstractRawService#getDao()
    */
   @Override
   protected SampleRepository getDao() {
-	  
+
     return this.sampleRepository;
   }
 
   /*
    * (non-Javadoc)
    *
-   * @see
-   * com.perfectmatch.common.interfaces.ByNameSearchable#findByName(java.lang.
-   * String)
+   * @see com.perfectmatch.common.interfaces.ByNameSearchable#findByName(java.lang. String)
    */
   @Override
-  public Sample findByName(String name) {
-	  
+  public Mono<Sample> findByName(String name) {
     return this.sampleRepository.findByName(name);
   }
 
-  public Sample save(@Valid Sample resource) {
-	  if(Objects.isNull(findByName(resource.getName()))){
-		  return this.sampleRepository.save(resource);
-	  } else {
-		  throw new ExistingSampleException("Already existe sample with name : " + resource.getName());
-	  }
-	 
+  public Mono<Sample> save(@Valid Sample resource) {
+    if (Objects.isNull(findByName(resource.getName()))) {
+      return this.sampleRepository.save(resource);
+    } else {
+      throw new ExistingSampleException("Already existe sample with name : " + resource.getName());
+    }
+
   }
 }
