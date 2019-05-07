@@ -41,6 +41,7 @@ public class ArtistServiceBeanTest {
     expectedArtist.setName(artistName);
     expectedArtist.setWebsites(website);
 
+    Mockito.when(dao.findByName(expectedArtist.getName())).thenReturn(Mono.empty());
     Mockito.when(dao.save(expectedArtist)).thenReturn(Mono.just(expectedArtist));
 
     // When
@@ -88,6 +89,7 @@ public class ArtistServiceBeanTest {
     expectedArtist.setName(artistName);
     expectedArtist.setWebsites(website);
 
+    Mockito.when(dao.findByName(expectedArtist.getName())).thenReturn(Mono.empty());
     Mockito.when(dao.save(expectedArtist)).thenReturn(Mono.just(expectedArtist));
 
     // When
@@ -173,18 +175,15 @@ public class ArtistServiceBeanTest {
   @Test
   public void getUnexistingArtistById() {
     // Given
-    String artistName = "AwesomeArtistName";
-    List<String> website = new ArrayList<>();
-    website.add("http://www.aswesome-artist-website.com");
+    String artistId = "AwesomeArtistName";
 
-    Artist expectedArtist = new Artist();
-    expectedArtist.setName(artistName);
-    expectedArtist.setWebsites(website);
+
+    Mockito.when(dao.findById(artistId)).thenReturn(Mono.empty());
 
     // When
 
     assertThrows(MyPreconditionFailedException.class, () -> {
-      artistService.getArtistById(artistName);
+      artistService.getArtistById(artistId).block();
     });
 
     // Then

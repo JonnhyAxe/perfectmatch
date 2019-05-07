@@ -1,7 +1,6 @@
 
 package com.perfectmatch.web.controller;
 
-import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -25,6 +24,7 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/perfect_match")
 public class PerfectMatchController {
 
+  private static final String PERFECT_MATCH_NOT_FOUND_FOR_A_GIVEN_NAME = "Perfect Match not Found for a given name : ";
   @Autowired
   private PerfectMatchServiceBean perfectMatchService;
 
@@ -40,9 +40,9 @@ public class PerfectMatchController {
   @ApiOperation(value = "Find Match by name")
   public Mono<PerfectMatch> getPerfectMatchByName(
       @PathVariable("name") @NotNull @NotBlank final String matchName) {
-    return Optional.ofNullable(perfectMatchService.findPerfectMatchByName(matchName))
-        .orElseThrow(() -> new PerfectMatchNotFoundException(
-            "Perfect Match not Found for a given name : " + matchName));
+    return perfectMatchService.findPerfectMatchByName(matchName)
+        .switchIfEmpty(Mono.defer(() -> Mono.error(() -> new PerfectMatchNotFoundException(
+            PERFECT_MATCH_NOT_FOUND_FOR_A_GIVEN_NAME + matchName))));
   }
 
   @PostMapping

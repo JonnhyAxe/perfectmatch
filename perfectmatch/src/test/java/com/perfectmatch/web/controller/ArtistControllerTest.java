@@ -16,6 +16,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.perfectmatch.persistence.model.Artist;
@@ -26,7 +29,7 @@ import reactor.core.publisher.Mono;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ArtistControllerTest {
-
+  // TODO: https://www.sudoinit5.com/post/spring-boot-testing-producer/
   private static final String AWESOME_ARTIST_NAME = "AwesomeArtistName";
 
   private static final String CHECK_THAT_ARTIST_NAME_AND_ID_IS_FILLED_IN =
@@ -70,13 +73,17 @@ public class ArtistControllerTest {
     given(artistService.createArtist(expectedArtist)).willReturn(Mono.just(expectedArtist));
 
     // when
-    MockHttpServletResponse response =
-        mvc.perform(post("/artist").contentType(MediaType.APPLICATION_JSON)
-            .content(jsonArtist.write(expectedArtist).getJson())).andReturn().getResponse();
+    final MvcResult response = mvc.perform(post("/artist").contentType(MediaType.APPLICATION_JSON)
+        .content(jsonArtist.write(expectedArtist).getJson())).andReturn();
 
-    then(response.getStatus()).as(CHECK_THAT_ARTIST_IS_RETREIVED).isNotNull()
+    final MvcResult ayncResponse =
+        mvc.perform(MockMvcRequestBuilders.asyncDispatch(response)).andReturn();
+
+
+    MockHttpServletResponse httpResponse = ayncResponse.getResponse();
+    then(httpResponse.getStatus()).as(CHECK_THAT_ARTIST_IS_RETREIVED).isNotNull()
         .isEqualTo(HttpStatus.CREATED.value());
-    then(response.getContentAsString()).as(CHECK_THAT_ARTIST_NAME_AND_ID_IS_FILLED_IN)
+    then(httpResponse.getContentAsString()).as(CHECK_THAT_ARTIST_NAME_AND_ID_IS_FILLED_IN)
         .isEqualTo(jsonArtist.write(expectedArtist).getJson());
   }
 
@@ -86,13 +93,14 @@ public class ArtistControllerTest {
     Artist expectedArtist = Artist.builder().id("2").name(null).build();
 
     // when
-    MockHttpServletResponse response =
-        mvc.perform(post("/artist").contentType(MediaType.APPLICATION_JSON)
-            .content(jsonArtist.write(expectedArtist).getJson())).andReturn().getResponse();
+    MvcResult response = mvc.perform(post("/artist").contentType(MediaType.APPLICATION_JSON)
+        .content(jsonArtist.write(expectedArtist).getJson())).andReturn();
 
-    then(response.getStatus()).as(CHECK_THAT_ARTIST_IS_RETREIVED).isNotNull()
+    // Then
+    MockHttpServletResponse httpResponse = response.getResponse();
+    then(httpResponse.getStatus()).as(CHECK_THAT_ARTIST_IS_RETREIVED).isNotNull()
         .isEqualTo(HttpStatus.BAD_REQUEST.value());
-    then(response.getContentAsString()).as(CHECK_THAT_ARTIST_NAME_AND_ID_IS_FILLED_IN)
+    then(httpResponse.getContentAsString()).as(CHECK_THAT_ARTIST_NAME_AND_ID_IS_FILLED_IN)
         .contains("Field error in object 'artist' on field 'name': rejected value [null]");
   }
 
@@ -104,13 +112,23 @@ public class ArtistControllerTest {
     given(artistService.getArtistById(id)).willReturn(Mono.just(expectedArtist));
 
     // when
-    MockHttpServletResponse response =
-        mvc.perform(get("/artist/id/" + id).accept(MediaType.APPLICATION_JSON)).andReturn()
-            .getResponse();
+    MvcResult response =
+        mvc.perform(get("/artist/id/" + id).accept(MediaType.APPLICATION_JSON)).andReturn();
 
-    then(response.getStatus()).as(CHECK_THAT_ARTIST_IS_RETREIVED).isNotNull()
+    // TODO: what is the difference in case of failure? what error messages...
+    final MvcResult ayncResponse = mvc.perform(MockMvcRequestBuilders.asyncDispatch(response))
+        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andExpect(MockMvcResultMatchers.header().string("Content-Type",
+            MediaType.APPLICATION_JSON_UTF8_VALUE))
+        .andExpect(
+            MockMvcResultMatchers.content().string(jsonArtist.write(expectedArtist).getJson()))
+        .andReturn();
+
+    // Then
+    MockHttpServletResponse httpResponse = ayncResponse.getResponse();
+    then(httpResponse.getStatus()).as(CHECK_THAT_ARTIST_IS_RETREIVED).isNotNull()
         .isEqualTo(HttpStatus.OK.value());
-    then(response.getContentAsString()).as(CHECK_THAT_ARTIST_NAME_AND_ID_IS_FILLED_IN)
+    then(httpResponse.getContentAsString()).as(CHECK_THAT_ARTIST_NAME_AND_ID_IS_FILLED_IN)
         .isEqualTo(jsonArtist.write(expectedArtist).getJson());
   }
 
@@ -120,13 +138,20 @@ public class ArtistControllerTest {
     ApiError expectedError = new ApiError(HttpStatus.NOT_FOUND.value(),
         "Artist not found for the given id : 0", "Artist not found for the given id : 0");
 
-    // when
-    MockHttpServletResponse response = mvc
-        .perform(get("/artist/id/0").accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
 
-    then(response.getStatus()).as(CHECK_THAT_ARTIST_IS_RETREIVED).isNotNull()
+    given(artistService.getArtistById("0")).willReturn(Mono.empty());
+
+    // when
+    final MvcResult response =
+        mvc.perform(get("/artist/id/0").accept(MediaType.APPLICATION_JSON)).andReturn();
+    final MvcResult ayncResponse =
+        mvc.perform(MockMvcRequestBuilders.asyncDispatch(response)).andReturn();
+
+    // then
+    MockHttpServletResponse httpResponse = ayncResponse.getResponse();
+    then(httpResponse.getStatus()).as(CHECK_THAT_ARTIST_IS_RETREIVED).isNotNull()
         .isEqualTo(HttpStatus.NOT_FOUND.value());
-    then(response.getContentAsString()).as(CHECK_THAT_ARTIST_NAME_AND_ID_IS_FILLED_IN)
+    then(httpResponse.getContentAsString()).as(CHECK_THAT_ARTIST_NAME_AND_ID_IS_FILLED_IN)
         .isEqualTo(jsonApiError.write(expectedError).getJson());
   }
 
@@ -138,13 +163,17 @@ public class ArtistControllerTest {
     given(artistService.getArtistByName(AWESOME_ARTIST_NAME)).willReturn(Mono.just(expectedArtist));
 
     // when
-    MockHttpServletResponse response =
+    final MvcResult response =
         mvc.perform(get("/artist/" + AWESOME_ARTIST_NAME).accept(MediaType.APPLICATION_JSON))
-            .andReturn().getResponse();
+            .andReturn();
 
-    then(response.getStatus()).as(CHECK_THAT_ARTIST_IS_RETREIVED).isNotNull()
+    final MvcResult ayncResponse =
+        mvc.perform(MockMvcRequestBuilders.asyncDispatch(response)).andReturn();
+
+    MockHttpServletResponse httpResponse = ayncResponse.getResponse();
+    then(httpResponse.getStatus()).as(CHECK_THAT_ARTIST_IS_RETREIVED).isNotNull()
         .isEqualTo(HttpStatus.OK.value());
-    then(response.getContentAsString()).as(CHECK_THAT_ARTIST_NAME_AND_ID_IS_FILLED_IN)
+    then(httpResponse.getContentAsString()).as(CHECK_THAT_ARTIST_NAME_AND_ID_IS_FILLED_IN)
         .isEqualTo(jsonArtist.write(expectedArtist).getJson());
   }
 
@@ -154,14 +183,20 @@ public class ArtistControllerTest {
     ApiError expectedError = new ApiError(HttpStatus.NOT_FOUND.value(),
         "Artist not found for the given name : 0", "Artist not found for the given name : 0");
 
+    given(artistService.getArtistByName("0")).willReturn(Mono.empty());
 
     // when
-    MockHttpServletResponse response =
-        mvc.perform(get("/artist/0").accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+    final MvcResult response =
+        mvc.perform(get("/artist/0").accept(MediaType.APPLICATION_JSON)).andReturn();
 
-    then(response.getStatus()).as(CHECK_THAT_ARTIST_DOES_NOT_EXIST).isNotNull()
+    final MvcResult ayncResponse =
+        mvc.perform(MockMvcRequestBuilders.asyncDispatch(response)).andReturn();
+
+    MockHttpServletResponse httpResponse = ayncResponse.getResponse();
+
+    then(httpResponse.getStatus()).as(CHECK_THAT_ARTIST_DOES_NOT_EXIST).isNotNull()
         .isEqualTo(HttpStatus.NOT_FOUND.value());
-    then(response.getContentAsString()).as(CHECK_THAT_ERROR_MESSAGE)
+    then(httpResponse.getContentAsString()).as(CHECK_THAT_ERROR_MESSAGE)
         .isEqualTo(jsonApiError.write(expectedError).getJson());
   }
 
@@ -173,13 +208,17 @@ public class ArtistControllerTest {
     given(artistService.deleteArtistByName(artistName)).willReturn(Mono.just(expectedArtist));
 
     // when
-    MockHttpServletResponse response =
+    MvcResult response =
         mvc.perform(delete("/artist/AwesomeArtistName").accept(MediaType.APPLICATION_JSON))
-            .andReturn().getResponse();
+            .andReturn();
 
-    then(response.getStatus()).as(CHECK_THAT_ARTIST_IS_RETREIVED).isNotNull()
+    final MvcResult ayncResponse =
+        mvc.perform(MockMvcRequestBuilders.asyncDispatch(response)).andReturn();
+
+    MockHttpServletResponse httpResponse = ayncResponse.getResponse();
+    then(httpResponse.getStatus()).as(CHECK_THAT_ARTIST_IS_RETREIVED).isNotNull()
         .isEqualTo(HttpStatus.OK.value());
-    then(response.getContentAsString()).as(CHECK_THAT_ARTIST_NAME_AND_ID_IS_FILLED_IN)
+    then(httpResponse.getContentAsString()).as(CHECK_THAT_ARTIST_NAME_AND_ID_IS_FILLED_IN)
         .isEqualTo(jsonArtist.write(expectedArtist).getJson());
   }
 
@@ -189,14 +228,20 @@ public class ArtistControllerTest {
     ApiError expectedError = new ApiError(HttpStatus.NOT_FOUND.value(),
         "Artist not found for the given name : 0", "Artist not found for the given name : 0");
 
+    String artistName = "0";
+    given(artistService.deleteArtistByName(artistName)).willReturn(Mono.empty());
 
     // when
-    MockHttpServletResponse response = mvc
-        .perform(delete("/artist/0").accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+    final MvcResult response =
+        mvc.perform(delete("/artist/0").accept(MediaType.APPLICATION_JSON)).andReturn();
 
-    then(response.getStatus()).as(CHECK_THAT_ARTIST_DOES_NOT_EXIST).isNotNull()
+    final MvcResult ayncResponse =
+        mvc.perform(MockMvcRequestBuilders.asyncDispatch(response)).andReturn();
+
+    MockHttpServletResponse httpResponse = ayncResponse.getResponse();
+    then(httpResponse.getStatus()).as(CHECK_THAT_ARTIST_DOES_NOT_EXIST).isNotNull()
         .isEqualTo(HttpStatus.NOT_FOUND.value());
-    then(response.getContentAsString()).as(CHECK_THAT_ERROR_MESSAGE)
+    then(httpResponse.getContentAsString()).as(CHECK_THAT_ERROR_MESSAGE)
         .isEqualTo(jsonApiError.write(expectedError).getJson());
   }
 

@@ -1,7 +1,6 @@
 package com.perfectmatch.web.controller;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,22 +39,28 @@ public class ArtistController {
     // .map(ResponseEntity::ok)
     // .defaultIfEmpty(ResponseEntity.notFound().build());
 
-    return Optional.ofNullable(artistService.getArtistById(id)).orElseThrow(
-        () -> new ArtistNotFoundException("Artist not found for the given id : " + id));
+    return artistService.getArtistById(id).switchIfEmpty(Mono.defer(() -> Mono
+        .error(() -> new ArtistNotFoundException("Artist not found for the given id : " + id))));
+
   }
 
   @GetMapping(path = "/{name}")
   public Mono<Artist> getArtistByName(@PathVariable("name") String name) {
     final String encodedName = UriUtils.decode(name, StandardCharsets.UTF_8.name());
-    return Optional.ofNullable(artistService.getArtistByName(encodedName)).orElseThrow(
-        () -> new ArtistNotFoundException("Artist not found for the given name : " + encodedName));
+
+    return artistService.getArtistByName(encodedName)
+        .switchIfEmpty(Mono.defer(() -> Mono.error(() -> new ArtistNotFoundException(
+            "Artist not found for the given name : " + encodedName))));
+
   }
 
   @DeleteMapping(path = "/{name}")
   public Mono<Artist> deleteArtistByName(@PathVariable("name") String name) {
     final String encodedName = UriUtils.decode(name, StandardCharsets.UTF_8.name());
-    return Optional.ofNullable(artistService.deleteArtistByName(name)).orElseThrow(
-        () -> new ArtistNotFoundException("Artist not found for the given name : " + encodedName));
+
+    return artistService.deleteArtistByName(name)
+        .switchIfEmpty(Mono.defer(() -> Mono.error(() -> new ArtistNotFoundException(
+            "Artist not found for the given name : " + encodedName))));
   }
 
   public void setArtistService(ArtistService artistService) {

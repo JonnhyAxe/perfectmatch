@@ -58,7 +58,7 @@ public class SampleMatchServiceBeanTest {
     expectedMatch.setMusicNameThis(musicNameThis);
     expectedMatch.setMusicNameThat(MatchRule.DEFAULT.name());
 
-
+    Mockito.when(dao.findAllBymusicName(musicNameThis)).thenReturn(Flux.just(expectedMatch));
     // When
     Boolean containsMatchWithOneOfTheSamples = sampleMatchService.contains(expectedMatch);
 

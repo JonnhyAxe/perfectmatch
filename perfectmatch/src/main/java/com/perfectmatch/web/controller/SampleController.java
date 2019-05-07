@@ -1,6 +1,5 @@
 package com.perfectmatch.web.controller;
 
-import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +21,8 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/sample")
 public class SampleController {
 
+  private static final String SAMPLE_NOT_FOUND_FOR_THE_GIVEN_NAME =
+      "Sample not found for the given name : ";
   @Autowired
   private SampleServiceBean sampleServiceBean;
 
@@ -34,8 +35,8 @@ public class SampleController {
   @GetMapping(path = "/{name}")
   @ApiOperation(value = "Find Match by name")
   public Mono<Sample> getSampleByName(@PathVariable("name") final String sampleName) {
-    return Optional.ofNullable(sampleServiceBean.findByName(sampleName)).orElseThrow(
-        () -> new SampleNotFoundException("Sample not found for the given name : " + sampleName));
+    return sampleServiceBean.findByName(sampleName).switchIfEmpty(Mono.defer(() -> Mono.error(
+        () -> new SampleNotFoundException(SAMPLE_NOT_FOUND_FOR_THE_GIVEN_NAME + sampleName))));
   }
 
   @PostMapping

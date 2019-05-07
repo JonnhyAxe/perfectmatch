@@ -38,6 +38,7 @@ public class MusicServiceBeanTest {
   @Test
   public void testFindAll() {
     // Given
+    Music onlyThis = new Music();
     Flux<Music> expectedMusics = Flux.just(new Music());
     when(dao.findAll()).thenReturn(expectedMusics);
 
@@ -47,7 +48,7 @@ public class MusicServiceBeanTest {
 
 
     // Then
-    assertThat(actualMusics).isNotNull().isNotEmpty().isEqualTo(expectedMusics);
+    assertThat(actualMusics).isNotNull().isNotEmpty().contains(onlyThis);
   }
 
   @Test
@@ -146,9 +147,8 @@ public class MusicServiceBeanTest {
     expectedMusic.setName(musicName);
     expectedMusic.setStyle(Style.TECH_HOUSE.name());
 
-    Mockito.when(artistDao.findByName(artistName)).thenReturn(Mono.just(artist));
-    Mockito.when(dao.save(expectedMusic)).thenReturn(Mono.just(expectedMusic));
-
+    Mockito.when(artistDao.findByName(expectedMusic.getArtist())).thenReturn(Mono.just(artist));
+    Mockito.when(dao.findByName(musicName)).thenReturn(Mono.just(expectedMusic));
 
     // When
     Music actualMusic = musicService.save(expectedMusic).block();
@@ -171,7 +171,7 @@ public class MusicServiceBeanTest {
     expectedMusic.setStyle(Style.TECH_HOUSE.name());
 
     Mockito.when(artistDao.findByName(artistName)).thenReturn(Mono.just(artist));
-    Mockito.when(dao.findByName(musicName)).thenReturn(null);
+    Mockito.when(dao.findByName(musicName)).thenReturn(Mono.empty());
     Mockito.when(dao.save(expectedMusic)).thenReturn(Mono.just(expectedMusic));
 
 
@@ -235,7 +235,7 @@ public class MusicServiceBeanTest {
     expectedMusic.setName(musicName);
     expectedMusic.setKey("updatkey");
 
-    Mockito.when(dao.findByName(musicName)).thenReturn(null);
+    Mockito.when(dao.findByName(musicName)).thenReturn(Mono.empty());
 
 
     // When

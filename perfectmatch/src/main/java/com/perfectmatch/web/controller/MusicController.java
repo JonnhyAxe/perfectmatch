@@ -1,6 +1,5 @@
 package com.perfectmatch.web.controller;
 
-import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,6 +35,7 @@ public class MusicController {
   @ApiOperation(value = "Find all musics - without pagination"
   /** notes = "Also returns a link to retrieve all students with rel - all-students" **/
   )
+  // TODO:
   // https://github.com/in28minutes/spring-boot-examples/blob/master/spring-boot-2-rest-service-with-swagger/src/main/java/com/in28minutes/springboot/rest/example/student/StudentResource.java
   public Flux<Music> getAllMusics() {
     return musicService.findAll();
@@ -46,19 +46,19 @@ public class MusicController {
   /** notes = "Also returns a link to retrieve all students with rel - all-students" **/
   )
   public Mono<Music> getMusicByName(@PathVariable("name") @Valid final String musicName) {
-    return Optional.ofNullable(musicService.findByName(musicName)).orElseThrow(
-        () -> new MusicNotFoundException("Music not found for the given name : " + musicName));
+    return musicService.findByName(musicName).switchIfEmpty(Mono.defer(() -> Mono.error(
+        () -> new MusicNotFoundException("Music not found for the given name : " + musicName))));
   }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public Mono<Music> createMusic(@RequestBody @Valid final Music resource) {
-    return musicService.save(resource);
+    return musicService.save(resource); // TODO: what if it fails
   }
 
   @PutMapping
   @ResponseStatus(HttpStatus.CREATED)
   public Mono<Music> updateMusic(@RequestBody final Music resource) {
-    return musicService.updateMusic(resource);
+    return musicService.updateMusic(resource); // TODO: what if it fails
   }
 }

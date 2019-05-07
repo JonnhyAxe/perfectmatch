@@ -19,7 +19,7 @@ public class ServicePreconditionsTest {
     Boolean musicExpected = ServicePreconditions.checkEntityExists(music);
 
     // Then
-    assertThat(musicExpected).isNotNull().isEqualTo(music);
+    assertThat(musicExpected).isNotNull().isEqualTo(Boolean.TRUE);
   }
 
   @Test

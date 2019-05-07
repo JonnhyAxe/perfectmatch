@@ -1,7 +1,7 @@
 
 package com.perfectmatch.web.controller;
 
-import java.util.Optional;
+import java.util.Objects;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -25,6 +25,10 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/match")
 public class MatchController {
 
+  private static final String MATCH_NOT_FOUND_FOR_GIVEN_MUSIC_NAME =
+      "Match not found for given music name : ";
+  private static final String MATCH_NOT_FOUND_FOR_GIVEN_MUSIC_NAMES =
+      "Match not found for given music names : ";
   // change to service
   @Autowired
   private SampleMatchRepository matchJpaRepository;
@@ -37,28 +41,30 @@ public class MatchController {
 
   @GetMapping(path = "/{music}/{music2}")
   @ApiOperation(value = "Find Match by music pair - without pagination")
-  public Match findMatchByMusicPair(@PathVariable("music") @NotNull @NotBlank String music,
+  public Mono<Match> findMatchByMusicPair(@PathVariable("music") @NotNull @NotBlank String music,
       @PathVariable("music2") @NotNull @NotBlank String music2) {
 
     Match match1 = matchJpaRepository.findMatchByMusics(music, music2).block();
     Match match2 = matchJpaRepository.findMatchByMusics(music2, music).block();
 
-    return Optional.ofNullable(match1 != null ? match1 : match2)
-        .orElseThrow(() -> new MatchNotFoundException(
-            "Match not found for given music names : " + music + ", " + music2));
+    if (Objects.isNull(match1) && Objects.isNull(match2)) {
+      new MatchNotFoundException(MATCH_NOT_FOUND_FOR_GIVEN_MUSIC_NAMES + music + ", " + music2);
+    }
+    return Mono.just(match1 != null ? match1 : match2);
+
   }
 
   @GetMapping(path = "/{music}")
   @ApiOperation(value = "Find all Matchs by music name - without pagination")
   public Flux<Match> findAllMatchByMusic(@PathVariable("music") @NotNull @NotBlank String music) {
     Flux<Match> matchs = matchJpaRepository.findAllBymusicName(music);
-    return matchs.switchIfEmpty(Flux.defer(() -> Flux.error(
-        () -> new MatchNotFoundException("Match not found for given music name : " + music))));
+    return matchs.switchIfEmpty(Flux.defer(() -> Flux
+        .error(() -> new MatchNotFoundException(MATCH_NOT_FOUND_FOR_GIVEN_MUSIC_NAME + music))));
   }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public Mono<Match> createMatch(@RequestBody @NotNull @Valid final Match resource) {
-    return matchJpaRepository.save(resource);
+    return matchJpaRepository.save(resource);// TODO: what if it fails
   }
 }
