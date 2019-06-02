@@ -1,25 +1,17 @@
 package com.perfectmatch.persistence.model;
 
 import java.io.Serializable;
-import java.net.URL;
-import java.util.Objects;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 import org.springframework.data.annotation.Id;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.perfectmatch.common.model.NameableEntity;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 /**
@@ -27,8 +19,8 @@ import lombok.ToString;
  * Represents an match between two samples
  *
  */
-@Data(staticConstructor="of")
-@ToString(includeFieldNames=true)
+@Data(staticConstructor = "of")
+@ToString(includeFieldNames = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -40,7 +32,8 @@ public class Match implements NameableEntity, Serializable {
    */
   private static final long serialVersionUID = -9166396470466850949L;
 
-  @Id private String id;
+  @Id
+  private String id;
 
   @NotNull
   @NotBlank

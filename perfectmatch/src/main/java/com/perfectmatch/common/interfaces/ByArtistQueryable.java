@@ -9,7 +9,7 @@ import java.util.List;
 public interface ByArtistQueryable {
 
   // TODO: change this to object reference
-  public String getArtist();
+  String getArtist();
 
-  public List<String> getArtists();
+  List<String> getArtists();
 }

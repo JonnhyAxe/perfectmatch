@@ -24,7 +24,7 @@ public final class MyUserDetailsService implements UserDetailsService {
    * Loads the user from the datastore, by it's user name <br>
    */
   @Override
-  public final UserDetails loadUserByUsername(final String username) {
+  public UserDetails loadUserByUsername(final String username) {
 
     if (!username.equals("JAxe")) {
       throw new UsernameNotFoundException(username + " not found");

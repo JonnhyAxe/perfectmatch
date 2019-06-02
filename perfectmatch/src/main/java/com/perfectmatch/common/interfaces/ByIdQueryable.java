@@ -6,5 +6,5 @@ package com.perfectmatch.common.interfaces;
  */
 public interface ByIdQueryable {
 
-  public String getId();
+  String getId();
 }
