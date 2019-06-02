@@ -27,7 +27,7 @@
 	</properties>
 
 	<modules>
-		<module>perfectmatch-swagger-codegen-api-client</module>
+		<!--  <module>perfectmatch-swagger-codegen-api-client</module> -->
 		<module>perfectmatch-vue</module>
 		<module>perfectmatch</module>
 		<!-- <module>perfectmatch-unit-tests</module> -->

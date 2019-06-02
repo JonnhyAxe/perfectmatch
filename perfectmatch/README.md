@@ -105,7 +105,7 @@ https://winterbe.com/posts/2018/08/29/migrate-maven-projects-to-java-11-jigsaw/
 
 ## swagger 
 
-java -jar swagger-codegen-cli-2.4.2.jar generate  -i http://localhost:8080/v2/api-docs.json  --api-package com.perfectmatch.web.client.api  --model-package com.perfectmatch.web.client.model  --invoker-package com.perfectmatch.web.client.invoker   --group-id com.baeldung  --artifact-id spring-swagger-codegen-api-client  --artifact-version 0.0.1-SNAPSHOT  -l java  --library resttemplate  -o perfectmatch-swagger-codegen-api-client
+java -jar swagger-codegen-cli-2.4.2.jar generate  -i http://localhost:8082/v2/api-docs.json  --api-package com.perfectmatch.web.client.api  --model-package com.perfectmatch.web.client.model  --invoker-package com.perfectmatch.web.client.invoker   --group-id com.baeldung  --artifact-id spring-swagger-codegen-api-client  --artifact-version 0.0.1-SNAPSHOT  -l java  --library spring  -o perfectmatch-swagger-codegen-api-client
 
 https://www.baeldung.com/spring-boot-rest-client-swagger-codegen
 
