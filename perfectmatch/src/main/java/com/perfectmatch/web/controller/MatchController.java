@@ -43,7 +43,7 @@ public class MatchController {
   @ApiOperation(value = "Find Match by music pair - without pagination")
   public Mono<Match> findMatchByMusicPair(@PathVariable("music") @NotNull @NotBlank String music,
       @PathVariable("music2") @NotNull @NotBlank String music2) {
-
+    // TODO: remove block
     Match match1 = matchJpaRepository.findMatchByMusics(music, music2).block();
     Match match2 = matchJpaRepository.findMatchByMusics(music2, music).block();
 
@@ -58,8 +58,8 @@ public class MatchController {
   @ApiOperation(value = "Find all Matchs by music name - without pagination")
   public Flux<Match> findAllMatchByMusic(@PathVariable("music") @NotNull @NotBlank String music) {
     Flux<Match> matchs = matchJpaRepository.findAllBymusicName(music);
-    return matchs.switchIfEmpty(Flux.defer(() -> Flux
-        .error(() -> new MatchNotFoundException(MATCH_NOT_FOUND_FOR_GIVEN_MUSIC_NAME + music))));
+    return matchs.switchIfEmpty(
+        Flux.error(() -> new MatchNotFoundException(MATCH_NOT_FOUND_FOR_GIVEN_MUSIC_NAME + music)));
   }
 
   @PostMapping

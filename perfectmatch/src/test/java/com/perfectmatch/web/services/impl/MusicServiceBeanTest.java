@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -22,6 +23,7 @@ import com.perfectmatch.web.exception.MyBadRequestException;
 import com.perfectmatch.web.exception.MyPreconditionFailedException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MusicServiceBeanTest {
@@ -57,13 +59,10 @@ public class MusicServiceBeanTest {
     Music expectedMusic = new Music();
 
     // When
-
-
     assertThrows(MyPreconditionFailedException.class, () -> {
       musicService.save(expectedMusic);
     });
 
-    // Then
   }
 
   @Test
@@ -141,6 +140,41 @@ public class MusicServiceBeanTest {
     Artist artist = new Artist();
     artist.setName(artistName);
 
+    String musicId = "AwesomeId";
+    Music expectedMusic = new Music();
+    expectedMusic.setId(musicId);
+    String musicName = "MyMusicName";
+    expectedMusic.setArtists(Arrays.asList(artist.getName()));
+    expectedMusic.setName(musicName);
+    expectedMusic.setKey("updatKey");
+    expectedMusic.setTempo("UpdateTempo");
+    expectedMusic.setRecordLabel("UpdateRecordeLabel");
+    expectedMusic.setEnergy("UpdateEnergy");
+    expectedMusic.setStyle(Style.HOUSE.name());
+
+    Mockito.when(dao.findByName(musicName)).thenReturn(Mono.empty());
+    Mockito.when(dao.findById(musicId)).thenReturn(Mono.just(expectedMusic));
+
+    Mockito.when(artistDao.findByName(artist.getName())).thenReturn(Mono.just(artist));
+
+    ArgumentCaptor<Music> argument = ArgumentCaptor.forClass(Music.class);
+    Mockito.when(dao.save(argument.capture())).thenReturn(Mono.just(expectedMusic));
+
+    // When
+    Music actualMusic = musicService.save(expectedMusic).block();
+
+    // Then
+    assertThat(actualMusic).isNotNull().isEqualTo(expectedMusic);
+  }
+
+
+  @Test
+  public void testSavedMusicWithStepVerifier() {
+    // Given
+    String artistName = "AwesomeArtistName";
+    Artist artist = new Artist();
+    artist.setName(artistName);
+
     Music expectedMusic = new Music();
     String musicName = "MyMusicName";
     expectedMusic.setArtists(Arrays.asList(artistName));
@@ -149,12 +183,14 @@ public class MusicServiceBeanTest {
 
     Mockito.when(artistDao.findByName(expectedMusic.getArtist())).thenReturn(Mono.just(artist));
     Mockito.when(dao.findByName(musicName)).thenReturn(Mono.just(expectedMusic));
+    Mockito.when(dao.save(expectedMusic)).thenReturn(Mono.just(expectedMusic));
 
-    // When
-    Music actualMusic = musicService.save(expectedMusic).block();
+    // When, Then
+    StepVerifier.create(musicService.save(expectedMusic)).assertNext(actualMusic -> {
+      assertThat(actualMusic).isNotNull().isEqualTo(expectedMusic);
 
-    // Then
-    assertThat(actualMusic).isNotNull().isEqualTo(expectedMusic);
+    }).expectComplete().verify();
+
   }
 
   @Test
@@ -239,11 +275,9 @@ public class MusicServiceBeanTest {
 
 
     // When
+    StepVerifier.create(musicService.updateMusic(expectedMusic)).expectComplete().verify();
 
-    assertThrows(MyPreconditionFailedException.class, () -> {
-      musicService.updateMusic(expectedMusic);
-    });
-    // Then
+
   }
 
   @Test
@@ -254,28 +288,44 @@ public class MusicServiceBeanTest {
     artist.setName(artistName);
 
     String musicId = "AwesomeId";
-    Music expectedMusic = new Music();
-    expectedMusic.setId(musicId);
+    Music persistedMusic = new Music();
+    persistedMusic.setId(musicId);
     String musicName = "MyMusicName";
-    expectedMusic.setName(musicName);
-    expectedMusic.setKey("updatkey");
-    expectedMusic.setTempo("UpdateTempo");
-    expectedMusic.setRecordLabel("UpdateRecordeLabel");
-    expectedMusic.setEnergy("UpdateEnergy");
+    persistedMusic.setArtists(Arrays.asList(artist.getName()));
+    persistedMusic.setName(musicName);
+    persistedMusic.setKey("updatKey");
+    persistedMusic.setTempo("UpdateTempo");
+    persistedMusic.setRecordLabel("UpdateRecordeLabel");
+    persistedMusic.setEnergy("UpdateEnergy");
+    persistedMusic.setStyle(Style.HOUSE.name());
+
+
 
     Set<String> rmx = new HashSet<String>();
     rmx.add("AwesomeArtistName");
-    expectedMusic.setRemixers(rmx);
+    persistedMusic.setRemixers(rmx);
 
-    Mockito.when(dao.findByName(musicName)).thenReturn(Mono.just(expectedMusic));
-    Mockito.when(dao.findById(musicId)).thenReturn(Mono.just(new Music()));
+    Mockito.when(dao.findByName(musicName)).thenReturn(Mono.just(persistedMusic));
+    Mockito.when(dao.findById(musicId)).thenReturn(Mono.just(persistedMusic));
+
+    Mockito.when(artistDao.findByName(artist.getName())).thenReturn(Mono.just(artist));
+
+
+    Music musicToUpdate = new Music();
+    musicToUpdate.setId(musicId);
+    musicToUpdate.setName(musicName);
+    musicToUpdate.setEnergy("newEnergy");
+    musicToUpdate.setEnergy("UpdateTempo");
+
+    ArgumentCaptor<Music> argument = ArgumentCaptor.forClass(Music.class);
+    Mockito.when(dao.save(argument.capture())).thenReturn(Mono.just(persistedMusic));
 
 
     // When
-    Music actualMusic = musicService.updateMusic(expectedMusic).block();
+    Music actualMusic = musicService.updateMusic(musicToUpdate).block();
 
     // Then
-    assertThat(actualMusic).isNotNull().isEqualTo(expectedMusic);
+    assertThat(actualMusic).isNotNull().isEqualTo(persistedMusic);
 
   }
 
@@ -287,24 +337,39 @@ public class MusicServiceBeanTest {
     artist.setName(artistName);
 
     String musicId = "AwesomeId";
-    Music expectedMusic = new Music();
-    expectedMusic.setId(musicId);
+    Music persistedMusic = new Music();
+    persistedMusic.setId(musicId);
     String musicName = "MyMusicName";
-    expectedMusic.setName(musicName);
+    persistedMusic.setArtists(Arrays.asList(artist.getName()));
+    persistedMusic.setName(musicName);
+    persistedMusic.setKey("updatKey");
+    persistedMusic.setTempo("UpdateTempo");
+    persistedMusic.setRecordLabel("UpdateRecordeLabel");
+    persistedMusic.setEnergy("UpdateEnergy");
+    persistedMusic.setStyle(Style.HOUSE.name());
+
+    Mockito.when(dao.findByName(musicName)).thenReturn(Mono.just(persistedMusic));
+    Mockito.when(dao.findById(musicId)).thenReturn(Mono.just(new Music()));
+
+    Mockito.when(artistDao.findByName(artist.getName())).thenReturn(Mono.just(artist));
+
+    Music musicToUpdate = new Music();
+    musicToUpdate.setId(musicId);
+    musicToUpdate.setName(musicName);
 
     Set<String> rmx = new HashSet<String>();
     rmx.add("AwesomeArtistName");
-    expectedMusic.setRemixers(rmx);
+    musicToUpdate.setRemixers(rmx);
 
-    Mockito.when(dao.findByName(musicName)).thenReturn(Mono.just(expectedMusic));
-    Mockito.when(dao.findById(musicId)).thenReturn(Mono.just(new Music()));
+    ArgumentCaptor<Music> argument = ArgumentCaptor.forClass(Music.class);
+    Mockito.when(dao.save(argument.capture())).thenReturn(Mono.just(persistedMusic));
 
 
     // When
-    Music actualMusic = musicService.updateMusic(expectedMusic).block();
+    Music actualMusic = musicService.updateMusic(musicToUpdate).block();
 
     // Then
-    assertThat(actualMusic).isNotNull().isEqualTo(expectedMusic);
+    assertThat(actualMusic).isNotNull().isEqualTo(persistedMusic);
 
   }
 

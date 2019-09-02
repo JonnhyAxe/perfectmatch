@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.perfectmatch.persistence.model.Music;
 import com.perfectmatch.web.exception.MusicNotFoundException;
+import com.perfectmatch.web.exception.MyPreconditionFailedException;
 import com.perfectmatch.web.services.MusicService;
 import io.swagger.annotations.ApiOperation;
 import reactor.core.publisher.Flux;
@@ -59,6 +60,10 @@ public class MusicController {
   @PutMapping
   @ResponseStatus(HttpStatus.CREATED)
   public Mono<Music> updateMusic(@RequestBody final Music resource) {
-    return musicService.updateMusic(resource); // TODO: what if it fails
+    return musicService.updateMusic(resource)
+        .switchIfEmpty(Mono.defer(() -> Mono.error(() -> new MyPreconditionFailedException(
+            "Music name " + resource.getName() + " does not exist"))));
+
+
   }
 }

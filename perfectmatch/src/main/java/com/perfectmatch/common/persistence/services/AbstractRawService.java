@@ -27,8 +27,6 @@ public abstract class AbstractRawService<T extends NameableEntity> implements IO
   @Override
   @Transactional(readOnly = true)
   public Mono<T> findOne(final String id) {
-    // Mono<T> entity = getDao().findById(id);
-    // if (Objects.nonNull(id) && entity.isPresent()) {
     if (Objects.nonNull(id)) {
       return getDao().findById(id);
     }
@@ -46,27 +44,25 @@ public abstract class AbstractRawService<T extends NameableEntity> implements IO
   @Override
   public Mono<T> create(final T entity) {
     Preconditions.checkNotNull(entity);
-    if (Objects.nonNull(entity.getId())) {
-      final Mono<T> entityExists = findOne(entity.getId());
-      if (Objects.nonNull(entityExists)) {
-        return entityExists;
-      }
+    if (Objects.isNull(entity.getId())) {
+      return saveOp(entity);
     }
-    return getDao().save(entity);
+    return Mono.empty();
   }
 
   // update/merge
 
   @Override
-  public void update(final T entity) {
+  public Mono<T> update(final T entity) {
     Preconditions.checkNotNull(entity);
-    // final Mono<T> entityExists = findOne(entity.getId());
-    //
-    // getDao().save(entity);
 
-    findOne(entity.getId()).filter(entry -> ServicePreconditions.checkEntityExists(entry))
-        .flatMap(entry -> getDao().save(entry));
+    return findOne(entity.getId()).filter(entry -> ServicePreconditions.checkEntityExists(entry))
+        .flatMap(entry -> saveOp(entry));
 
+  }
+
+  private Mono<T> saveOp(T entry) {
+    return getDao().save(entry);
   }
 
   // delete

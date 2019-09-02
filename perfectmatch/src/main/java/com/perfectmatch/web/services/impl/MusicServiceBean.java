@@ -59,41 +59,40 @@ public class MusicServiceBean extends AbstractRawService<Music> implements Music
   public Mono<Music> save(Music music) {
     //
     musicSavePreconditions(music);
-    Mono<Music> musicByName = findByName(music.getName());
-    if (Objects.nonNull(musicByName.block())) {
-      return musicByName;
-    }
-    return create(music);
+
+    return findByName(music.getName()).switchIfEmpty(create(music));
   }
+
 
   @Override
   public Mono<Music> updateMusic(Music music) {
-    //
+
     musicUpdatePreconditons(music);
-    Mono<Music> musicToUpdate = findByName(music.getName());
-    if (Objects.nonNull(musicToUpdate.block())) {
-      merge(musicToUpdate.block(), music);
-      update(musicToUpdate.block());
-      return musicToUpdate;
-    }
-    throw new MyPreconditionFailedException("Music name " + music.getName() + " does not exist");
+    return findByName(music.getName())
+        // musicToUpdate.switchIfEmpty(Mono.empty())
+        .flatMap(musicToUpdate2 -> merge(musicToUpdate2, music))
+        .flatMap(musicToUpdate2 -> update(musicToUpdate2));
+
   }
 
-  // find merge method as Hibernate merge
-  private void merge(Music musicToUpdate, Music music) {
-    addRemixers(musicToUpdate, music);
+  public Mono<Music> merge(Music musicDB, Music music) {
+    // find merge method as Hibernate merge
+
+    addRemixers(musicDB, music);
     if (Objects.nonNull(music.getRecordLabel())) {
-      musicToUpdate.setRecordLabel(music.getRecordLabel());
+      musicDB.setRecordLabel(music.getRecordLabel());
     }
     if (Objects.nonNull(music.getTempo())) {
-      musicToUpdate.setTempo(music.getTempo());
+      musicDB.setTempo(music.getTempo());
     }
     if (Objects.nonNull(music.getKey())) {
-      musicToUpdate.setKey(music.getKey());
+      musicDB.setKey(music.getKey());
     }
     if (Objects.nonNull(music.getEnergy())) {
-      musicToUpdate.setEnergy(music.getEnergy());
+      musicDB.setEnergy(music.getEnergy());
     }
+    return Mono.just(musicDB);
+
   }
 
   private void addRemixers(Music musicToUpdate, Music music) {

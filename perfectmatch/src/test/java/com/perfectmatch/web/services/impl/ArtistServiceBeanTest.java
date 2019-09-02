@@ -58,23 +58,27 @@ public class ArtistServiceBeanTest {
   public void createArtistByNameAlreadyCreated() {
     // Given
     String artistName = "AwesomeArtistName";
+    String artistId = "ArtistName";
     List<String> website = new ArrayList<>();
     website.add("http://www.aswesome-artist-website.com");
 
     Artist expectedArtist = new Artist();
     expectedArtist.setName(artistName);
+    expectedArtist.setId(artistId);
     expectedArtist.setWebsites(website);
 
     Mockito.when(dao.findByName(artistName)).thenReturn(Mono.just(expectedArtist));
+    Mockito.when(dao.findById(artistId)).thenReturn(Mono.just(expectedArtist));
 
     // When
-
-    assertThrows(MyPreconditionFailedException.class, () -> {
-      artistService.createArtist(artistName, website);
-    });
-
+    Artist actualArtist = artistService.createArtist(artistName, website).block();
 
     // Then
+    assertThat(actualArtist).isNotNull();
+    assertThat(actualArtist.getName()).isNotNull().isEqualTo(artistName);
+    assertThat(actualArtist.getWebsites()).isNotNull().isNotEmpty().isEqualTo(website);
+    assertThat(actualArtist).isEqualTo(expectedArtist);
+
   }
 
 
@@ -107,19 +111,21 @@ public class ArtistServiceBeanTest {
   public void createArtistAlreadyExisted() {
     // Given
     String artistName = "AwesomeArtistName";
+    String artistId = "artistId";
     List<String> website = new ArrayList<>();
     website.add("http://www.aswesome-artist-website.com");
 
     Artist expectedArtist = new Artist();
     expectedArtist.setName(artistName);
+    expectedArtist.setId(artistId);
     expectedArtist.setWebsites(website);
 
-    Mockito.when(dao.findByName(artistName)).thenReturn(Mono.just(expectedArtist));
+    Mockito.when(dao.findById(artistId)).thenReturn(Mono.just(expectedArtist));
 
     // When
 
     assertThrows(MyPreconditionFailedException.class, () -> {
-      Artist actualArtist = artistService.createArtist(expectedArtist).block();
+      artistService.createArtist(expectedArtist).block();
     });
 
   }

@@ -28,7 +28,7 @@ import lombok.ToString;
  */
 @Data(staticConstructor = "of")
 @ToString(includeFieldNames = true)
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(description = "All details about the music ")

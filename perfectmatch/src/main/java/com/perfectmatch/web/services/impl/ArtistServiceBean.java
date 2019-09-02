@@ -1,7 +1,6 @@
 package com.perfectmatch.web.services.impl;
 
 import java.util.List;
-import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.perfectmatch.common.persistence.services.AbstractRawService;
@@ -29,13 +28,7 @@ public class ArtistServiceBean extends AbstractRawService<Artist> implements Art
 
   @Override
   public Mono<Artist> createArtist(Artist artist) {
-    Mono<Artist> artistByName = getDao().findByName(artist.getName());
-    if (Objects.isNull(artistByName.block())) {
-      return create(artist);
-    } else {
-      throw new MyPreconditionFailedException(
-          "Artist Name " + artist.getName() + " already exists");
-    }
+    return getDao().findByName(artist.getName()).switchIfEmpty(create(artist));
   }
 
   /**
@@ -59,17 +52,15 @@ public class ArtistServiceBean extends AbstractRawService<Artist> implements Art
 
   @Override
   public Mono<Artist> deleteArtistByName(String name) {
-    Mono<Artist> artist = getArtistByName(name);
 
-    if (Objects.nonNull(artist)) {
-      if (containsMusics(name)) {
-        throw new ArtistDeleteException("Cannot remove artist with musics");
-      }
-      delete(artist.block().getId());
-      return artist;
-    }
-    throw new MyPreconditionFailedException(
-        "Artist Name " + artist.block().getName() + " does not exists");
+    return getArtistByName(name)
+        .switchIfEmpty(Mono.error(new ArtistDeleteException("Cannot remove artist with musics")))
+        .filter(artist -> !containsMusics(artist.getName()))
+        .switchIfEmpty(Mono.error(new ArtistDeleteException("Cannot remove artist with musics")))
+        .flatMap(artist -> {
+          delete(artist.getId());
+          return Mono.just(artist);
+        });
   }
 
   private boolean containsMusics(String name) {

@@ -21,7 +21,7 @@ public interface IOperations<T extends Serializable> {
 
   // update
 
-  void update(final T resource);
+  Mono<T> update(final T resource);
 
   // delete
 
