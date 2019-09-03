@@ -89,6 +89,21 @@ e.g. in Chrome:
 * On the left list, navigate to the required module and view the data state of the object 
 
 
+## Ports
+
+|     Application       |     Port          |
+| ------------- | ------------- |
+| Spring Cloud Config Server | 8888 |
+|  |  |
+
+
+
+## URLs
+
+|     Application       |     URL          |
+| ------------- | ------------- |
+|Spring Cloud Config Server| http://localhost:8888/perfectmatch-webapp/default http://localhost:8888/perfectmatch-webapp/dev |
+
 
 
 ## IDEs (Optional with Visual Studio Code)
