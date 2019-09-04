@@ -95,7 +95,7 @@ e.g. in Chrome:
 | ------------- | ------------- |
 | Spring Cloud Config Server | 8888 |
 |  |  |
-
+| Netflix Eureka Naming Server | 8761 |
 
 
 ## URLs
@@ -103,6 +103,7 @@ e.g. in Chrome:
 |     Application       |     URL          |
 | ------------- | ------------- |
 |Spring Cloud Config Server| http://localhost:8888/perfectmatch-webapp/default http://localhost:8888/perfectmatch-webapp/dev |
+| Eureka | http://localhost:8761/|
 
 
 

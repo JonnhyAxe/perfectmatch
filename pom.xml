@@ -27,6 +27,10 @@
 	</properties>
 
 	<modules>
+		<!-- cloud -->
+		<module>perfectmatch-eureka-naming-server</module>
+		<module>perfectmatch-cloud-config-server</module>
+	
 		<module>perfectmatch-swagger-codegen-api-client</module>
 		<module>perfectmatch-vue</module>
 		<module>perfectmatch</module>
