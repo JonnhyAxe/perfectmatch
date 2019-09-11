@@ -33,11 +33,15 @@
 		<!-- cloud -->
 		<module>perfectmatch-eureka-naming-server</module>
 		<module>perfectmatch-cloud-config-server</module>
-	
+		<!-- services -->
+		<module>perfectmatch-audio-metadata</module>
+		<!-- WEB -->
 		<module>perfectmatch-swagger-codegen-api-client</module>
 		<module>perfectmatch-vue</module>
 		<module>perfectmatch</module>
 		<!-- <module>perfectmatch-unit-tests</module> -->
+
+		
 	</modules>
 
 
