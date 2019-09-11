@@ -31,6 +31,8 @@
 		<jackson-version>2.8.9</jackson-version>
 		<jackson-threetenbp-version>2.6.4</jackson-threetenbp-version>
 		<checkstyle-maven-plugin.version>3.0.0</checkstyle-maven-plugin.version>
+		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
+		
 		<tags></tags>
 		<docker.image.repo>machadojo</docker.image.repo>
 		<docker.image.name>perfectmatch-webapp</docker.image.name>
@@ -68,6 +70,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -276,6 +282,19 @@
 		</dependency>
 
 	</dependencies>
+	
+	 <dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
 	<build>
 		<pluginManagement>
 			<plugins>
