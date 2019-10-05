@@ -1,20 +1,18 @@
 package com.perfectmatch.spring;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-@Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+// @Configuration
+// @EnableWebSecurity
+// @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class PerfectMatchSecurityConfig extends WebSecurityConfigurerAdapter {
 
-  @Autowired private UserDetailsService userDetailsService;
+  @Autowired
+  private UserDetailsService userDetailsService;
 
   @Autowired
   public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
@@ -24,7 +22,7 @@ public class PerfectMatchSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(final HttpSecurity httpSecurity) throws Exception {
-      super.configure(httpSecurity);
+    super.configure(httpSecurity);
 
     // @formatter:off
     httpSecurity
@@ -33,14 +31,8 @@ public class PerfectMatchSecurityConfig extends WebSecurityConfigurerAdapter {
         .permitAll();
     // @formatter:on
 
-    httpSecurity
-        .authorizeRequests()
-        .antMatchers("/")
-        .permitAll()
-        .and()
-        .authorizeRequests()
-        .antMatchers("/console/**")
-        .permitAll();
+    httpSecurity.authorizeRequests().antMatchers("/").permitAll().and().authorizeRequests()
+        .antMatchers("/console/**").permitAll();
 
     httpSecurity.csrf().disable();
     httpSecurity.headers().frameOptions().disable();
